@@ -1,40 +1,54 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
+import { MainPageContainer } from "./HomePage";
+import styled from "styled-components";
+import ListingCreationForm from "./ListingCreationForm";
+import ProfileSidebar from "./ProfileSidebar";
+import { useState, useEffect } from "react";
+import DeleteListingButton from "./DeleteListingButton";
 
 const Profile = () => {
+  const [profileState, setProfileState] = useState("myListing");
+  const [listingUpdate, setListingUpdate] = useState(false);
   const { currentUser } = useContext(CurrentUserContext);
   const { user, isAuthenticated } = useAuth0();
-  const [userId, setUserId] = useState(null);
-  const navigate = useNavigate();
-  console.log(user);
-  // useEffect(() => {
-  //   if (isAuthenticated && user) {
-  //     fetch(`/users/${user.email}`)
-  //       .then((res) => res.json())
-  //       .then((data) => {
-  //         console.log(data);
-  //         window.sessionStorage.setItem(
-  //           "userId",
-  //           JSON.stringify(data.data._id)
-  //         );
-  //         setCurrentUser(data.data._id);
-  //       })
-  //       .catch((e) => {
-  //         console.log("Error: ", e);
-  //       });
-  //   }
-  // }, [isAuthenticated]);
+
+  useEffect(() => {
+    setListingUpdate(!listingUpdate);
+  }, [currentUser]);
 
   return (
     isAuthenticated &&
     currentUser && (
-      <article className="column">
-        <h1>{currentUser}</h1>
-      </article>
+      <MainPageContainer>
+        <ProfileSidebar setProfileState={setProfileState} />
+        <ProfilePageContentDiv>
+          {/* <h1>{currentUser.listing.listingAddress}</h1> */}
+          {currentUser.listing && (
+            <>
+              <DeleteListingButton />
+            </>
+          )}
+          {/* {!currentUser.listing && <h1>LISTING NOT FOUND</h1>} */}
+          {profileState === "myListing" && !currentUser.listing && (
+            <ListingCreationForm
+              setListingUpdate={setListingUpdate}
+              listingUpdate={listingUpdate}
+            />
+          )}
+        </ProfilePageContentDiv>
+      </MainPageContainer>
     )
   );
 };
+
+const ProfilePageContentDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 145px auto 0px auto;
+  width: 75vw;
+  height: 90vh;
+`;
 
 export default Profile;

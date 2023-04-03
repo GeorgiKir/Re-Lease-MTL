@@ -2,7 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import bgImage from "./assets/skyscraper-bg2.jpg";
+import bgImage from "./assets/facade_1.png";
 import { CurrentUserContext } from "./CurrentUserContext";
 
 const HomePage = () => {
@@ -11,31 +11,44 @@ const HomePage = () => {
   const { user, isAuthenticated } = useAuth0();
 
   // console.log("current user: ", currentUser);
-  useEffect(() => {
-    if (isAuthenticated && user) {
-      console.log("USER LOGGED IN - APP.JS");
-      console.log(user.email);
-      fetch(`/users/${user.email}`)
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          window.sessionStorage.setItem(
-            "userId",
-            JSON.stringify(data.data._id)
-          );
-          setCurrentUser(JSON.parse(window.sessionStorage.getItem("userId")));
-        })
-        .catch((e) => {
-          console.log("Error: ", e);
-        });
-    }
-  }, [user]);
+  // useEffect(() => {
+  //   if (isAuthenticated && user) {
+  //     console.log("USER LOGGED IN - APP.JS");
+  //     console.log(user.email);
+  //     fetch(`/users/${user.email}`)
+  //       .then((res) => res.json())
+  //       .then((data) => {
+  //         console.log(data);
+  //         window.sessionStorage.setItem(
+  //           "userId",
+  //           JSON.stringify({
+  //             email: data.data.email,
+  //             _id: data.data._id,
+  //             listing: data.data.listingInfo ? data.data.listingInfo : "",
+  //           })
+  //         );
+  //         setCurrentUser(JSON.parse(window.sessionStorage.getItem("userId")));
+  //       })
+  //       .catch((e) => {
+  //         console.log("Error: ", e);
+  //       });
+  //   }
+  // }, [user]);
   const handleNavigation = () => {
     navigate("/login");
   };
   return (
     <MainPageContainer>
-      <MainPageContentDiv>
+      <HomePageContentDiv>
+        {/* {currentUser && <p>Hello, {currentUser}</p>} */}
+        <HeroImageContainer>
+          <h2>Reduce.</h2>
+          <h2>Reuse.</h2>
+          <h2>Recycle.</h2>
+          <h2>Re:Lease.</h2>
+        </HeroImageContainer>
+      </HomePageContentDiv>
+      {/* <MainPageContentDiv>
         <MainInfoDiv>
           <NavLinkDiv>
             <h1
@@ -59,53 +72,29 @@ const HomePage = () => {
         <NameDiv>
           <h1>Re:Lease</h1>
         </NameDiv>
-      </MainPageContentDiv>
+      </MainPageContentDiv> */}
     </MainPageContainer>
   );
 };
 
-const CustomSignInButton = styled.button`
-  border: 5px solid white;
-  border-radius: 15px;
-  color: white;
-  font-size: 25px;
-  width: 35%;
-  font-family: Norwester;
-  height: 10%;
-  background: none;
-  cursor: pointer;
-`;
-const InfoTextDiv = styled.div`
+const HeroImageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  color: white;
-  font-size: 80px;
-  justify-content: space-around;
+  justify-content: center;
+  align-items: center;
+  background-image: url(${bgImage});
+  width: 75%;
+  height: 350px;
+  margin: 35px auto 0px auto;
+  background-size: 100% 100%;
+  border-radius: 5px;
+  & h2 {
+    color: white;
+    font-size: 50px;
+  }
 `;
-const NavLinkDiv = styled.div`
-  font-size: 35px;
-  margin-top: 70px;
-  display: flex;
-  justify-content: space-between;
-`;
-const NameDiv = styled.div`
-  font-size: 120px;
-  justify-self: flex-end;
-  border-bottom: 5px solid black;
-  margin-top: 15px;
-  width: fit-content;
-  height: fit-content;
-  display: flex;
-  margin-right: 50px;
-`;
-const MainInfoDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 40%;
-  height: 80%;
-`;
-const MainPageContentDiv = styled.div`
+
+const HomePageContentDiv = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 30px auto;
@@ -113,10 +102,10 @@ const MainPageContentDiv = styled.div`
   height: 90vh;
 `;
 
-const MainPageContainer = styled.div`
+export const MainPageContainer = styled.div`
   height: 100vh;
-  background-image: url(${bgImage});
+  /* background-image: url(${bgImage}); */
   background-size: cover;
-  margin-top: -30px;
+  margin-top: 75px;
 `;
 export default HomePage;

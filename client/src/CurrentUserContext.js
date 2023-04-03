@@ -5,7 +5,14 @@ import { useAuth0 } from "@auth0/auth0-react";
 export const CurrentUserContext = createContext();
 
 export const CurrentUserProvider = ({ children }) => {
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(() => {
+    let userId = JSON.parse(window.sessionStorage.getItem("userId"));
+    if (userId) {
+      return userId;
+    } else {
+      return null;
+    }
+  });
   const loginContext = () => {
     // setCurrentUser(JSON.parse(window.sessionStorage.getItem("userId")));
   };
