@@ -4,9 +4,11 @@ import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
+import VisitingHoursModal from "./VisitingHoursModal";
 
-const ListingCreationForm = ({ setListingUpdate, listingUpdate }) => {
+const ListingCreationForm = () => {
   const { user, isAuthenticated } = useAuth0();
+  const [selectingVistingHours, setSelectingVisitingHours] = useState(false);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [ListingFormInfo, setListingFormInfo] = useState({
     listingId: currentUser._id,
@@ -99,6 +101,22 @@ const ListingCreationForm = ({ setListingUpdate, listingUpdate }) => {
             onChange={(e) => handleChange(e.target.value, e.target.name)}
           />
         </FormInputContainer>
+        <FormInputContainer>
+          <p>Visiting Hours</p>
+          <button
+            type="button"
+            onClick={() => {
+              setSelectingVisitingHours(true);
+            }}
+          >
+            Set Hours
+          </button>
+        </FormInputContainer>
+        {selectingVistingHours && (
+          <VisitingHoursModal
+            setSelectingVisitingHours={setSelectingVisitingHours}
+          />
+        )}
         <FormInputContainer>
           <p>Description</p>
           <textarea
