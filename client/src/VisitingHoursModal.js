@@ -1,8 +1,15 @@
 import React from "react";
 import styled from "styled-components";
 import { GrClose } from "react-icons/gr";
+import VistingHoursInputForm from "./VistingHoursInputForm";
 
-const VisitingHoursModal = ({ setSelectingVisitingHours }) => {
+const VisitingHoursModal = ({
+  setSelectingVisitingHours,
+  visitingHoursToBeAdded,
+  setVisitingHoursToBeAdded,
+  ListingFormInfo,
+  setListingFormInfo,
+}) => {
   return (
     <VisitingHoursModalContainer>
       <VisitingHoursFormContainer>
@@ -16,6 +23,12 @@ const VisitingHoursModal = ({ setSelectingVisitingHours }) => {
           onClick={() => {
             setSelectingVisitingHours(false);
           }}
+        />
+        <VistingHoursInputForm
+          visitingHoursToBeAdded={visitingHoursToBeAdded}
+          setVisitingHoursToBeAdded={setVisitingHoursToBeAdded}
+          ListingFormInfo={ListingFormInfo}
+          setListingFormInfo={setListingFormInfo}
         />
       </VisitingHoursFormContainer>
     </VisitingHoursModalContainer>

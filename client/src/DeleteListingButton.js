@@ -56,6 +56,7 @@ const StyledDeleteButton = styled.button`
   color: black;
   display: flex;
   gap: 5px;
+  margin-top: 15px;
   height: fit-content;
   padding: 0;
   font-size: 35px;

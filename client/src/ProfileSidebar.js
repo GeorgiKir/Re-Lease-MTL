@@ -6,9 +6,27 @@ import { StyledNav } from "./Header";
 const ProfileSidebar = ({ setProfileState }) => {
   return (
     <StyledProfileBar>
-      <StyledNav>My Listing</StyledNav>
-      <StyledNav>Listing Schedule</StyledNav>
-      <StyledNav>Visit Schedule</StyledNav>
+      <StyledNav
+        onClick={() => {
+          setProfileState("myListing");
+        }}
+      >
+        My Listing
+      </StyledNav>
+      <StyledNav
+        onClick={() => {
+          setProfileState("ListingSchedule");
+        }}
+      >
+        Listing Schedule
+      </StyledNav>
+      <StyledNav
+        onClick={() => {
+          setProfileState("VisitSchedule");
+        }}
+      >
+        Visit Schedule
+      </StyledNav>
     </StyledProfileBar>
   );
 };

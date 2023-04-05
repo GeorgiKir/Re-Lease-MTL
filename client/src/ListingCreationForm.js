@@ -5,20 +5,31 @@ import { CurrentUserContext } from "./CurrentUserContext";
 import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import VisitingHoursModal from "./VisitingHoursModal";
+import { boroughs } from "./boroughs";
 
 const ListingCreationForm = () => {
   const { user, isAuthenticated } = useAuth0();
   const [selectingVistingHours, setSelectingVisitingHours] = useState(false);
+  const [visitingHoursToBeAdded, setVisitingHoursToBeAdded] = useState([]);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [ListingFormInfo, setListingFormInfo] = useState({
     listingId: currentUser._id,
     email: currentUser.email,
     postalCode: "",
     listingAddress: "",
+    borough: "",
     price: "",
     numBDR: "",
     listingDescription: "",
+    visitSchedule: [],
   });
+
+  useEffect(() => {
+    setListingFormInfo({
+      ...ListingFormInfo,
+      visitSchedule: visitingHoursToBeAdded,
+    });
+  }, [visitingHoursToBeAdded]);
   const handleChange = (value, name) => {
     setListingFormInfo({ ...ListingFormInfo, [name]: value });
   };
@@ -71,6 +82,23 @@ const ListingCreationForm = () => {
           />
         </FormInputContainer>
         <FormInputContainer>
+          <p>Neighbourhood</p>
+          <select
+            required
+            name="borough"
+            placeholder={"Enter the neighbourhood"}
+            onChange={(e) => handleChange(e.target.value, e.target.name)}
+          >
+            <option value="" style={{ color: "gray" }}>
+              Please Select a neighbourhood
+            </option>
+            ;
+            {boroughs.map((borough) => {
+              return <option value={borough}>{borough}</option>;
+            })}
+          </select>
+        </FormInputContainer>
+        <FormInputContainer>
           <p>Postal Code</p>
           <input
             required
@@ -115,6 +143,10 @@ const ListingCreationForm = () => {
         {selectingVistingHours && (
           <VisitingHoursModal
             setSelectingVisitingHours={setSelectingVisitingHours}
+            visitingHoursToBeAdded={visitingHoursToBeAdded}
+            setVisitingHoursToBeAdded={setVisitingHoursToBeAdded}
+            ListingFormInfo={ListingFormInfo}
+            setListingFormInfo={setListingFormInfo}
           />
         )}
         <FormInputContainer>

@@ -25,8 +25,22 @@ const Profile = () => {
         <ProfileSidebar setProfileState={setProfileState} />
         <ProfilePageContentDiv>
           {/* <h1>{currentUser.listing.listingAddress}</h1> */}
-          {currentUser.listing && (
+          {currentUser.listing && profileState === "myListing" && (
             <>
+              <p> Address: {currentUser.listing.listingAddress}</p>
+              <p> Price: {currentUser.listing.price} $</p>
+              <p> Bedrooms: {currentUser.listing.numBDR}</p>
+              {currentUser.listing.visitSchedule.map((item) => {
+                return (
+                  <>
+                    <p>Date: {item[0]}</p>
+                    <p>Times: </p>
+                    {item[1].map((element) => {
+                      return <p>{element}</p>;
+                    })}
+                  </>
+                );
+              })}
               <DeleteListingButton />
             </>
           )}
@@ -45,10 +59,12 @@ const Profile = () => {
 
 const ProfilePageContentDiv = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   margin: 145px auto 0px auto;
   width: 75vw;
-  height: 90vh;
+  /* height: 90vh; */
 `;
 
 export default Profile;

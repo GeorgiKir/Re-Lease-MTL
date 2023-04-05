@@ -41,6 +41,8 @@ const postListing = async (req, res) => {
     numBDR,
     postalCode,
     listingDescription,
+    visitSchedule,
+    borough,
   } = req.body;
   const fullAddress = `${listingAddress} ${postalCode} Montreal`;
 
@@ -83,9 +85,12 @@ const postListing = async (req, res) => {
         _id: listingId,
         listingCoords: coords,
         listingAddress: listingAddress,
+        postalCode: postalCode,
+        borough: borough,
         price: price,
         numBDR: numBDR,
         listingDescription: listingDescription,
+        visitSchedule: visitSchedule,
       });
 
       const addNewListingToUserProfile = await db.collection("users").updateOne(
@@ -96,9 +101,11 @@ const postListing = async (req, res) => {
               _id: listingId,
               listingCoords: coords,
               listingAddress: listingAddress,
+              postalCode: postalCode,
               price: price,
               numBDR: numBDR,
               listingDescription: listingDescription,
+              visitSchedule: visitSchedule,
             },
           },
         }
@@ -131,11 +138,24 @@ const postListing = async (req, res) => {
 
 const getListings = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
+  const { borough, price, bedrooms } = req.params;
+  const matchingListings = [];
   try {
     await client.connect();
     const db = client.db("db-name");
     let targetListings = await db.collection("listings").find().toArray();
-    res.status(200).json({ status: 200, data: targetListings });
+    if (targetListings) {
+      targetListings.map((listing) => {
+        if (
+          listing.borough === borough &&
+          parseInt(listing.price) <= parseInt(price) &&
+          parseInt(listing.numBDR) >= parseInt(bedrooms)
+        ) {
+          matchingListings.push(listing);
+        }
+      });
+    }
+    res.status(200).json({ status: 200, data: matchingListings });
   } catch (err) {
     console.log("Error: ", err);
   } finally {
@@ -191,10 +211,55 @@ const deleteListingFromUserDB = async (req, res) => {
   }
 };
 
+const scheduleReservation = async (req, res) => {
+  const { selectedDate, selectedTime, listingId } = req.body;
+  const client = new MongoClient(MONGO_URI, options);
+  try {
+    await client.connect();
+    const db = client.db("db-name");
+    let scheduleAVisitResult = await db
+      .collection("listings")
+      .findOne({ _id: listingId });
+    scheduleAVisitResult = scheduleAVisitResult.visitSchedule;
+
+    scheduleAVisitResult.map((item) => {
+      if (item[0] === selectedDate) {
+        item[1].map((element, index) => {
+          if (element === selectedTime) {
+            item[1].splice(index, 1);
+          }
+        });
+      }
+    });
+
+    const removingTimefromListing = await db
+      .collection("listings")
+      .updateOne(
+        { _id: listingId },
+        { $set: { visitSchedule: scheduleAVisitResult } }
+      );
+
+    // console.log(scheduleAVisitResult);
+    if (removingTimefromListing.acknowledged) {
+      res.status(200).json({
+        status: 200,
+        message: "Listing deleted",
+        data: "Visit Time Deleted",
+      });
+    }
+  } catch (err) {
+    console.log("Error: ", err);
+  } finally {
+    await client.close();
+    console.log("disconnected!");
+  }
+};
+
 module.exports = {
   getUser,
   postListing,
   getListings,
   deleteListing,
   deleteListingFromUserDB,
+  scheduleReservation,
 };
