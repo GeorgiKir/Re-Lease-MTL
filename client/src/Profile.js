@@ -7,6 +7,7 @@ import ListingCreationForm from "./ListingCreationForm";
 import ProfileSidebar from "./ProfileSidebar";
 import { useState, useEffect } from "react";
 import DeleteListingButton from "./DeleteListingButton";
+import ListingSchedulePage from "./ListingSchedulePage";
 
 const Profile = () => {
   const [profileState, setProfileState] = useState("myListing");
@@ -30,7 +31,7 @@ const Profile = () => {
               <p> Address: {currentUser.listing.listingAddress}</p>
               <p> Price: {currentUser.listing.price} $</p>
               <p> Bedrooms: {currentUser.listing.numBDR}</p>
-              {currentUser.listing.visitSchedule.map((item) => {
+              {/* {currentUser.listing.visitSchedule.map((item) => {
                 return (
                   <>
                     <p>Date: {item[0]}</p>
@@ -40,7 +41,7 @@ const Profile = () => {
                     })}
                   </>
                 );
-              })}
+              })} */}
               <DeleteListingButton />
             </>
           )}
@@ -50,6 +51,9 @@ const Profile = () => {
               setListingUpdate={setListingUpdate}
               listingUpdate={listingUpdate}
             />
+          )}
+          {profileState === "ListingSchedule" && currentUser.listing && (
+            <ListingSchedulePage />
           )}
         </ProfilePageContentDiv>
       </MainPageContainer>

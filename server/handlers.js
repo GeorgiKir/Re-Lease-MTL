@@ -5,6 +5,7 @@ require("dotenv").config();
 const { MONGO_URI } = process.env;
 const { OPENCAGE_KEY } = process.env;
 const NodeGeocoder = require("node-geocoder");
+const { v4: uuidv4 } = require("uuid");
 
 const options = {
   useNewUrlParser: true,
@@ -16,7 +17,7 @@ const getUser = async (req, res) => {
   try {
     const { userEmail } = req.params;
     await client.connect();
-    const db = client.db("db-name");
+    const db = client.db("re-lease");
     let targetUser = await db.collection("users").findOne({ email: userEmail });
     res.status(200).json({ status: 200, data: targetUser });
   } catch (err) {
@@ -66,7 +67,7 @@ const postListing = async (req, res) => {
     }
 
     await client.connect();
-    const db = client.db("db-name");
+    const db = client.db("re-lease");
     const checkIfListingExists = await db
       .collection("listings")
       .findOne({ _id: listingId });
@@ -90,7 +91,6 @@ const postListing = async (req, res) => {
         price: price,
         numBDR: numBDR,
         listingDescription: listingDescription,
-        visitSchedule: visitSchedule,
       });
 
       const addNewListingToUserProfile = await db.collection("users").updateOne(
@@ -105,7 +105,6 @@ const postListing = async (req, res) => {
               price: price,
               numBDR: numBDR,
               listingDescription: listingDescription,
-              visitSchedule: visitSchedule,
             },
           },
         }
@@ -142,7 +141,7 @@ const getListings = async (req, res) => {
   const matchingListings = [];
   try {
     await client.connect();
-    const db = client.db("db-name");
+    const db = client.db("re-lease");
     let targetListings = await db.collection("listings").find().toArray();
     if (targetListings) {
       targetListings.map((listing) => {
@@ -169,11 +168,14 @@ const deleteListing = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   try {
     await client.connect();
-    const db = client.db("db-name");
+    const db = client.db("re-lease");
     const deleteListingResult = await db
       .collection("listings")
       .deleteOne({ _id: listingId });
-    if (deleteListingResult.acknowledged) {
+    const deleteTimeslots = await db
+      .collection("timeslots")
+      .deleteMany({ ownerId: listingId });
+    if (deleteListingResult.acknowledged && deleteTimeslots.acknowledged) {
       res.status(200).json({
         status: 200,
         message: "Listing deleted",
@@ -193,7 +195,7 @@ const deleteListingFromUserDB = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
   try {
     await client.connect();
-    const db = client.db("db-name");
+    const db = client.db("re-lease");
     const deleteListingResult = await db
       .collection("users")
       .updateOne({ email: userEmail }, { $unset: { listingInfo: "" } });
@@ -212,39 +214,123 @@ const deleteListingFromUserDB = async (req, res) => {
 };
 
 const scheduleReservation = async (req, res) => {
-  const { selectedDate, selectedTime, listingId } = req.body;
+  const { visitorId, visitId, listingId } = req.body;
   const client = new MongoClient(MONGO_URI, options);
   try {
     await client.connect();
-    const db = client.db("db-name");
-    let scheduleAVisitResult = await db
-      .collection("listings")
-      .findOne({ _id: listingId });
-    scheduleAVisitResult = scheduleAVisitResult.visitSchedule;
-
-    scheduleAVisitResult.map((item) => {
-      if (item[0] === selectedDate) {
-        item[1].map((element, index) => {
-          if (element === selectedTime) {
-            item[1].splice(index, 1);
-          }
-        });
-      }
-    });
-
-    const removingTimefromListing = await db
-      .collection("listings")
+    const db = client.db("re-lease");
+    const reserveATimeslot = await db
+      .collection("timeslots")
       .updateOne(
-        { _id: listingId },
-        { $set: { visitSchedule: scheduleAVisitResult } }
+        { _id: visitId },
+        { $set: { visitorId: visitorId, isAvailable: false } }
       );
-
-    // console.log(scheduleAVisitResult);
-    if (removingTimefromListing.acknowledged) {
+    if (reserveATimeslot.acknowledged) {
       res.status(200).json({
         status: 200,
-        message: "Listing deleted",
-        data: "Visit Time Deleted",
+        message: "Successfully booked visit",
+        data: reserveATimeslot,
+      });
+    }
+    // let scheduleAVisitResult = await db
+    //   .collection("listings")
+    //   .findOne({ _id: listingId });
+    // scheduleAVisitResult = scheduleAVisitResult.visitSchedule;
+
+    // scheduleAVisitResult.map((item) => {
+    //   if (item[0] === selectedDate) {
+    //     item[1].map((element, index) => {
+    //       if (element === selectedTime) {
+    //         item[1].splice(index, 1);
+    //       }
+    //     });
+    //   }
+    // });
+
+    // const removingTimefromListing = await db
+    //   .collection("listings")
+    //   .updateOne(
+    //     { _id: listingId },
+    //     { $set: { visitSchedule: scheduleAVisitResult } }
+    //   );
+
+    // // console.log(scheduleAVisitResult);
+    // if (removingTimefromListing.acknowledged) {
+    //   res.status(200).json({
+    //     status: 200,
+    //     message: "Listing deleted",
+    //     data: "Visit Time Deleted",
+    //   });
+    // }
+  } catch (err) {
+    console.log("Error: ", err);
+  } finally {
+    await client.close();
+    console.log("disconnected!");
+  }
+};
+
+const postTimeSlots = async (req, res) => {
+  const { selectedTimeSlots } = req.body;
+  const client = new MongoClient(MONGO_URI, options);
+  console.log(selectedTimeSlots);
+  let arr = selectedTimeSlots.map((item) => {
+    return { ...item, _id: uuidv4() };
+  });
+  try {
+    await client.connect();
+    const db = client.db("re-lease");
+
+    const result = await db.collection("timeslots").insertMany(arr);
+    if (result.acknowledged) {
+      res.status(200).json({
+        status: 200,
+        data: "Success",
+      });
+    } else {
+      res.status(400).json({
+        status: 400,
+        data: "Something went wrong.",
+      });
+    }
+  } catch (err) {
+    console.log("Error: ", err);
+  } finally {
+    await client.close();
+    console.log("disconnected!");
+  }
+};
+
+const getTimeSlots = async (req, res) => {
+  const { listingId, searchField } = req.params;
+  const client = new MongoClient(MONGO_URI, options);
+
+  try {
+    await client.connect();
+    const db = client.db("re-lease");
+    let result = await db
+      .collection("timeslots")
+      .aggregate([{ $match: { [searchField]: listingId } }])
+      .toArray();
+
+    let structuredResult = await db
+      .collection("timeslots")
+      .aggregate([
+        {
+          $group: {
+            _id: "$date",
+            timeslots: { $push: "$$ROOT" },
+          },
+        },
+      ])
+      .toArray();
+
+    console.log(structuredResult);
+
+    if (structuredResult) {
+      res.status(200).json({
+        status: 200,
+        data: structuredResult,
       });
     }
   } catch (err) {
@@ -262,4 +348,6 @@ module.exports = {
   deleteListing,
   deleteListingFromUserDB,
   scheduleReservation,
+  postTimeSlots,
+  getTimeSlots,
 };

@@ -10,6 +10,8 @@ const {
   deleteListing,
   deleteListingFromUserDB,
   scheduleReservation,
+  postTimeSlots,
+  getTimeSlots,
 } = require("./handlers");
 
 const PORT = 8000;
@@ -27,6 +29,8 @@ app.get("/listings/listingResults/:borough/:price/:bedrooms", getListings);
 app.delete("/listings/deletelisting/:listingId", deleteListing);
 app.patch("/listings/deletelisting/:userEmail", deleteListingFromUserDB);
 app.patch("/listings/reserveAVisitTime", scheduleReservation);
+app.post("/timeSlots/addTimeSlots", postTimeSlots);
+app.get("/timeSlots/:searchField/:listingId", getTimeSlots);
 // endpoint for getting all listings based on criteria
 // endpoint for getting a single listing
 

@@ -21,21 +21,33 @@ const ListingCreationForm = () => {
     price: "",
     numBDR: "",
     listingDescription: "",
-    visitSchedule: [],
   });
 
-  useEffect(() => {
-    setListingFormInfo({
-      ...ListingFormInfo,
-      visitSchedule: visitingHoursToBeAdded,
-    });
-  }, [visitingHoursToBeAdded]);
+  // useEffect(() => {
+  //   setListingFormInfo({
+  //     ...ListingFormInfo,
+  //     visitSchedule: visitingHoursToBeAdded,
+  //   });
+  // }, [visitingHoursToBeAdded]);
+
   const handleChange = (value, name) => {
     setListingFormInfo({ ...ListingFormInfo, [name]: value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    fetch(`/timeSlots/addTimeSlots`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ selectedTimeSlots: visitingHoursToBeAdded }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+      });
 
     fetch(`/listings/addListing`, {
       method: "POST",
@@ -48,6 +60,7 @@ const ListingCreationForm = () => {
       .then((res) => res.json())
       .then((resData) => {
         console.log(resData);
+
         fetch(`/users/${user.email}`)
           .then((res) => res.json())
           .then((data) => {

@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import styled from "styled-components";
+import { useContext } from "react";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 const VistingHoursInputForm = ({
   visitingHoursToBeAdded,
@@ -8,14 +10,23 @@ const VistingHoursInputForm = ({
   ListingFormInfo,
   setListingFormInfo,
 }) => {
-  const inputArr = [""];
-
-  const [dateObject, setDateObject] = useState([]);
-  const [arr, setArr] = useState(inputArr);
+  // const inputArr = [""];
+  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const [dateObject, setDateObject] = useState("");
+  const [arr, setArr] = useState([]);
   // let targetDate = dateObject[0];
   const addInput = () => {
     setArr((s) => {
-      return [...s, {}];
+      return [
+        ...s,
+        {
+          date: dateObject,
+          ownerId: currentUser._id,
+          visitorId: "someOtherID",
+          isAvailable: true,
+          hour: "",
+        },
+      ];
     });
   };
 
@@ -25,7 +36,7 @@ const VistingHoursInputForm = ({
     const index = e.target.id;
     setArr((s) => {
       const newArr = s.slice();
-      newArr[index] = e.target.value;
+      newArr[index].hour = e.target.value;
 
       return newArr;
     });
@@ -37,7 +48,7 @@ const VistingHoursInputForm = ({
         type="date"
         onChange={(e) => {
           //   targetDate = e.target.value;
-          setDateObject([e.target.value]);
+          setDateObject(e.target.value);
         }}
       />
       <button type="button" onClick={addInput}>
@@ -58,9 +69,7 @@ const VistingHoursInputForm = ({
       <button
         type="button"
         onClick={() => {
-          setDateObject((s) => {
-            return [...s, arr];
-          });
+          setDateObject(arr);
         }}
       >
         Submit
@@ -69,12 +78,13 @@ const VistingHoursInputForm = ({
         type="button"
         onClick={() => {
           setVisitingHoursToBeAdded(() => {
-            return [...visitingHoursToBeAdded, dateObject];
+            // return [...visitingHoursToBeAdded, dateObject];
+            return [...visitingHoursToBeAdded, ...dateObject];
           });
-          setListingFormInfo({
-            ...ListingFormInfo,
-            visitSchedule: visitingHoursToBeAdded,
-          });
+          // setListingFormInfo({
+          //   ...ListingFormInfo,
+          //   visitSchedule: visitingHoursToBeAdded,
+          // });
         }}
       >
         Sumbit Schedule

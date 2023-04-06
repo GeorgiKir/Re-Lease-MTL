@@ -1,25 +1,40 @@
 import React from "react";
 import styled from "styled-components";
 import { GrClose } from "react-icons/gr";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useContext } from "react";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 const ListingModal = ({ listingInfo, setShowListingModal }) => {
+  const { currentUser } = useContext(CurrentUserContext);
+
   const [targetVistingTime, setTargetVisitingTime] = useState({
+    visitorId: currentUser._id,
+    visitId: "",
     listingId: listingInfo._id,
-    selectedDate: "",
-    selectedTime: "",
   });
   const [targetDate, setTargetDate] = useState(null);
   const [targetVisitArray, setTargetVisitArray] = useState(null);
 
+  useEffect(() => {
+    fetch(`/timeSlots/ownerId/${listingInfo._id}`)
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setTargetVisitArray(data.data);
+      });
+  }, []);
+
   const handleTargetDateChange = (value, name) => {
     setTargetVisitingTime({ ...targetVistingTime, [name]: value });
     setTargetDate(value);
-    // setTargetVisitArray(listingInfo.visitSchedule[index]);
   };
+
+  let visitingDayAvailableTimes = 0;
 
   const handleListingModalSubmit = (e) => {
     e.preventDefault();
+    setShowListingModal(false);
     console.log("SUBMITTED");
     fetch(`/listings/reserveAVisitTime`, {
       method: "PATCH",
@@ -58,66 +73,44 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
         <p style={{ marginTop: "15px" }}>Price: {listingInfo.price} $</p>
         <p style={{ marginTop: "15px" }}>Bedrooms: {listingInfo.numBDR} </p>
         <p style={{ marginTop: "15px" }}>
-          Description: {listingInfo.listingDescription}{" "}
+          Description: {listingInfo.listingDescription}
         </p>
-
-        <form
-          onSubmit={(e) => {
-            handleListingModalSubmit(e);
-          }}
-        >
-          <p>Choose a date: </p>
-          <select
-            required
-            name="selectedDate"
-            onChange={(e) => {
-              handleTargetDateChange(e.target.value, e.target.name);
+        {targetVisitArray && (
+          <form
+            onSubmit={(e) => {
+              handleListingModalSubmit(e);
             }}
           >
-            <option value="" style={{ color: "gray" }}>
-              Please Select a date
-            </option>
-            {listingInfo.visitSchedule.map((item) => {
+            {targetVisitArray.map((item) => {
               return (
                 <>
-                  <option value={item[0]}>{item[0]}</option>
+                  <p>{item._id}</p>
+                  {item.timeslots.map((element) => {
+                    if (element.isAvailable) {
+                      return (
+                        <>
+                          <input
+                            required
+                            type="radio"
+                            name="selectedTime"
+                            onChange={() => {
+                              setTargetVisitingTime({
+                                ...targetVistingTime,
+                                visitId: element._id,
+                              });
+                            }}
+                          />
+                          <label>{element.hour}</label>
+                        </>
+                      );
+                    }
+                  })}
                 </>
               );
             })}
-          </select>
-          {targetDate !== "" && (
-            <>
-              {listingInfo.visitSchedule.map((element) => {
-                if (element[0] === targetDate) {
-                  return (
-                    <>
-                      {element[1].map((item) => {
-                        return (
-                          <div style={{ display: "flex" }}>
-                            <input
-                              required
-                              type="radio"
-                              name="selectedTime"
-                              onChange={() => {
-                                setTargetVisitingTime({
-                                  ...targetVistingTime,
-                                  selectedTime: item,
-                                });
-                              }}
-                            />
-                            <label>{item}</label>
-                          </div>
-                        );
-                      })}
-                      ;
-                    </>
-                  );
-                }
-              })}
-            </>
-          )}
-          <button type="submit">Submit</button>
-        </form>
+            <button type="submit">Submit</button>
+          </form>
+        )}
       </ListingInfoContainer>
     </ListingModalContainer>
   );
@@ -129,8 +122,6 @@ const ListingInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   color: black;
-  /* justify-content: center; */
-  /* align-items: center; */
   border: 1px solid red;
   background-color: white;
   width: 60%;
