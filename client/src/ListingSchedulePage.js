@@ -14,7 +14,9 @@ const ListingSchedulePage = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setShowVisitingHoursInProfile(data.data);
+        if (data.status === 200) {
+          setShowVisitingHoursInProfile(data.data);
+        }
       });
   }, []);
   return (
@@ -41,6 +43,7 @@ const ListingSchedulePage = () => {
           })}
         </>
       )}
+      {!showVisitingHoursInProfile && <p>You currently have no listing.</p>}
     </div>
   );
 };

@@ -15,11 +15,13 @@ const VistingHoursInputForm = ({
   const [dateObject, setDateObject] = useState("");
   const [arr, setArr] = useState([]);
   // let targetDate = dateObject[0];
+  console.log(ListingFormInfo);
   const addInput = () => {
     setArr((s) => {
       return [
         ...s,
         {
+          address: ListingFormInfo.listingAddress,
           date: dateObject,
           ownerId: currentUser._id,
           visitorId: "someOtherID",

@@ -10,6 +10,10 @@ const SearchPage = () => {
     price: "",
     bedroom: "",
   });
+  const [mapCenter, setMapCenter] = useState({
+    lat: 45.5019,
+    lng: -73.5674,
+  });
   const [listings, setListings] = useState(null);
   const [showListingModal, setShowListingModal] = useState(false);
   const [targetListingForModal, setTargetListingForModal] = useState(null);
@@ -32,9 +36,10 @@ const SearchPage = () => {
         searchCriteria={searchCriteria}
         setSearchCriteria={setSearchCriteria}
         handleSearchSubmit={handleSearchSubmit}
+        setMapCenter={setMapCenter}
       />
       <SearchPageContentContainer>
-        {listings && (
+        {listings && listings.length > 0 && (
           <ListingThumbnailContainer>
             {listings.map((listing) => {
               return (

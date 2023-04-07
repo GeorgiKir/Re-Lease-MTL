@@ -8,9 +8,17 @@ const SearchBar = ({
   searchCriteria,
   setSearchCriteria,
   handleSearchSubmit,
+  setMapCenter,
 }) => {
   const handleChange = (value, name) => {
     setSearchCriteria({ ...searchCriteria, [name]: value });
+  };
+
+  const handleMapCenterChange = (value) => {
+    let coordsChecker = boroughs.filter((item) => {
+      return item.borough === value;
+    });
+    setMapCenter(coordsChecker[0].coords);
   };
   return (
     <StyledSearchBar>
@@ -20,14 +28,17 @@ const SearchBar = ({
           required
           name="borough"
           placeholder={"Enter the neighbourhood"}
-          onChange={(e) => handleChange(e.target.value, e.target.name)}
+          onChange={(e) => {
+            handleChange(e.target.value, e.target.name);
+            handleMapCenterChange(e.target.value);
+          }}
         >
           <option value="" style={{ color: "gray" }}>
             Please Select a neighbourhood
           </option>
           ;
           {boroughs.map((borough) => {
-            return <option value={borough}>{borough}</option>;
+            return <option value={borough.borough}>{borough.borough}</option>;
           })}
         </select>
         <label>Price: </label>

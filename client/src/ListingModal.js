@@ -20,8 +20,16 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
     fetch(`/timeSlots/ownerId/${listingInfo._id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        setTargetVisitArray(data.data);
+        let checkIfAlreadyHasVisit = false;
+        data.data[0].timeslots.map((item) => {
+          if (item.visitorId === currentUser._id) {
+            console.log("Already got a visit");
+            checkIfAlreadyHasVisit = true;
+          }
+        });
+        if (!checkIfAlreadyHasVisit && data.data.length > 0) {
+          setTargetVisitArray(data.data);
+        }
       });
   }, []);
 
@@ -29,8 +37,6 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
     setTargetVisitingTime({ ...targetVistingTime, [name]: value });
     setTargetDate(value);
   };
-
-  let visitingDayAvailableTimes = 0;
 
   const handleListingModalSubmit = (e) => {
     e.preventDefault();
@@ -75,42 +81,47 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
         <p style={{ marginTop: "15px" }}>
           Description: {listingInfo.listingDescription}
         </p>
-        {targetVisitArray && (
-          <form
-            onSubmit={(e) => {
-              handleListingModalSubmit(e);
-            }}
-          >
-            {targetVisitArray.map((item) => {
-              return (
-                <>
-                  <p>{item._id}</p>
-                  {item.timeslots.map((element) => {
-                    if (element.isAvailable) {
-                      return (
-                        <>
-                          <input
-                            required
-                            type="radio"
-                            name="selectedTime"
-                            onChange={() => {
-                              setTargetVisitingTime({
-                                ...targetVistingTime,
-                                visitId: element._id,
-                              });
-                            }}
-                          />
-                          <label>{element.hour}</label>
-                        </>
-                      );
-                    }
-                  })}
-                </>
-              );
-            })}
-            <button type="submit">Submit</button>
-          </form>
-        )}
+        {targetVisitArray &&
+          targetVistingTime.listingId !== targetVistingTime.visitorId && (
+            <form
+              onSubmit={(e) => {
+                handleListingModalSubmit(e);
+              }}
+            >
+              {targetVisitArray.map((item) => {
+                return (
+                  <>
+                    <p>{item._id}</p>
+                    {item.timeslots.map((element) => {
+                      if (element.isAvailable) {
+                        return (
+                          <>
+                            <input
+                              required
+                              type="radio"
+                              name="selectedTime"
+                              onChange={() => {
+                                setTargetVisitingTime({
+                                  ...targetVistingTime,
+                                  visitId: element._id,
+                                });
+                              }}
+                            />
+                            <label>{element.hour}</label>
+                          </>
+                        );
+                      }
+                    })}
+                  </>
+                );
+              })}
+              <button type="submit">Submit</button>
+            </form>
+          )}
+        {targetVisitArray &&
+          targetVistingTime.listingId === targetVistingTime.visitorId && (
+            <p>This is your current listing</p>
+          )}
       </ListingInfoContainer>
     </ListingModalContainer>
   );

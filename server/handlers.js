@@ -310,12 +310,8 @@ const getTimeSlots = async (req, res) => {
     const db = client.db("re-lease");
     let result = await db
       .collection("timeslots")
-      .aggregate([{ $match: { [searchField]: listingId } }])
-      .toArray();
-
-    let structuredResult = await db
-      .collection("timeslots")
       .aggregate([
+        { $match: { [searchField]: listingId } },
         {
           $group: {
             _id: "$date",
@@ -325,12 +321,68 @@ const getTimeSlots = async (req, res) => {
       ])
       .toArray();
 
-    console.log(structuredResult);
-
-    if (structuredResult) {
+    if (result.length > 0 && searchField === "visitorId") {
       res.status(200).json({
         status: 200,
-        data: structuredResult,
+        data: result,
+      });
+    } else if (result.length > 0 && searchField === "ownerId") {
+      let structuredResult = await db
+        .collection("timeslots")
+        .aggregate([
+          { $match: { [searchField]: listingId } },
+          {
+            $group: {
+              _id: "$date",
+              timeslots: { $push: "$$ROOT" },
+            },
+          },
+        ])
+        .toArray();
+
+      console.log(structuredResult);
+
+      if (structuredResult) {
+        res.status(200).json({
+          status: 200,
+          data: structuredResult,
+        });
+      }
+    } else {
+      res.status(400).json({
+        status: 400,
+        data: "No time slots to show",
+      });
+    }
+  } catch (err) {
+    console.log("Error: ", err);
+  } finally {
+    await client.close();
+    console.log("disconnected!");
+  }
+};
+
+const deleteTimeslot = async (req, res) => {
+  const { visitId } = req.params;
+  const client = new MongoClient(MONGO_URI, options);
+  try {
+    await client.connect();
+    const db = client.db("re-lease");
+    // const deleteTimeslotResult = await db
+    //   .collection("users")
+    //   .updateOne({ email: userEmail }, { $unset: { listingInfo: "" } });
+    const deleteTimeSlot = await db.collection("timeslots").updateOne(
+      {
+        _id: visitId,
+      },
+      { $set: { isAvailable: true, visitorId: "" } }
+    );
+
+    if (deleteTimeSlot.acknowledged) {
+      res.status(200).json({
+        status: 200,
+        message: "succesfully deleted",
+        data: deleteTimeSlot,
       });
     }
   } catch (err) {
@@ -350,4 +402,5 @@ module.exports = {
   scheduleReservation,
   postTimeSlots,
   getTimeSlots,
+  deleteTimeslot,
 };
