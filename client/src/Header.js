@@ -3,8 +3,9 @@ import styled from "styled-components";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import { useContext } from "react";
-import { NavLink } from "react-router-dom";
+
 import { CurrentUserContext } from "./CurrentUserContext";
+import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -13,11 +14,11 @@ const Header = () => {
       <StyledHeader>
         <NavContainer>
           <StyledNav to={"/"}>RE:lease MTL</StyledNav>
-          <StyledNav to={"/search"}>SEARCH</StyledNav>
-          <StyledNav>INFO</StyledNav>
+          <StyledNav to={"/search"}>Search</StyledNav>
+          <StyledNav>Info</StyledNav>
         </NavContainer>
         <ProfileOptionsContainer>
-          {currentUser && <StyledNav to={"/profile"}>PROFILE</StyledNav>}
+          {currentUser && <StyledNav to={"/profile"}>Profile</StyledNav>}
           <LoginButton />
           <LogoutButton />
         </ProfileOptionsContainer>
@@ -30,6 +31,7 @@ export const StyledNav = styled(NavLink)`
   color: white;
   text-decoration: none;
   font-size: 20px;
+  font-weight: 600;
   cursor: pointer;
   &:after {
     display: block;
@@ -41,6 +43,9 @@ export const StyledNav = styled(NavLink)`
   &:hover:after {
     transform: scaleX(1);
   }
+  /* &.active {
+    color: wheat;
+  } */
 `;
 
 const ProfileOptionsContainer = styled.div`
@@ -69,7 +74,7 @@ const StyledHeader = styled.div`
   align-items: center;
   width: 100vw;
   background-color: black;
-  height: 75px;
+  height: 55px;
   z-index: 2;
   color: white;
   top: 0;

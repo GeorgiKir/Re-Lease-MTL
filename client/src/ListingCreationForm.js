@@ -36,54 +36,59 @@ const ListingCreationForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`/timeSlots/addTimeSlots`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({ selectedTimeSlots: visitingHoursToBeAdded }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      });
+    if (visitingHoursToBeAdded.length <= 0) {
+      console.log("Please select some visiting hours");
+    } else {
+      fetch(`/timeSlots/addTimeSlots`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({ selectedTimeSlots: visitingHoursToBeAdded }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+        });
 
-    fetch(`/listings/addListing`, {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify(ListingFormInfo),
-    })
-      .then((res) => res.json())
-      .then((resData) => {
-        console.log(resData);
+      fetch(`/listings/addListing`, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify(ListingFormInfo),
+      })
+        .then((res) => res.json())
+        .then((resData) => {
+          console.log(resData);
 
-        fetch(`/users/${user.email}`)
-          .then((res) => res.json())
-          .then((data) => {
-            console.log(data);
-            window.sessionStorage.setItem(
-              "userId",
-              JSON.stringify({
-                email: data.data.email,
-                _id: data.data._id,
-                listing: data.data.listingInfo,
-              })
-            );
-            setCurrentUser(JSON.parse(window.sessionStorage.getItem("userId")));
-          })
-          .catch((e) => {
-            console.log("Error: ", e);
-          });
-      });
+          fetch(`/users/${user.email}`)
+            .then((res) => res.json())
+            .then((data) => {
+              console.log(data);
+              window.sessionStorage.setItem(
+                "userId",
+                JSON.stringify({
+                  email: data.data.email,
+                  _id: data.data._id,
+                  listing: data.data.listingInfo,
+                })
+              );
+              setCurrentUser(
+                JSON.parse(window.sessionStorage.getItem("userId"))
+              );
+            })
+            .catch((e) => {
+              console.log("Error: ", e);
+            });
+        });
+    }
   };
   return (
     <>
       <StyledListingForm onSubmit={(e) => handleSubmit(e)}>
-        ListingCreationForm
         <FormInputContainer>
           <p>Street Address</p>
           <input
@@ -107,7 +112,7 @@ const ListingCreationForm = () => {
             </option>
             ;
             {boroughs.map((borough) => {
-              return <option value={borough}>{borough}</option>;
+              return <option value={borough.borough}>{borough.borough}</option>;
             })}
           </select>
         </FormInputContainer>

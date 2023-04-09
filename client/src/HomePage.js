@@ -23,7 +23,7 @@ const HomePage = () => {
           <h2>Recycle.</h2>
           <h2>Re:Lease.</h2>
         </HeroImageContainer>
-      </HomePageContentDiv>
+      </HomePageContentDiv>{" "}
     </MainPageContainer>
   );
 };
@@ -42,6 +42,7 @@ const HeroImageContainer = styled.div`
   & h2 {
     color: white;
     font-size: 50px;
+    font-weight: 500;
   }
 `;
 

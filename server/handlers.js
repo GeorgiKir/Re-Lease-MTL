@@ -45,7 +45,7 @@ const postListing = async (req, res) => {
     visitSchedule,
     borough,
   } = req.body;
-  const fullAddress = `${listingAddress} ${postalCode} Montreal`;
+  const fullAddress = `${listingAddress} ${postalCode} Montreal QC Canada`;
 
   try {
     const coords = await geocoder.geocode(fullAddress).then((res) => {
@@ -104,6 +104,7 @@ const postListing = async (req, res) => {
               postalCode: postalCode,
               price: price,
               numBDR: numBDR,
+              borough: borough,
               listingDescription: listingDescription,
             },
           },

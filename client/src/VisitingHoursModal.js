@@ -19,6 +19,7 @@ const VisitingHoursModal = ({
             scale: "3",
             marginLeft: "25px",
             marginTop: "25px",
+            position: "fixed",
           }}
           onClick={() => {
             setSelectingVisitingHours(false);
@@ -37,6 +38,7 @@ const VisitingHoursModal = ({
 
 const VisitingHoursFormContainer = styled.div`
   position: relative;
+  overflow-y: scroll;
   border-radius: 5px;
   display: flex;
   flex-direction: column;

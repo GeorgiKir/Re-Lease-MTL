@@ -41,7 +41,7 @@ const DeleteListingButton = () => {
           handleListingDelete();
         }}
       >
-        DeleteListingButton
+        Delete Listing
       </StyledDeleteButton>
     </>
   );
@@ -49,17 +49,22 @@ const DeleteListingButton = () => {
 
 const StyledDeleteButton = styled.button`
   position: relative;
-  font-family: "Raleway", sans-serif;
-  border: none;
-  background: white;
+  /* font-family: "Raleway", sans-serif; */
+  font-family: "Montserrat", sans-serif;
+  font-weight: 500;
+  border: 3px solid gray;
+  border-radius: 5px;
+  margin: 0px auto;
+  background: none;
   cursor: pointer;
   color: black;
   display: flex;
   gap: 5px;
   margin-top: 15px;
   height: fit-content;
-  padding: 0;
-  font-size: 35px;
+  width: fit-content;
+  padding: 5px;
+  font-size: 25px;
   align-items: center;
   &::before {
     content: "";

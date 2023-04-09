@@ -4,6 +4,8 @@ import { GrClose } from "react-icons/gr";
 import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
+import { format } from "date-fns";
+import { StyledVisitForm } from "./VistingHoursInputForm";
 
 const ListingModal = ({ listingInfo, setShowListingModal }) => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -15,20 +17,22 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
   });
   const [targetDate, setTargetDate] = useState(null);
   const [targetVisitArray, setTargetVisitArray] = useState(null);
+  const [checkIfAlreadyHasVisit, setCheckifAlreadyHasVisit] = useState(false);
 
   useEffect(() => {
     fetch(`/timeSlots/ownerId/${listingInfo._id}`)
       .then((res) => res.json())
       .then((data) => {
-        let checkIfAlreadyHasVisit = false;
-        data.data[0].timeslots.map((item) => {
-          if (item.visitorId === currentUser._id) {
-            console.log("Already got a visit");
-            checkIfAlreadyHasVisit = true;
-          }
-        });
-        if (!checkIfAlreadyHasVisit && data.data.length > 0) {
+        if (data.status === 200) {
           setTargetVisitArray(data.data);
+
+          data.data.forEach((item) => {
+            item.timeslots.map((element) => {
+              if (element.visitorId === currentUser._id) {
+                setCheckifAlreadyHasVisit(true);
+              }
+            });
+          });
         }
       });
   }, []);
@@ -41,6 +45,7 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
   const handleListingModalSubmit = (e) => {
     e.preventDefault();
     setShowListingModal(false);
+    setTargetVisitArray(null);
     console.log("SUBMITTED");
     fetch(`/listings/reserveAVisitTime`, {
       method: "PATCH",
@@ -67,65 +72,97 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
             scale: "3",
             marginLeft: "25px",
             marginTop: "25px",
+            position: "fixed",
           }}
           onClick={() => {
             setShowListingModal(false);
+            setTargetVisitArray(null);
           }}
         />
-        <p style={{ marginTop: "15px" }}>
-          Address: {listingInfo.listingAddress} {listingInfo.borough}{" "}
-          {listingInfo.postalCode}
-        </p>
-        <p style={{ marginTop: "15px" }}>Price: {listingInfo.price} $</p>
-        <p style={{ marginTop: "15px" }}>Bedrooms: {listingInfo.numBDR} </p>
-        <p style={{ marginTop: "15px" }}>
-          Description: {listingInfo.listingDescription}
-        </p>
-        {targetVisitArray &&
-          targetVistingTime.listingId !== targetVistingTime.visitorId && (
-            <form
-              onSubmit={(e) => {
-                handleListingModalSubmit(e);
-              }}
-            >
-              {targetVisitArray.map((item) => {
-                return (
-                  <>
-                    <p>{item._id}</p>
-                    {item.timeslots.map((element) => {
-                      if (element.isAvailable) {
-                        return (
-                          <>
-                            <input
-                              required
-                              type="radio"
-                              name="selectedTime"
-                              onChange={() => {
-                                setTargetVisitingTime({
-                                  ...targetVistingTime,
-                                  visitId: element._id,
-                                });
-                              }}
-                            />
-                            <label>{element.hour}</label>
-                          </>
-                        );
-                      }
-                    })}
-                  </>
-                );
-              })}
-              <button type="submit">Submit</button>
-            </form>
-          )}
-        {targetVisitArray &&
-          targetVistingTime.listingId === targetVistingTime.visitorId && (
-            <p>This is your current listing</p>
-          )}
+        <StyledVisitorForm>
+          <h2>Address:</h2>
+          <p style={{ marginTop: "15px" }}>
+            {listingInfo.listingAddress} {listingInfo.borough}{" "}
+            {listingInfo.postalCode}
+          </p>
+          <h2>Price:</h2>
+          <p style={{ marginTop: "15px" }}>{listingInfo.price} $</p>
+          <h2>Bedrooms:</h2>
+          <p style={{ marginTop: "15px" }}>{listingInfo.numBDR} bedrooms</p>
+          <h2>Description:</h2>
+          <p style={{ marginTop: "15px" }}>{listingInfo.listingDescription}</p>
+          {targetVisitArray &&
+            targetVistingTime.listingId !== targetVistingTime.visitorId &&
+            !checkIfAlreadyHasVisit && (
+              <form
+                onSubmit={(e) => {
+                  handleListingModalSubmit(e);
+                }}
+              >
+                {targetVisitArray.map((item) => {
+                  return (
+                    <>
+                      <h1>{item._id}</h1>
+                      {item.timeslots.map((element) => {
+                        if (element.isAvailable) {
+                          return (
+                            <>
+                              <input
+                                required
+                                type="radio"
+                                name="selectedTime"
+                                onChange={() => {
+                                  setTargetVisitingTime({
+                                    ...targetVistingTime,
+                                    visitId: element._id,
+                                  });
+                                }}
+                              />
+                              <label>{element.hour}</label>
+                            </>
+                          );
+                        }
+                      })}
+                    </>
+                  );
+                })}
+                <button type="submit">Submit</button>
+              </form>
+            )}
+          {targetVisitArray &&
+            targetVistingTime.listingId === targetVistingTime.visitorId && (
+              <p>This is your current listing</p>
+            )}
+          {targetVisitArray &&
+            targetVistingTime.listingId !== targetVistingTime.visitorId &&
+            checkIfAlreadyHasVisit && (
+              <p>You already have a visit at this address</p>
+            )}
+        </StyledVisitorForm>
       </ListingInfoContainer>
     </ListingModalContainer>
   );
 };
+
+const StyledVisitorForm = styled.div`
+  display: flex;
+  margin: 8% auto 0px auto;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 70%;
+  height: fit-content;
+  & h2 {
+    /* font-weight: 500; */
+    /* border: 1px solid red; */
+    border-bottom: 1px solid gray;
+  }
+  & p {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+`;
 
 const ListingInfoContainer = styled.div`
   position: relative;

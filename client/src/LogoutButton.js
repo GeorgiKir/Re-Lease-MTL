@@ -14,7 +14,7 @@ const LogoutButton = () => {
 
   return (
     isAuthenticated && (
-      <StyledNav onClick={() => handleLogout()}>LOG OUT</StyledNav>
+      <StyledNav onClick={() => handleLogout()}>Log Out</StyledNav>
     )
   );
 };
