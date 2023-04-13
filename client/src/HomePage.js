@@ -2,7 +2,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import bgImage from "./assets/facade_1.png";
+import bgImage from "./assets/facade1.jpg";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { boroughs } from "./boroughs";
 
@@ -15,7 +15,7 @@ const HomePage = () => {
     navigate("/login");
   };
   return (
-    <MainPageContainer>
+    <MainPageContainer style={{ marginTop: "0px", width: "100%" }}>
       <HomePageContentDiv>
         <HeroImageContainer>
           <h2>Reduce.</h2>
@@ -34,14 +34,18 @@ const HeroImageContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-image: url(${bgImage});
-  width: 75%;
-  height: 350px;
-  margin: 35px auto 0px auto;
+  /* width: 75%; */
+  width: 100%;
+  /* height: 350px; */
+  height: 100vh;
+  margin: 0px auto 0px auto;
   background-size: 100% 100%;
   border-radius: 5px;
+  box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.65);
+
   & h2 {
     color: white;
-    font-size: 50px;
+    font-size: 100px;
     font-weight: 500;
   }
 `;
@@ -50,7 +54,7 @@ const HomePageContentDiv = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 30px auto;
-  width: 75vw;
+  /* width: 75vw; */
   height: 90vh;
 `;
 

@@ -1,5 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import "./App.css";
 import { CurrentUserContext } from "./CurrentUserContext";
@@ -13,10 +13,18 @@ import SearchPage from "./SearchPage";
 
 function App() {
   const { user, isAuthenticated } = useAuth0();
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const {
+    currentUser,
+    setCurrentUser,
+    verificationState,
+    setVerificationState,
+  } = useContext(CurrentUserContext);
+  // const [verificationState, setVerificationState] = useState("Initial");
 
   useEffect(() => {
     if (isAuthenticated && user) {
+      // setVerificationState("Checking");
+      // console.log(user);
       fetch(`/users/${user.email}`)
         .then((res) => res.json())
         .then((data) => {
@@ -29,6 +37,7 @@ function App() {
               listing: data.data.listingInfo ? data.data.listingInfo : "",
             })
           );
+          // setVerificationState("Verified");
           setCurrentUser(JSON.parse(window.sessionStorage.getItem("userId")));
         })
         .catch((e) => {
@@ -37,6 +46,9 @@ function App() {
     }
   }, [user]);
 
+  // if (verificationState === "Checking") {
+  //   return <>CHECKING...</>;
+  // }
   return (
     <>
       <BrowserRouter>

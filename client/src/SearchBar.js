@@ -71,12 +71,17 @@ const SearchBar = ({
 };
 const FormInputElement = styled.div`
   display: flex;
-  gap: 15px;
+  gap: 5px;
+  & input,
+  select {
+    width: 60%;
+  }
 `;
 
 const StyledSearchForm = styled.form`
   display: flex;
-  width: 70vw;
+  /* width: 70vw; */
+  gap: 1%;
   justify-content: space-between;
 `;
 

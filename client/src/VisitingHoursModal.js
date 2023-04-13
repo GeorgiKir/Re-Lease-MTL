@@ -9,6 +9,7 @@ const VisitingHoursModal = ({
   setVisitingHoursToBeAdded,
   ListingFormInfo,
   setListingFormInfo,
+  setListingCreationTracker,
 }) => {
   return (
     <VisitingHoursModalContainer>
@@ -26,6 +27,8 @@ const VisitingHoursModal = ({
           }}
         />
         <VistingHoursInputForm
+          setListingCreationTracker={setListingCreationTracker}
+          setSelectingVisitingHours={setSelectingVisitingHours}
           visitingHoursToBeAdded={visitingHoursToBeAdded}
           setVisitingHoursToBeAdded={setVisitingHoursToBeAdded}
           ListingFormInfo={ListingFormInfo}

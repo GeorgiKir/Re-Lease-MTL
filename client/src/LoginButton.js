@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { StyledNav } from "./Header";
 
 const LoginButton = () => {
-  const { loginWithRedirect, isAuthenticated } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, user } = useAuth0();
   const { loginContext } = useContext(CurrentUserContext);
   const handleLogin = () => {
     loginContext();

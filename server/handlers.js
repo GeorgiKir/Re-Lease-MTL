@@ -1,12 +1,12 @@
 "use strict";
 const { MongoClient } = require("mongodb");
+const { cloudinary } = require("./utils/cloudinary");
 
 require("dotenv").config();
 const { MONGO_URI } = process.env;
 const { OPENCAGE_KEY } = process.env;
 const NodeGeocoder = require("node-geocoder");
 const { v4: uuidv4 } = require("uuid");
-
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -19,7 +19,23 @@ const getUser = async (req, res) => {
     await client.connect();
     const db = client.db("re-lease");
     let targetUser = await db.collection("users").findOne({ email: userEmail });
-    res.status(200).json({ status: 200, data: targetUser });
+    if (targetUser) {
+      res.status(200).json({ status: 200, data: targetUser });
+    } else if (!targetUser) {
+      const createNewExternalUser = await db.collection("users").insertOne({
+        _id: uuidv4(),
+        client_id: uuidv4(),
+        email: userEmail,
+      });
+      if (createNewExternalUser.acknowledged) {
+        let targetUser = await db
+          .collection("users")
+          .findOne({ email: userEmail });
+        if (targetUser) {
+          res.status(200).json({ status: 200, data: targetUser });
+        }
+      }
+    }
   } catch (err) {
     console.log("Error: ", err);
   } finally {
@@ -43,6 +59,7 @@ const postListing = async (req, res) => {
     postalCode,
     listingDescription,
     visitSchedule,
+    listingImage,
     borough,
   } = req.body;
   const fullAddress = `${listingAddress} ${postalCode} Montreal QC Canada`;
@@ -78,54 +95,81 @@ const postListing = async (req, res) => {
       !listingAddress ||
       checkIfListingExists ||
       !price ||
-      !numBDR
+      !numBDR ||
+      !listingImage
     ) {
       res.status(404).json({ status: 404, data: "Something went wrong." });
     } else {
-      const createNewListing = await db.collection("listings").insertOne({
-        _id: listingId,
-        listingCoords: coords,
-        listingAddress: listingAddress,
-        postalCode: postalCode,
-        borough: borough,
-        price: price,
-        numBDR: numBDR,
-        listingDescription: listingDescription,
-      });
-
-      const addNewListingToUserProfile = await db.collection("users").updateOne(
-        { email: email },
-        {
-          $set: {
-            listingInfo: {
-              _id: listingId,
-              listingCoords: coords,
-              listingAddress: listingAddress,
-              postalCode: postalCode,
-              price: price,
-              numBDR: numBDR,
-              borough: borough,
-              listingDescription: listingDescription,
-            },
-          },
-        }
-      );
-
-      console.log("object id: ", `ObjectId('${listingId}')`);
-      console.log("add new listing: ", addNewListingToUserProfile);
-      if (
-        createNewListing.acknowledged &&
-        addNewListingToUserProfile.acknowledged
-      ) {
-        res.status(200).json({
-          status: 200,
-          data: createNewListing,
-          message: "Your listing has been created successfully",
+      let publidId;
+      let listingImgUrl;
+      const cloudinaryResult = await cloudinary.uploader
+        .upload(listingImage, {
+          upload_preset: "ReLease_Photos",
+        })
+        .then((data) => {
+          console.log("data: ", data.public_id, data.secure_url);
+          publidId = data.public_id;
+          listingImgUrl = data.secure_url;
+          // console.log(data.secure_url);
+        })
+        .catch((err) => {
+          console.log(err);
         });
+
+      if (publidId && listingImgUrl) {
+        const createNewListing = await db.collection("listings").insertOne({
+          _id: listingId,
+          listingCoords: coords,
+          listingAddress: listingAddress,
+          postalCode: postalCode,
+          borough: borough,
+          price: price,
+          numBDR: numBDR,
+          listingDescription: listingDescription,
+          listingImage: listingImgUrl,
+          listingImgPublicId: publidId,
+        });
+
+        const addNewListingToUserProfile = await db
+          .collection("users")
+          .updateOne(
+            { email: email },
+            {
+              $set: {
+                listingInfo: {
+                  _id: listingId,
+                  listingCoords: coords,
+                  listingAddress: listingAddress,
+                  postalCode: postalCode,
+                  price: price,
+                  numBDR: numBDR,
+                  borough: borough,
+                  listingDescription: listingDescription,
+                  listingImage: listingImgUrl,
+                  listingImgPublicId: publidId,
+                },
+              },
+            }
+          );
+
+        // console.log("object id: ", `ObjectId('${listingId}')`);
+        // console.log("add new listing: ", addNewListingToUserProfile);
+        if (
+          createNewListing.acknowledged &&
+          addNewListingToUserProfile.acknowledged
+        ) {
+          res.status(200).json({
+            status: 200,
+            data: createNewListing,
+            message: "Your listing has been created successfully",
+          });
+        } else {
+          res
+            .status(404)
+            .json({ status: 404, data: "Unable to create your listing" });
+        }
       } else {
-        res
-          .status(404)
-          .json({ status: 404, data: "Unable to create your listing" });
+        res.status(404).json({ status: 404, data: "Something went wrong." });
       }
     }
   } catch (err) {
@@ -232,37 +276,9 @@ const scheduleReservation = async (req, res) => {
         message: "Successfully booked visit",
         data: reserveATimeslot,
       });
+    } else {
+      res.status(404).json({ status: 404, data: "Something went wrong." });
     }
-    // let scheduleAVisitResult = await db
-    //   .collection("listings")
-    //   .findOne({ _id: listingId });
-    // scheduleAVisitResult = scheduleAVisitResult.visitSchedule;
-
-    // scheduleAVisitResult.map((item) => {
-    //   if (item[0] === selectedDate) {
-    //     item[1].map((element, index) => {
-    //       if (element === selectedTime) {
-    //         item[1].splice(index, 1);
-    //       }
-    //     });
-    //   }
-    // });
-
-    // const removingTimefromListing = await db
-    //   .collection("listings")
-    //   .updateOne(
-    //     { _id: listingId },
-    //     { $set: { visitSchedule: scheduleAVisitResult } }
-    //   );
-
-    // // console.log(scheduleAVisitResult);
-    // if (removingTimefromListing.acknowledged) {
-    //   res.status(200).json({
-    //     status: 200,
-    //     message: "Listing deleted",
-    //     data: "Visit Time Deleted",
-    //   });
-    // }
   } catch (err) {
     console.log("Error: ", err);
   } finally {

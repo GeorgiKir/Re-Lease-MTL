@@ -66,20 +66,20 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
   return (
     <ListingModalContainer>
       <ListingInfoContainer>
-        <GrClose
-          style={{
-            cursor: "pointer",
-            scale: "3",
-            marginLeft: "25px",
-            marginTop: "25px",
-            position: "fixed",
-          }}
-          onClick={() => {
-            setShowListingModal(false);
-            setTargetVisitArray(null);
-          }}
-        />
         <StyledVisitorForm>
+          <GrClose
+            style={{
+              cursor: "pointer",
+              scale: "2",
+              marginLeft: "-9%",
+              // marginTop: "-1%",
+              position: "absolute",
+            }}
+            onClick={() => {
+              setShowListingModal(false);
+              setTargetVisitArray(null);
+            }}
+          />
           <h2>Address:</h2>
           <p style={{ marginTop: "15px" }}>
             {listingInfo.listingAddress} {listingInfo.borough}{" "}
@@ -94,40 +94,56 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
           {targetVisitArray &&
             targetVistingTime.listingId !== targetVistingTime.visitorId &&
             !checkIfAlreadyHasVisit && (
-              <form
+              <ListingModalForm
                 onSubmit={(e) => {
                   handleListingModalSubmit(e);
                 }}
               >
-                {targetVisitArray.map((item) => {
-                  return (
-                    <>
-                      <h1>{item._id}</h1>
-                      {item.timeslots.map((element) => {
-                        if (element.isAvailable) {
-                          return (
-                            <>
-                              <input
-                                required
-                                type="radio"
-                                name="selectedTime"
-                                onChange={() => {
-                                  setTargetVisitingTime({
-                                    ...targetVistingTime,
-                                    visitId: element._id,
-                                  });
-                                }}
-                              />
-                              <label>{element.hour}</label>
-                            </>
-                          );
-                        }
-                      })}
-                    </>
-                  );
-                })}
-                <button type="submit">Submit</button>
-              </form>
+                <h1>Visiting Schedule</h1>
+                <div style={{}}>
+                  {targetVisitArray.map((item) => {
+                    return (
+                      <>
+                        <h2>{item._id}</h2>
+                        <VisitingTimeslotsContainer>
+                          {item.timeslots.map((element) => {
+                            if (element.isAvailable) {
+                              return (
+                                <div>
+                                  <input
+                                    required
+                                    type="radio"
+                                    name="selectedTime"
+                                    onChange={() => {
+                                      setTargetVisitingTime({
+                                        ...targetVistingTime,
+                                        visitId: element._id,
+                                      });
+                                    }}
+                                  />
+                                  <label>{element.hour}</label>
+                                </div>
+                              );
+                            }
+                          })}
+                        </VisitingTimeslotsContainer>
+                      </>
+                    );
+                  })}
+                </div>
+                <button
+                  style={{
+                    display: "block",
+                    margin: "0px auto",
+                    width: "150px",
+                    height: "50px",
+                    fontSize: "20px",
+                  }}
+                  type="submit"
+                >
+                  Submit
+                </button>
+              </ListingModalForm>
             )}
           {targetVisitArray &&
             targetVistingTime.listingId === targetVistingTime.visitorId && (
@@ -144,27 +160,50 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
   );
 };
 
+const VisitingTimeslotsContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: 20px auto;
+  width: 75%;
+  gap: 15px;
+`;
+
+const ListingModalForm = styled.form`
+  margin-top: 25px;
+`;
+
 const StyledVisitorForm = styled.div`
   display: flex;
-  margin: 8% auto 0px auto;
+  margin: 5% auto;
   flex-direction: column;
   justify-content: space-between;
   width: 70%;
   height: fit-content;
+  & h1 {
+    font-weight: 500;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
   & h2 {
-    /* font-weight: 500; */
-    /* border: 1px solid red; */
+    font-size: 15px;
     border-bottom: 1px solid gray;
   }
   & p {
     font-size: 20px;
     font-weight: 500;
-    margin-bottom: 10px;
-    text-align: center;
+    margin: 15px 0px;
+    /* text-align: center; */
+  }
+  & label {
+    font-size: 20px;
+    font-weight: 500;
+    margin-bottom: 5px;
+    /* text-align: center; */
   }
 `;
 
 const ListingInfoContainer = styled.div`
+  overflow-y: scroll;
   position: relative;
   border-radius: 5px;
   display: flex;

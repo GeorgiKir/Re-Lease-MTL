@@ -6,8 +6,11 @@ import ListingModal from "./ListingModal";
 import MapSetup from "./MapSetup";
 import { boroughs } from "./boroughs";
 import { ImSpinner } from "react-icons/im";
+import { useContext } from "react";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 const SearchPage = () => {
+  const { currentUser } = useContext(CurrentUserContext);
   const [searchCriteria, setSearchCriteria] = useState({
     borough: "",
     price: "",
@@ -74,15 +77,17 @@ const SearchPage = () => {
                     <p>Postal Code: {listing.postalCode}</p>
                     <p>Borough: {listing.borough}</p>
                     <p>Price: {listing.price}.00 $</p>
-                    <button
-                      onClick={() => {
-                        // console.log(listing);
-                        setTargetListingForModal(listing);
-                        setShowListingModal(true);
-                      }}
-                    >
-                      View Details
-                    </button>
+                    {currentUser && (
+                      <button
+                        onClick={() => {
+                          // console.log(listing);
+                          setTargetListingForModal(listing);
+                          setShowListingModal(true);
+                        }}
+                      >
+                        View Details
+                      </button>
+                    )}
                   </ListingThumbnailContainer>
                 );
               })}

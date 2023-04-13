@@ -18,6 +18,9 @@ const {
 const PORT = 8000;
 
 var app = express();
+app.use(express.static("public"));
+app.use(express.json({ limit: "50mb" }));
+app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 app.use(express.json());
 

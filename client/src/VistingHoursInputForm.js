@@ -9,6 +9,8 @@ const VistingHoursInputForm = ({
   setVisitingHoursToBeAdded,
   ListingFormInfo,
   setListingFormInfo,
+  setSelectingVisitingHours,
+  setListingCreationTracker,
 }) => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [dateObject, setDateObject] = useState("");
@@ -48,7 +50,6 @@ const VistingHoursInputForm = ({
       <StyledScheduleInputContainer>
         <p>Please select a date</p>
         <input
-          // style={{ width: "70%" }}
           type="date"
           min={new Date().toISOString().split("T")[0]}
           onChange={(e) => {
@@ -89,7 +90,6 @@ const VistingHoursInputForm = ({
         </StyledScheduleInputContainer>
       )}
       <SubmitTimeslotsButton
-        // style={{ height: "35px" }}
         arr={arr}
         style={{ height: "35px" }}
         type="button"
@@ -104,6 +104,8 @@ const VistingHoursInputForm = ({
         dateObject={dateObject}
         onClick={() => {
           setVisitingHoursToBeAdded(() => {
+            setSelectingVisitingHours(false);
+            setListingCreationTracker(4);
             return [...visitingHoursToBeAdded, ...dateObject];
           });
         }}

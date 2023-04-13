@@ -9,16 +9,18 @@ import { useState, useEffect } from "react";
 import DeleteListingButton from "./DeleteListingButton";
 import ListingSchedulePage from "./ListingSchedulePage";
 import UpcomingVisitsSchedulePage from "./UpcomingVisitsSchedulePage";
+import ListingCreationTracker from "./ListingCreationTracker";
 
 const Profile = () => {
   const [profileState, setProfileState] = useState("myListing");
-  const [listingUpdate, setListingUpdate] = useState(false);
+  // const [listingCreationTracker, setListingCreationTracker] = useState("1");
+  // const [listingUpdate, setListingUpdate] = useState(false);
   const { currentUser } = useContext(CurrentUserContext);
   const { user, isAuthenticated } = useAuth0();
 
-  useEffect(() => {
-    setListingUpdate(!listingUpdate);
-  }, [currentUser]);
+  // useEffect(() => {
+  //   setListingUpdate(!listingUpdate);
+  // }, [currentUser]);
 
   return (
     isAuthenticated &&
@@ -32,6 +34,11 @@ const Profile = () => {
           {currentUser.listing && profileState === "myListing" && (
             <>
               <MyListingWrapper>
+                <img
+                  src={currentUser.listing.listingImage}
+                  width="500px"
+                  height="auto"
+                />
                 <h1>Address</h1>
                 <h2>
                   <h2>{currentUser.listing.listingAddress}</h2>
@@ -52,10 +59,15 @@ const Profile = () => {
             </>
           )}
           {profileState === "myListing" && !currentUser.listing && (
-            <ListingCreationForm
-              setListingUpdate={setListingUpdate}
-              listingUpdate={listingUpdate}
-            />
+            <>
+              {/* <ListingCreationTracker /> */}
+              <ListingCreationForm
+              // listingCreationTracker={listingCreationTracker}
+              // setListingCreationTracker={setListingCreationTracker}
+              // setListingUpdate={setListingUpdate}
+              // listingUpdate={listingUpdate}
+              />
+            </>
           )}
           {profileState === "ListingSchedule" && (
             <MyListingWrapper>
@@ -80,7 +92,7 @@ const MyListingWrapper = styled.div`
   background-color: #efefef;
   border: 1px solid gray;
   width: 80%;
-  height: 50vh;
+  height: fit-content;
   border-radius: 5px;
   padding: 15px 10px;
   & h2 {
@@ -98,13 +110,16 @@ const MyListingWrapper = styled.div`
     font-weight: 500;
     border-bottom: 1px solid gray;
   }
+  & img {
+    margin: 10px auto;
+  }
 `;
 export const ProfilePageContentDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  margin: 145px auto 0px auto;
+  margin: 125px auto 0px auto;
   width: 65%;
 `;
 
