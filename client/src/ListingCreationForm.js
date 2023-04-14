@@ -234,7 +234,7 @@ const ListingCreationForm = () => {
           </>
         )}
         {listingCreationTracker === 5 && (
-          <div>
+          <FormInputContainer>
             <UploadImage
               ListingFormInfo={ListingFormInfo}
               setListingFormInfo={setListingFormInfo}
@@ -243,7 +243,7 @@ const ListingCreationForm = () => {
               Previous
             </button>
             <button type="submit">Submit</button>
-          </div>
+          </FormInputContainer>
         )}
       </StyledListingForm>
     </ListingContainerDiv>
@@ -258,25 +258,42 @@ const ListingContainerDiv = styled.div`
 `;
 
 const FormInputContainer = styled.div`
+  @media (min-width: 768px) {
+    & h2 {
+      font-size: 35px;
+    }
+    & input {
+      width: 50%;
+    }
+  }
+  @media (max-width: 767px) {
+    & h2 {
+      font-size: 25px;
+    }
+    & input {
+      width: 70%;
+    }
+    flex-direction: column;
+  }
   display: flex;
   width: 70%;
   justify-content: space-between;
   margin-bottom: 2%;
-  & h2 {
-    font-size: 35px;
-  }
-  & input {
-    width: 50%;
-  }
 `;
 
 const StyledListingForm = styled.form`
+  @media (min-width: 768px) {
+    justify-content: flex-start;
+  }
+  @media (max-width: 767px) {
+    justify-content: space-evenly;
+    height: 50vh;
+  }
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+
   width: 100%;
-  /* height: 20vh; */
 `;
 
 export default ListingCreationForm;

@@ -8,6 +8,7 @@ import { boroughs } from "./boroughs";
 import { ImSpinner } from "react-icons/im";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
+import SearchBarMobile from "./SearchBarMobile";
 
 const SearchPage = () => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -28,22 +29,24 @@ const SearchPage = () => {
   const [targetListingForModal, setTargetListingForModal] = useState(null);
 
   const handleSearchSubmit = (borough, price, bedrooms) => {
-    let coordsChecker = boroughs.filter((item) => {
-      return item.borough === borough;
-    });
-    setMapCenter(coordsChecker[0].coords);
-    setZoom(13.25);
-    setMarkerPosition(null);
-
-    fetch(`/listings/listingResults/${borough}/${price}/${bedrooms}`)
-      .then((res) => res.json())
-      .then((resData) => {
-        // console.log(resData.data);
-        setListings(resData.data);
-      })
-      .catch((err) => {
-        console.log("Error", err);
+    if (borough && price && bedrooms) {
+      let coordsChecker = boroughs.filter((item) => {
+        return item.borough === borough;
       });
+      setMapCenter(coordsChecker[0].coords);
+      setZoom(13.25);
+      setMarkerPosition(null);
+
+      fetch(`/listings/listingResults/${borough}/${price}/${bedrooms}`)
+        .then((res) => res.json())
+        .then((resData) => {
+          // console.log(resData.data);
+          setListings(resData.data);
+        })
+        .catch((err) => {
+          console.log("Error", err);
+        });
+    }
   };
 
   if (!mapCenter) {
@@ -54,6 +57,13 @@ const SearchPage = () => {
   return (
     <StorePageContainer>
       <SearchBar
+        searchCriteria={searchCriteria}
+        setSearchCriteria={setSearchCriteria}
+        handleSearchSubmit={handleSearchSubmit}
+        setMapCenter={setMapCenter}
+        setZoom={setZoom}
+      />
+      <SearchBarMobile
         searchCriteria={searchCriteria}
         setSearchCriteria={setSearchCriteria}
         handleSearchSubmit={handleSearchSubmit}

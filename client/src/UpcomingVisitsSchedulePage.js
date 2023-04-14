@@ -54,7 +54,8 @@ const UpcomingVisitsSchedulePage = () => {
                       <UpcomingVisitContainer>
                         <>
                           <p>
-                            {element.address}: {element.hour}{" "}
+                            {element.address}: <br />
+                            {element.hour}{" "}
                           </p>
                           <CgClose
                             style={{ cursor: "pointer", fontSize: "25px" }}
@@ -83,18 +84,30 @@ const UpcomingVisitsSchedulePage = () => {
 };
 
 const UpcomingVisitContainer = styled.div`
+  @media (min-width: 768px) {
+    width: 40%;
+    & p {
+      margin: 0px;
+      font-size: 20px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    width: 70%;
+    margin-bottom: 10px;
+    & p {
+      margin: 0px;
+      font-size: 15px;
+    }
+  }
   padding: 0px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   height: 50px;
-  width: 40%;
   border: 1px solid black;
   border-radius: 5px;
   margin: 5px auto 0px auto;
-  & p {
-    margin: 0px;
-  }
 `;
 
 export default UpcomingVisitsSchedulePage;

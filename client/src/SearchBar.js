@@ -75,8 +75,13 @@ const SearchBar = ({
     </StyledSearchBar>
   );
 };
-const FormInputElement = styled.div`
-  /* border: 1px solid red; */
+export const FormInputElement = styled.div`
+  @media (min-width: 768px) {
+  }
+
+  @media (max-width: 767px) {
+    justify-content: space-between;
+  }
   display: flex;
   height: 50px;
   align-items: center;
@@ -98,28 +103,44 @@ const FormInputElement = styled.div`
   }
 `;
 
-const StyledSearchForm = styled.form`
+export const StyledSearchForm = styled.form`
   /* border: 1px solid blue; */
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    width: 60%;
+  }
+
+  @media (max-width: 767px) {
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+  }
   display: flex;
-  width: 60%;
+
   gap: 1%;
   justify-content: space-between;
 `;
 
 const StyledSearchBar = styled.div`
+  @media (min-width: 768px) {
+    display: flex;
+  }
+
+  @media (max-width: 767px) {
+    display: none;
+  }
   /* border: 1px solid black; */
   font-family: "Open Sans", sans-serif;
   position: fixed;
-  display: flex;
+
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
   margin-top: 55px;
   background-color: #7d98a1;
-  /* background-color: #41413f; */
   height: 40px;
-  z-index: 2;
   font-size: 20px;
   color: white;
   box-shadow: 0px 6px 15px -6px rgba(0, 0, 0, 0.64);

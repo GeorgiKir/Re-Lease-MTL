@@ -33,7 +33,6 @@ const ListingSchedulePage = () => {
             return (
               <>
                 <h1>{item._id}</h1>
-                {/* <h1>{format(new Date(item._id), "dd-MM-Y")}</h1> */}
                 <div style={{ paddingTop: "5px" }}>
                   {item.timeslots.map((element) => {
                     return (

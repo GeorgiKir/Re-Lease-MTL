@@ -35,7 +35,7 @@ const DeleteListingButton = () => {
       });
   };
   return (
-    <>
+    <DeleteButtonContainerDiv>
       <StyledDeleteButton
         onClick={() => {
           handleListingDelete();
@@ -43,9 +43,20 @@ const DeleteListingButton = () => {
       >
         Delete Listing
       </StyledDeleteButton>
-    </>
+    </DeleteButtonContainerDiv>
   );
 };
+
+const DeleteButtonContainerDiv = styled.div`
+  @media (min-width: 768px) {
+    width: 80%;
+  }
+  @media (max-width: 767px) {
+    width: 100%;
+  }
+
+  display: flex;
+`;
 
 const StyledDeleteButton = styled.button`
   position: relative;

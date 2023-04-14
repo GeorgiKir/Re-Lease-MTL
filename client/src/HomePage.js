@@ -40,11 +40,19 @@ const HeroImageContainer = styled.div`
   background-size: 100% 100%;
   /* border-radius: 5px; */
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.65);
-
-  & h2 {
-    color: white;
-    font-size: 100px;
-    font-weight: 500;
+  @media (min-width: 768px) {
+    & h2 {
+      color: white;
+      font-size: 100px;
+      font-weight: 500;
+    }
+  }
+  @media (max-width: 767px) {
+    & h2 {
+      color: white;
+      font-size: 60px;
+      font-weight: 500;
+    }
   }
 `;
 
@@ -57,8 +65,17 @@ const HomePageContentDiv = styled.div`
 `;
 
 export const MainPageContainer = styled.div`
-  min-height: calc(100vh - 180px);
+  @media (min-width: 768px) {
+    margin-top: 75px;
+    min-height: calc(100vh - 180px);
+  }
+
+  @media (max-width: 767px) {
+    margin-top: 35px;
+    /* height: calc(100vh - 180px); */
+    height: calc(100vh);
+  }
+
   background-size: cover;
-  margin-top: 75px;
 `;
 export default HomePage;

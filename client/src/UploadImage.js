@@ -54,7 +54,7 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
         <img
           src={previewSource ? previewSource : "none"}
           alt="chosenPhoto"
-          style={{ width: "500px", height: "scale", border: "1px solid black" }}
+          style={{ width: "80%", height: "scale", border: "1px solid black" }}
         />
       )}
       {errMsg && <p>Your file is too large</p>}

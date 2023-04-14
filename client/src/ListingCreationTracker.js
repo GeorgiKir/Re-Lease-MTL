@@ -39,10 +39,18 @@ const ListingCreationTracker = ({
 };
 
 const CounterContainer1 = styled.div`
+  @media (min-width: 768px) {
+    width: 75px;
+    font-size: 30px;
+  }
+  @media (max-width: 767px) {
+    width: 75px;
+    /* height: 30px; */
+    font-size: 20px;
+  }
   border: 3px solid black;
   border-radius: 50%;
-  width: 75px;
-  font-size: 30px;
+
   margin: 0px 20px;
   display: flex;
   justify-content: center;
@@ -52,10 +60,18 @@ const CounterContainer1 = styled.div`
   color: ${(props) => (props.listingCreationTracker > 1 ? "white" : "black")};
 `;
 const CounterContainer2 = styled.div`
+  @media (min-width: 768px) {
+    width: 75px;
+    font-size: 30px;
+  }
+  @media (max-width: 767px) {
+    width: 75px;
+    /* height: 30px; */
+    font-size: 20px;
+  }
   border: 3px solid black;
   border-radius: 50%;
-  width: 75px;
-  font-size: 30px;
+
   margin: 0px 20px;
   display: flex;
   justify-content: center;
@@ -66,10 +82,18 @@ const CounterContainer2 = styled.div`
 `;
 
 const CounterContainer3 = styled.div`
+  @media (min-width: 768px) {
+    width: 75px;
+    font-size: 30px;
+  }
+  @media (max-width: 767px) {
+    width: 75px;
+    /* height: 30px; */
+    font-size: 20px;
+  }
   border: 3px solid black;
   border-radius: 50%;
-  width: 75px;
-  font-size: 30px;
+
   margin: 0px 20px;
   display: flex;
   justify-content: center;
@@ -84,10 +108,17 @@ const CounterContainer3 = styled.div`
       : "black"};
 `;
 const CounterContainer4 = styled.div`
+  @media (min-width: 768px) {
+    width: 75px;
+    font-size: 30px;
+  }
+  @media (max-width: 767px) {
+    width: 75px;
+    /* height: 35px; */
+    font-size: 20px;
+  }
   border: 3px solid black;
   border-radius: 50%;
-  width: 75px;
-  font-size: 30px;
   margin: 0px 20px;
   display: flex;
   justify-content: center;
@@ -103,9 +134,18 @@ const CounterContainer4 = styled.div`
 `;
 
 const ListingTrackerContainer = styled.div`
-  display: flex;
+  @media (min-width: 768px) {
+    display: flex;
+  }
+  @media (max-width: 767px) {
+    display: none;
+  }
+  justify-content: center;
+  /* align-items: center; */
+  /* border: 1px solid black; */
   height: 75px;
-  width: 70%;
+  width: 100%;
+  /* width: 70%; */
   margin: 0px 0px 50px 0px;
 `;
 export default ListingCreationTracker;

@@ -36,13 +36,8 @@ const Profile = () => {
         />
         <ProfilePageContentDiv>
           {currentUser.listing && profileState === "myListing" && (
-            <>
-              <img
-                src={currentUser.listing.listingImage}
-                width="50%"
-                height="scale"
-                style={{ borderRadius: "5px" }}
-              />
+            <ListingInfoMainContainer>
+              <img src={currentUser.listing.listingImage} />
               <ListingInfoProfileDiv>
                 <IndividualInfoDiv>
                   <FiMapPin style={{ fontSize: "30px" }} />
@@ -65,35 +60,11 @@ const Profile = () => {
                 </IndividualInfoDiv>
                 <IndividualInfoDiv>
                   <GrDocumentText style={{ fontSize: "30px" }} />
-                  <p style={{ fontSize: "17px" }}>
-                    {currentUser.listing.listingDescription}
-                  </p>
+                  <p>{currentUser.listing.listingDescription}</p>
                 </IndividualInfoDiv>
                 <DeleteListingButton />
               </ListingInfoProfileDiv>
-              {/* <MyListingWrapper>
-                <img
-                  src={currentUser.listing.listingImage}
-                  width="80%"
-                  height="scale"
-                  style={{ borderRadius: "5px", maxWidth: "500px" }}
-                />
-                <h1>Address</h1>
-                <p>
-                  <p>{currentUser.listing.listingAddress}</p>
-                  <p>
-                    {currentUser.listing.postalCode}{" "}
-                    {currentUser.listing.borough}
-                  </p>
-                  <p>Montreal QC</p>
-                </p>
-                <h1>Price: </h1>
-                <p>{currentUser.listing.price} $</p>
-                <h1>Bedrooms:</h1> <p>{currentUser.listing.numBDR} bedrooms</p>
-                <h1>Description:</h1>
-                <p>{currentUser.listing.listingDescription}</p>
-              </MyListingWrapper> */}
-            </>
+            </ListingInfoMainContainer>
           )}
           {profileState === "myListing" && !currentUser.listing && (
             <MyListingWrapper>
@@ -116,69 +87,130 @@ const Profile = () => {
   );
 };
 
+const ListingInfoMainContainer = styled.div`
+  @media (min-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    & img {
+      width: 60%;
+      height: scale;
+      border-radius: 5px;
+    }
+  }
+  @media (max-width: 767.9px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 50vh;
+    justify-content: space-between;
+    & img {
+      width: 80%;
+      height: 300px;
+      border-radius: 5px;
+    }
+  }
+`;
 const ListingInfoProfileDiv = styled.div`
+  @media (min-width: 768px) {
+    width: 40%;
+    height: 60vh;
+    margin-left: 20px;
+  }
+  @media (max-width: 767px) {
+    width: 90%;
+    min-height: 40vh;
+  }
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-
-  width: 40%;
-  margin-left: 20px;
-  height: 60vh;
+  /* border: 1px solid green; */
 `;
 const IndividualInfoDiv = styled.div`
+  @media (min-width: 768px) {
+    gap: 10%;
+    & p {
+      text-align: justify;
+      text-justify: inter-word;
+      font-size: 20px;
+      width: fit-content;
+    }
+  }
+  @media (max-width: 767px) {
+    gap: 20%;
+    & p {
+      text-align: justify;
+      text-justify: inter-word;
+      font-size: 15px;
+      width: fit-content;
+    }
+  }
   justify-content: flex-start;
-  gap: 10%;
+
   display: flex;
   flex-direction: row;
   margin: 0px auto;
   width: 80%;
-  & p {
-    text-align: justify;
-    text-justify: inter-word;
-    font-size: 20px;
-    /* display: block; */
-    width: fit-content;
-    /* border: 1px solid black; */
-  }
 `;
 const MyListingWrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* align-items: center; */
   background-color: #efefef;
   border: 1px solid gray;
-  /* box-shadow: 0px 6px 15px -6px rgba(0, 0, 0, 0.64); */
-  width: 70%;
   height: fit-content;
   border-radius: 5px;
   margin: 0px auto;
-  padding: 15px 10px;
 
-  & p {
-    padding: 0px;
-    font-size: 20px;
-    /* width: 70%; */
+  @media (min-width: 768px) {
+    padding: 15px 10px;
+    width: 70%;
+    & p {
+      padding: 0px;
+      font-size: 20px;
+      /* width: 70%; */
+    }
+    & h1 {
+      margin-bottom: 15px;
+      font-size: 20px;
+      font-weight: 500;
+      border-bottom: 1px solid #5e6572;
+    }
   }
-  & h1 {
-    margin-bottom: 15px;
-    font-size: 20px;
-    font-weight: 500;
-    border-bottom: 1px solid #5e6572;
+  @media (max-width: 767px) {
+    width: 80%;
+    padding: 10px 5px;
+    & p {
+      padding: 0px;
+      font-size: 15px;
+    }
+    & h1 {
+      margin-bottom: 5px;
+      font-size: 15px;
+      font-weight: 500;
+      border-bottom: 1px solid #5e6572;
+    }
   }
+
   & img {
     margin: 10px auto;
   }
 `;
 export const ProfilePageContentDiv = styled.div`
+  @media (min-width: 768px) {
+    flex-direction: row;
+    width: 85%;
+    justify-content: space-between;
+  }
+  @media (max-width: 767px) {
+    flex-direction: column;
+    width: 95%;
+  }
   display: flex;
-  /* flex-direction: column; */
-  flex-direction: row;
-  justify-content: space-between;
+
   align-items: center;
   margin: 125px auto 50px auto;
   /* height: fit-content; */
-  width: 85%;
+  /* border: 1px solid black; */
   height: 100%;
 `;
 

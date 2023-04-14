@@ -38,21 +38,19 @@ const ProfileSidebar = ({ profileState, setProfileState }) => {
 const StyledProfileBarLink = styled(NavLink)`
   color: white;
   text-decoration: none;
-  font-size: 20px;
+  /* font-size: 20px; */
   cursor: pointer;
-  /* &:after {
-    display: block;
-    content: "";
-    border-bottom: solid 3px white;
-    transform: scaleX(0);
-    transition: transform 500ms ease-in-out;
-  }
-  &:hover:after {
-    transform: scaleX(1);
-  } */
 `;
 
 const StyledProfileBar = styled.div`
+  @media (min-width: 768px) {
+    font-size: 20px;
+    gap: 5%;
+  }
+  @media (max-width: 767px) {
+    font-size: 15px;
+    gap: 10%;
+  }
   position: fixed;
   display: flex;
   flex-direction: row;
@@ -63,9 +61,7 @@ const StyledProfileBar = styled.div`
   background-color: #7d98a1;
   box-shadow: 0px 6px 15px -10px rgba(0, 0, 0, 0.64);
   height: 35px;
-  z-index: 2;
-  gap: 5%;
-  font-size: 20px;
+
   color: white;
   top: 0;
   & .StyledProfileBarLink:nth-child(1) {

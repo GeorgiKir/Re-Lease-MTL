@@ -7,6 +7,7 @@ import { FiSearch, FiUser } from "react-icons/fi";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { Link, NavLink } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
+import HeaderMobile from "./HeaderMobile";
 
 const Header = () => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -30,18 +31,18 @@ const Header = () => {
           <LogoutButton />
         </ProfileOptionsContainer>
       </StyledHeader>
-      <SmallStyledHeader>
+      <HeaderMobile />
+      {/* <SmallStyledHeader>
         <NavContainer>
           <StyledNav>
             <GiHamburgerMenu style={{ fontSize: "30px" }} />
           </StyledNav>
-
           <StyledNav to={"/"}>RE:lease MTL</StyledNav>
           <StyledNav>
             <FiUser style={{ fontSize: "30px" }} />
           </StyledNav>
         </NavContainer>
-      </SmallStyledHeader>
+      </SmallStyledHeader> */}
     </>
   );
 };
@@ -80,7 +81,7 @@ const ProfileOptionsContainer = styled.div`
   position: relative;
 `;
 
-const NavContainer = styled.div`
+export const NavContainer = styled.div`
   margin: 0px 7%;
   display: flex;
 
@@ -108,24 +109,6 @@ const StyledHeader = styled.div`
   align-items: center;
   width: 100vw;
   /* background-color: #efefef; */
-  background-color: #1c2321;
-  height: 55px;
-  z-index: 2;
-  color: white;
-  top: 0;
-`;
-
-const SmallStyledHeader = styled.div`
-  @media (min-width: 768px) {
-    display: none;
-  }
-  @media (max-width: 767px) {
-    display: flex;
-  }
-  position: fixed;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 100vw;
   background-color: #1c2321;
   height: 55px;
   z-index: 2;

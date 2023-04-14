@@ -14,7 +14,7 @@ const LoginButton = () => {
 
   return (
     !isAuthenticated && (
-      <StyledNav onClick={() => handleLogin()}>Log In/ Sign Up</StyledNav>
+      <StyledNav onClick={() => handleLogin()}>Log In</StyledNav>
     )
   );
 };

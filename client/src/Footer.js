@@ -21,6 +21,7 @@ const StyledFooter = styled.div`
   height: 50px;
   color: white;
   bottom: 0;
+  /* margin-top: auto; */
 `;
 
 export default Footer;
