@@ -1,5 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
+import styled from "styled-components";
 
 const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
   const [fileInputState, setFileInputState] = useState("");
@@ -48,32 +49,43 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
   };
 
   return (
-    <div>
-      <input
-        id="fileInput"
-        type="file"
-        name="listingImage"
-        accept="image/png, image/jpeg"
-        onChange={handleFileInputChange}
-        // value={fileInputState}
-      />
-      {selectedFile && (
-        <button
-          type="button"
-          onClick={(e) => {
-            handleSubmitFile(e);
-          }}
-        >
-          Submit Image
-        </button>
-      )}
-
-      {previewSource && !errMsg && (
-        <img src={previewSource} alt="chosen" style={{ height: "300px" }} />
+    <ImageInputContainer>
+      {!errMsg && (
+        <img
+          src={previewSource ? previewSource : "none"}
+          alt="chosenPhoto"
+          style={{ width: "500px", height: "scale", border: "1px solid black" }}
+        />
       )}
       {errMsg && <p>Your file is too large</p>}
-    </div>
+      <div style={{ display: "flex" }}>
+        <input
+          id="fileInput"
+          type="file"
+          name="listingImage"
+          accept="image/png, image/jpeg"
+          onChange={handleFileInputChange}
+          // value={fileInputState}
+        />
+        {selectedFile && (
+          <button
+            style={{ width: "25%" }}
+            type="button"
+            onClick={(e) => {
+              handleSubmitFile(e);
+            }}
+          >
+            Submit Image
+          </button>
+        )}
+      </div>
+    </ImageInputContainer>
   );
 };
 
+const ImageInputContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+`;
 export default UploadImage;

@@ -33,6 +33,7 @@ export const CurrentUserProvider = ({ children }) => {
         setCurrentUser,
         loginContext,
         logoutContext,
+
         // verificationState,
         // setVerificationState,
       }}

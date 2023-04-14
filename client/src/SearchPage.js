@@ -32,7 +32,7 @@ const SearchPage = () => {
       return item.borough === borough;
     });
     setMapCenter(coordsChecker[0].coords);
-    setZoom(12);
+    setZoom(13.25);
     setMarkerPosition(null);
 
     fetch(`/listings/listingResults/${borough}/${price}/${bedrooms}`)
@@ -50,7 +50,7 @@ const SearchPage = () => {
     return <p>No map center</p>;
   }
 
-  console.log("mapCenter from SearchPage.js:", mapCenter);
+  // console.log("mapCenter from SearchPage.js:", mapCenter);
   return (
     <StorePageContainer>
       <SearchBar
@@ -61,7 +61,7 @@ const SearchPage = () => {
         setZoom={setZoom}
       />
       <SearchPageContentContainer>
-        <ListingThumbnailWrapper>
+        {/* <ListingThumbnailWrapper>
           {listings && listings.length > 0 && (
             <>
               {listings.map((listing) => {
@@ -99,12 +99,14 @@ const SearchPage = () => {
             listingInfo={targetListingForModal}
             setShowListingModal={setShowListingModal}
           />
-        )}
+        )} */}
         {mapCenter && (
           <MapSetup
             mapCenter={mapCenter}
             zoom={zoom}
             markerPosition={markerPosition}
+            listings={listings}
+            setMapCenter={setMapCenter}
           />
         )}
       </SearchPageContentContainer>
@@ -115,7 +117,7 @@ const SearchPage = () => {
 const SearchPageContentContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 95%;
+  width: 90%;
   /* border: 1px solid blue; */
   margin: 0px auto;
 `;

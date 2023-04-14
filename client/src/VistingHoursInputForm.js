@@ -133,6 +133,8 @@ const SubmitTimeslotsButton = styled.button`
 const ButtonContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
+  gap: 10%;
+  width: 50%;
 `;
 
 const TimeslotInputContainer = styled.div`
@@ -146,13 +148,18 @@ const TimeslotInputContainer = styled.div`
 `;
 export const StyledScheduleInputContainer = styled.div`
   display: flex;
+  flex-direction: row;
   width: 100%;
   justify-content: space-between;
   margin-bottom: 20px;
+
   & p {
+    text-align: start;
     color: black;
     font-size: 20px;
-    margin-bottom: 10px;
+    /* margin-bottom: 10px;
+    border: 1px solid blue;
+    width: fit-content; */
   }
 `;
 export const StyledVisitForm = styled.div`

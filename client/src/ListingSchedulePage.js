@@ -37,12 +37,19 @@ const ListingSchedulePage = () => {
                 <div style={{ paddingTop: "5px" }}>
                   {item.timeslots.map((element) => {
                     return (
-                      <p style={{ padding: "5px 0px" }}>
-                        {element.hour}{" "}
-                        {element.isAvailable === true
-                          ? "(Available)"
-                          : "(Booked)"}
-                      </p>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      >
+                        <p style={{ padding: "5px 0px", width: "fit-content" }}>
+                          {element.hour}{" "}
+                          {element.isAvailable === true
+                            ? "(Available)"
+                            : "(Booked)"}
+                        </p>
+                      </div>
                     );
                   })}
                 </div>

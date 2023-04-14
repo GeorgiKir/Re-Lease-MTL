@@ -4,8 +4,14 @@ import styled from "styled-components";
 import { useState, useEffect } from "react";
 import Map from "./Map";
 
-const MapSetup = ({ mapCenter, zoom, markerPosition }) => {
-  console.log("mapCenter from MapSetup.js:", mapCenter);
+const MapSetup = ({
+  mapCenter,
+  zoom,
+  markerPosition,
+  listings,
+  setMapCenter,
+}) => {
+  // console.log("mapCenter from MapSetup.js:", mapCenter);
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -22,14 +28,15 @@ const MapSetup = ({ mapCenter, zoom, markerPosition }) => {
     <>
       {zoom && mapCenter && (
         <Map
+          setMapCenter={setMapCenter}
           zoom={zoom}
           markerPosition={markerPosition}
           mapCenter={mapCenter}
+          listings={listings}
         />
       )}
     </>
   );
-  return <div> HELLO</div>;
 };
 
 export default MapSetup;

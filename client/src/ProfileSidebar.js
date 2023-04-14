@@ -60,7 +60,8 @@ const StyledProfileBar = styled.div`
   align-items: center;
   width: 100vw;
   margin-top: 55px;
-  background-color: #41413f;
+  background-color: #7d98a1;
+  box-shadow: 0px 6px 15px -10px rgba(0, 0, 0, 0.64);
   height: 35px;
   z-index: 2;
   gap: 5%;

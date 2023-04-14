@@ -107,10 +107,15 @@ video {
         display: block;
     }
     body {
+        background-color: #EEF1EF;
         line-height: 1;
         font-family: 'Montserrat', sans-serif;
         /* font-family: 'Poppins', sans-serif; */
         /* font-family: 'Roboto', sans-serif; */
+    }
+
+    p {
+        font-family: "Open Sans", sans-serif;
     }
     ol, ul {
         list-style: none;

@@ -86,16 +86,17 @@ const ListingCreationForm = () => {
     }
   };
   return (
-    <>
+    <ListingContainerDiv>
       <ListingCreationTracker
         listingCreationTracker={listingCreationTracker}
         visitingHoursToBeAdded={visitingHoursToBeAdded}
+        listingImage={ListingFormInfo.listingImage}
       />
       <StyledListingForm onSubmit={(e) => handleSubmit(e)}>
         {listingCreationTracker === 1 && (
           <>
             <FormInputContainer>
-              <p>Street Address</p>
+              <h2>Street Address</h2>
               <input
                 required
                 name="listingAddress"
@@ -106,7 +107,7 @@ const ListingCreationForm = () => {
               />
             </FormInputContainer>
             <FormInputContainer>
-              <p>Neighbourhood</p>
+              <h2>Neighbourhood</h2>
               <select
                 required
                 name="borough"
@@ -126,7 +127,7 @@ const ListingCreationForm = () => {
               </select>
             </FormInputContainer>
             <FormInputContainer>
-              <p>Postal Code</p>
+              <h2>Postal Code</h2>
               <input
                 required
                 maxLength="6"
@@ -152,7 +153,7 @@ const ListingCreationForm = () => {
         {listingCreationTracker === 2 && (
           <>
             <FormInputContainer>
-              <p>Price</p>
+              <h2>Price</h2>
               <input
                 required
                 name="price"
@@ -163,7 +164,7 @@ const ListingCreationForm = () => {
               />
             </FormInputContainer>
             <FormInputContainer>
-              <p># of Bedrooms</p>
+              <h2># of Bedrooms</h2>
               <input
                 required
                 name="numBDR"
@@ -175,7 +176,7 @@ const ListingCreationForm = () => {
             </FormInputContainer>
 
             <FormInputContainer>
-              <p>Description</p>
+              <h2>Description</h2>
               <textarea
                 name="listingDescription"
                 value={ListingFormInfo.listingDescription}
@@ -204,7 +205,7 @@ const ListingCreationForm = () => {
         {(listingCreationTracker === 3 || listingCreationTracker === 4) && (
           <>
             <FormInputContainer>
-              <p>Visiting Hours</p>
+              <h2>Visiting Hours</h2>
               <button
                 type="button"
                 onClick={() => {
@@ -233,7 +234,7 @@ const ListingCreationForm = () => {
           </>
         )}
         {listingCreationTracker === 5 && (
-          <>
+          <div>
             <UploadImage
               ListingFormInfo={ListingFormInfo}
               setListingFormInfo={setListingFormInfo}
@@ -242,19 +243,26 @@ const ListingCreationForm = () => {
               Previous
             </button>
             <button type="submit">Submit</button>
-          </>
+          </div>
         )}
       </StyledListingForm>
-    </>
+    </ListingContainerDiv>
   );
 };
+
+const ListingContainerDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* height: fit content; */
+`;
 
 const FormInputContainer = styled.div`
   display: flex;
   width: 70%;
   justify-content: space-between;
   margin-bottom: 2%;
-  & p {
+  & h2 {
     font-size: 35px;
   }
   & input {
@@ -268,7 +276,7 @@ const StyledListingForm = styled.form`
   align-items: center;
   justify-content: flex-start;
   width: 100%;
-  height: 90vh;
+  /* height: 20vh; */
 `;
 
 export default ListingCreationForm;

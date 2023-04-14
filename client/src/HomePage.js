@@ -34,13 +34,11 @@ const HeroImageContainer = styled.div`
   justify-content: center;
   align-items: center;
   background-image: url(${bgImage});
-  /* width: 75%; */
   width: 100%;
-  /* height: 350px; */
   height: 100vh;
   margin: 0px auto 0px auto;
   background-size: 100% 100%;
-  border-radius: 5px;
+  /* border-radius: 5px; */
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.65);
 
   & h2 {
@@ -53,14 +51,13 @@ const HeroImageContainer = styled.div`
 const HomePageContentDiv = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 30px auto;
+  margin: 0px auto;
   /* width: 75vw; */
-  height: 90vh;
+  height: 100%;
 `;
 
 export const MainPageContainer = styled.div`
-  height: 100vh;
-  /* background-image: url(${bgImage}); */
+  min-height: calc(100vh - 180px);
   background-size: cover;
   margin-top: 75px;
 `;

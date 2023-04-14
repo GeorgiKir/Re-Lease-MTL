@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { format } from "date-fns";
 import { StyledVisitForm } from "./VistingHoursInputForm";
+import { FaRegSadCry } from "react-icons/fa";
 
 const ListingModal = ({ listingInfo, setShowListingModal }) => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -18,6 +19,8 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
   const [targetDate, setTargetDate] = useState(null);
   const [targetVisitArray, setTargetVisitArray] = useState(null);
   const [checkIfAlreadyHasVisit, setCheckifAlreadyHasVisit] = useState(false);
+  const [checkAvailablityOfVisits, setCheckAvailablityOfVisits] =
+    useState(false);
 
   useEffect(() => {
     fetch(`/timeSlots/ownerId/${listingInfo._id}`)
@@ -30,6 +33,9 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
             item.timeslots.map((element) => {
               if (element.visitorId === currentUser._id) {
                 setCheckifAlreadyHasVisit(true);
+              }
+              if (element.isAvailable) {
+                setCheckAvailablityOfVisits(true);
               }
             });
           });
@@ -93,7 +99,8 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
           <p style={{ marginTop: "15px" }}>{listingInfo.listingDescription}</p>
           {targetVisitArray &&
             targetVistingTime.listingId !== targetVistingTime.visitorId &&
-            !checkIfAlreadyHasVisit && (
+            !checkIfAlreadyHasVisit &&
+            checkAvailablityOfVisits && (
               <ListingModalForm
                 onSubmit={(e) => {
                   handleListingModalSubmit(e);
@@ -154,6 +161,25 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
             checkIfAlreadyHasVisit && (
               <p>You already have a visit at this address</p>
             )}
+          {targetVisitArray &&
+            !checkAvailablityOfVisits &&
+            !checkIfAlreadyHasVisit && (
+              <div
+                style={{
+                  margin: "0px auto",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <FaRegSadCry
+                  style={{
+                    fontSize: "40px",
+                  }}
+                />
+                <p>No more available visits</p>
+              </div>
+            )}
         </StyledVisitorForm>
       </ListingInfoContainer>
     </ListingModalContainer>
@@ -180,25 +206,24 @@ const StyledVisitorForm = styled.div`
   width: 70%;
   height: fit-content;
   & h1 {
-    font-weight: 500;
+    font-weight: 600;
     font-size: 20px;
     margin-bottom: 20px;
   }
   & h2 {
-    font-size: 15px;
+    font-size: 20px;
+    font-weight: 500;
     border-bottom: 1px solid gray;
   }
   & p {
-    font-size: 20px;
-    font-weight: 500;
+    font-size: 15px;
+    /* font-weight: 500; */
     margin: 15px 0px;
-    /* text-align: center; */
   }
   & label {
     font-size: 20px;
-    font-weight: 500;
+
     margin-bottom: 5px;
-    /* text-align: center; */
   }
 `;
 
@@ -212,7 +237,7 @@ const ListingInfoContainer = styled.div`
   border: 1px solid red;
   background-color: white;
   width: 60%;
-  height: 80%;
+  height: 90%;
   z-index: 6;
 `;
 const ListingModalContainer = styled.div`

@@ -6,6 +6,7 @@ import { AiOutlineLine } from "react-icons/ai";
 const ListingCreationTracker = ({
   listingCreationTracker,
   visitingHoursToBeAdded,
+  listingImage,
 }) => {
   useEffect(() => {
     console.log(listingCreationTracker);
@@ -26,6 +27,13 @@ const ListingCreationTracker = ({
       >
         3
       </CounterContainer3>
+      <hr />
+      <CounterContainer4
+        listingCreationTracker={listingCreationTracker}
+        listingImage={listingImage}
+      >
+        4
+      </CounterContainer4>
     </ListingTrackerContainer>
   );
 };
@@ -72,6 +80,24 @@ const CounterContainer3 = styled.div`
       : "none"};
   color: ${(props) =>
     props.listingCreationTracker > 3 || props.visitingHoursToBeAdded.length > 0
+      ? "white"
+      : "black"};
+`;
+const CounterContainer4 = styled.div`
+  border: 3px solid black;
+  border-radius: 50%;
+  width: 75px;
+  font-size: 30px;
+  margin: 0px 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) =>
+    props.listingCreationTracker > 5 || props.listingImage.length > 0
+      ? "green"
+      : "none"};
+  color: ${(props) =>
+    props.listingCreationTracker > 5 || props.listingImage.length > 0
       ? "white"
       : "black"};
 `;

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import styled from "styled-components";
-import { GrClose } from "react-icons/gr";
+import { CgClose } from "react-icons/cg";
 import { ImSpinner } from "react-icons/im";
 import { format } from "date-fns";
 
@@ -54,10 +54,10 @@ const UpcomingVisitsSchedulePage = () => {
                       <UpcomingVisitContainer>
                         <>
                           <p>
-                            {element.address} : {element.hour}{" "}
+                            {element.address}: {element.hour}{" "}
                           </p>
-                          <GrClose
-                            style={{ cursor: "pointer" }}
+                          <CgClose
+                            style={{ cursor: "pointer", fontSize: "25px" }}
                             onClick={(e) => {
                               handleTimeslotDeleteByVisitor(
                                 e,

@@ -50,8 +50,8 @@ const DeleteListingButton = () => {
 const StyledDeleteButton = styled.button`
   position: relative;
   /* font-family: "Raleway", sans-serif; */
-  font-family: "Montserrat", sans-serif;
-  font-weight: 500;
+  font-family: "Open Sans", sans-serif;
+  /* font-weight: 500; */
   border: 3px solid gray;
   border-radius: 5px;
   margin: 0px auto;
@@ -60,11 +60,11 @@ const StyledDeleteButton = styled.button`
   color: black;
   display: flex;
   gap: 5px;
-  margin-top: 15px;
+  margin-top: 20px;
   height: fit-content;
   width: fit-content;
   padding: 5px;
-  font-size: 25px;
+  font-size: 30px;
   align-items: center;
   &::before {
     content: "";

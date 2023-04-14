@@ -3,9 +3,10 @@ import styled from "styled-components";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import { useContext } from "react";
-
+import { FiSearch, FiUser } from "react-icons/fi";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { Link, NavLink } from "react-router-dom";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Header = () => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -14,35 +15,57 @@ const Header = () => {
       <StyledHeader>
         <NavContainer>
           <StyledNav to={"/"}>RE:lease MTL</StyledNav>
-          <StyledNav to={"/search"}>Search</StyledNav>
-          <StyledNav>Info</StyledNav>
+          <StyledNav>About us</StyledNav>
+          <StyledNav to={"/search"}>
+            <FiSearch style={{ fontSize: "25px" }} />
+          </StyledNav>
         </NavContainer>
         <ProfileOptionsContainer>
-          {currentUser && <StyledNav to={"/profile"}>Profile</StyledNav>}
+          {currentUser && (
+            <StyledNav to={"/profile"}>
+              <FiUser style={{ fontSize: "30px" }} />
+            </StyledNav>
+          )}
           <LoginButton />
           <LogoutButton />
         </ProfileOptionsContainer>
       </StyledHeader>
+      <SmallStyledHeader>
+        <NavContainer>
+          <StyledNav>
+            <GiHamburgerMenu style={{ fontSize: "30px" }} />
+          </StyledNav>
+
+          <StyledNav to={"/"}>RE:lease MTL</StyledNav>
+          <StyledNav>
+            <FiUser style={{ fontSize: "30px" }} />
+          </StyledNav>
+        </NavContainer>
+      </SmallStyledHeader>
     </>
   );
 };
 
 export const StyledNav = styled(NavLink)`
+  /* color: black; */
   color: white;
   text-decoration: none;
   font-size: 20px;
   font-weight: 600;
   cursor: pointer;
-  &:after {
-    display: block;
-    content: "";
-    border-bottom: solid 3px white;
-    transform: scaleX(0);
-    transition: transform 500ms ease-in-out;
+  @media (min-width: 768px) {
+    &:after {
+      display: block;
+      content: "";
+      border-bottom: solid 3px white;
+      transform: scaleX(0);
+      transition: transform 500ms ease-in-out;
+    }
+    &:hover:after {
+      transform: scaleX(1);
+    }
   }
-  &:hover:after {
-    transform: scaleX(1);
-  }
+
   /* &.active {
     color: wheat;
   } */
@@ -60,20 +83,50 @@ const ProfileOptionsContainer = styled.div`
 const NavContainer = styled.div`
   margin: 0px 7%;
   display: flex;
-  width: fit-content;
-  gap: 60px;
+
   justify-content: space-between;
   align-items: center;
+  @media (min-width: 768px) {
+    gap: 50px;
+    width: fit-content;
+  }
+  @media (max-width: 767px) {
+    width: 100%;
+  }
 `;
 
 const StyledHeader = styled.div`
+  @media (min-width: 768px) {
+    display: flex;
+  }
+  @media (max-width: 767px) {
+    display: none;
+  }
   position: fixed;
-  display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   width: 100vw;
-  background-color: black;
+  /* background-color: #efefef; */
+  background-color: #1c2321;
+  height: 55px;
+  z-index: 2;
+  color: white;
+  top: 0;
+`;
+
+const SmallStyledHeader = styled.div`
+  @media (min-width: 768px) {
+    display: none;
+  }
+  @media (max-width: 767px) {
+    display: flex;
+  }
+  position: fixed;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100vw;
+  background-color: #1c2321;
   height: 55px;
   z-index: 2;
   color: white;
