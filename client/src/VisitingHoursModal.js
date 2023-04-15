@@ -14,14 +14,14 @@ const VisitingHoursModal = ({
   return (
     <VisitingHoursModalContainer>
       <VisitingHoursFormContainer>
-        <GrClose
-          style={{
-            cursor: "pointer",
-            scale: "3",
-            marginLeft: "25px",
-            marginTop: "25px",
-            position: "fixed",
-          }}
+        <StyledCloseIcon
+          // style={{
+          //   cursor: "pointer",
+          //   // scale: "3",
+          //   marginLeft: "25px",
+          //   marginTop: "25px",
+          //   position: "fixed",
+          // }}
           onClick={() => {
             setSelectingVisitingHours(false);
           }}
@@ -38,15 +38,34 @@ const VisitingHoursModal = ({
     </VisitingHoursModalContainer>
   );
 };
-
+const StyledCloseIcon = styled(GrClose)`
+  @media (min-width: 768px) {
+    margin-left: 10px;
+    margin-top: 15px;
+    position: fixed;
+    font-size: 35px;
+  }
+  @media (max-width: 767px) {
+    margin-left: 10px;
+    margin-top: 15px;
+    position: fixed;
+    font-size: 25px;
+  }
+  cursor: "pointer";
+`;
 const VisitingHoursFormContainer = styled.div`
+  @media (min-width: 768px) {
+    width: 60%;
+  }
+  @media (max-width: 767px) {
+    width: 90%;
+  }
   position: relative;
   overflow-y: scroll;
   border-radius: 5px;
   display: flex;
   flex-direction: column;
   background-color: white;
-  width: 60%;
   height: 80%;
   z-index: 6;
 `;

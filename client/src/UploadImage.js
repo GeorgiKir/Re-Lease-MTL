@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import styled from "styled-components";
-
+import emptyPhoto from "./assets/emptyPhoto.jpg";
 const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
   const [fileInputState, setFileInputState] = useState("");
   const [previewSource, setPreviewSource] = useState("");
@@ -50,15 +50,9 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
 
   return (
     <ImageInputContainer>
-      {!errMsg && (
-        <img
-          src={previewSource ? previewSource : "none"}
-          alt="chosenPhoto"
-          style={{ width: "80%", height: "scale", border: "1px solid black" }}
-        />
-      )}
+      {!errMsg && <img src={previewSource ? previewSource : emptyPhoto} />}
       {errMsg && <p>Your file is too large</p>}
-      <div style={{ display: "flex" }}>
+      <ImageUploadDiv>
         <input
           id="fileInput"
           type="file"
@@ -67,9 +61,10 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
           onChange={handleFileInputChange}
           // value={fileInputState}
         />
+
         {selectedFile && (
           <button
-            style={{ width: "25%" }}
+            style={{ width: "fit-content" }}
             type="button"
             onClick={(e) => {
               handleSubmitFile(e);
@@ -78,12 +73,33 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
             Submit Image
           </button>
         )}
-      </div>
+      </ImageUploadDiv>
     </ImageInputContainer>
   );
 };
 
+const ImageUploadDiv = styled.div`
+  @media (max-width: 767px) {
+    flex-direction: column;
+  }
+
+  display: flex;
+  justify-content: center;
+`;
+
 const ImageInputContainer = styled.div`
+  @media (min-width: 767px) {
+    & img {
+      width: 100%;
+      height: 325px;
+    }
+  }
+  @media (max-width: 767px) {
+    & img {
+      width: 100%;
+      height: auto;
+    }
+  }
   display: flex;
   flex-direction: column;
   margin-bottom: 50px;

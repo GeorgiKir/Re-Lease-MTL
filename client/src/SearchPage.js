@@ -28,7 +28,8 @@ const SearchPage = () => {
   const [showListingModal, setShowListingModal] = useState(false);
   const [targetListingForModal, setTargetListingForModal] = useState(null);
 
-  const handleSearchSubmit = (borough, price, bedrooms) => {
+  const handleSearchSubmit = (borough, price, bedrooms, e) => {
+    e.preventDefault();
     if (borough && price && bedrooms) {
       let coordsChecker = boroughs.filter((item) => {
         return item.borough === borough;
@@ -71,45 +72,6 @@ const SearchPage = () => {
         setZoom={setZoom}
       />
       <SearchPageContentContainer>
-        {/* <ListingThumbnailWrapper>
-          {listings && listings.length > 0 && (
-            <>
-              {listings.map((listing) => {
-                return (
-                  <ListingThumbnailContainer
-                    onMouseEnter={() => {
-                      setMarkerPosition(listing.listingCoords);
-                      setZoom(15);
-                      setMapCenter(listing.listingCoords);
-                    }}
-                  >
-                    <p>Address: {listing.listingAddress}</p>
-                    <p>Postal Code: {listing.postalCode}</p>
-                    <p>Borough: {listing.borough}</p>
-                    <p>Price: {listing.price}.00 $</p>
-                    {currentUser && (
-                      <button
-                        onClick={() => {
-                          // console.log(listing);
-                          setTargetListingForModal(listing);
-                          setShowListingModal(true);
-                        }}
-                      >
-                        View Details
-                      </button>
-                    )}
-                  </ListingThumbnailContainer>
-                );
-              })}
-            </>
-          )}
-        </ListingThumbnailWrapper>
-        {showListingModal && targetListingForModal && (
-          <ListingModal
-            listingInfo={targetListingForModal}
-            setShowListingModal={setShowListingModal}
-          />
-        )} */}
         {mapCenter && (
           <MapSetup
             mapCenter={mapCenter}
@@ -132,24 +94,6 @@ const SearchPageContentContainer = styled.div`
   margin: 0px auto;
 `;
 
-const ListingThumbnailWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 40%;
-  height: 70vh;
-`;
-const ListingThumbnailContainer = styled.div`
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  width: 95%;
-  height: 100px;
-  border: 1px solid gray;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  padding: 5px 10px;
-  box-shadow: 0px 2px 6px 5px rgba(0, 0, 0, 0.19);
-`;
 const StorePageContainer = styled.div`
   display: flex;
   flex-direction: column;

@@ -24,7 +24,7 @@ const HeaderMobile = () => {
             }}
           />
         </StyledNav>
-        <StyledNav to={"/"}>RE:lease MTL</StyledNav>
+        <StyledNav to={"/"}>Re:Lease MTL</StyledNav>
         <StyledNav>
           <FiUser
             style={{ fontSize: "30px" }}

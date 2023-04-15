@@ -141,12 +141,12 @@ const ListingCreationForm = () => {
             {ListingFormInfo.postalCode.length > 0 &&
               ListingFormInfo.listingAddress.length > 0 &&
               ListingFormInfo.borough.length > 0 && (
-                <button
+                <StyledPreviousNextButton
                   type="button"
                   onClick={() => setListingCreationTracker(2)}
                 >
                   Next
-                </button>
+                </StyledPreviousNextButton>
               )}
           </>
         )}
@@ -186,20 +186,25 @@ const ListingCreationForm = () => {
                 onChange={(e) => handleChange(e.target.value, e.target.name)}
               />
             </FormInputContainer>
-            <button type="button" onClick={() => setListingCreationTracker(1)}>
-              Previous
-            </button>
-            {ListingFormInfo.price.length > 0 &&
-              ListingFormInfo.numBDR.length > 0 &&
-              ListingFormInfo.numBDR > 0 &&
-              ListingFormInfo.listingDescription.length > 0 && (
-                <button
-                  type="button"
-                  onClick={() => setListingCreationTracker(3)}
-                >
-                  NEXT
-                </button>
-              )}
+            <PreviousNextButtonDiv>
+              <StyledPreviousNextButton
+                type="button"
+                onClick={() => setListingCreationTracker(1)}
+              >
+                Previous
+              </StyledPreviousNextButton>
+              {ListingFormInfo.price.length > 0 &&
+                ListingFormInfo.numBDR.length > 0 &&
+                ListingFormInfo.numBDR > 0 &&
+                ListingFormInfo.listingDescription.length > 0 && (
+                  <StyledPreviousNextButton
+                    type="button"
+                    onClick={() => setListingCreationTracker(3)}
+                  >
+                    Next
+                  </StyledPreviousNextButton>
+                )}
+            </PreviousNextButtonDiv>
           </>
         )}
         {(listingCreationTracker === 3 || listingCreationTracker === 4) && (
@@ -225,30 +230,76 @@ const ListingCreationForm = () => {
                 setListingFormInfo={setListingFormInfo}
               />
             )}
-            <button type="button" onClick={() => setListingCreationTracker(2)}>
-              Previous
-            </button>
-            <button type="button" onClick={() => setListingCreationTracker(5)}>
-              NEXT
-            </button>
+            <PreviousNextButtonDiv>
+              <StyledPreviousNextButton
+                type="button"
+                onClick={() => setListingCreationTracker(2)}
+              >
+                Previous
+              </StyledPreviousNextButton>
+              {visitingHoursToBeAdded.length > 0 && (
+                <StyledPreviousNextButton
+                  type="button"
+                  onClick={() => setListingCreationTracker(5)}
+                >
+                  Next
+                </StyledPreviousNextButton>
+              )}
+            </PreviousNextButtonDiv>
           </>
         )}
         {listingCreationTracker === 5 && (
-          <FormInputContainer>
+          <FormInputContainer
+            style={{
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <UploadImage
               ListingFormInfo={ListingFormInfo}
               setListingFormInfo={setListingFormInfo}
             />
-            <button type="button" onClick={() => setListingCreationTracker(4)}>
-              Previous
-            </button>
-            <button type="submit">Submit</button>
+            <PreviousNextButtonDiv>
+              <StyledPreviousNextButton
+                type="button"
+                onClick={() => setListingCreationTracker(4)}
+              >
+                Previous
+              </StyledPreviousNextButton>
+              <StyledPreviousNextButton type="submit">
+                Submit
+              </StyledPreviousNextButton>
+            </PreviousNextButtonDiv>
           </FormInputContainer>
         )}
       </StyledListingForm>
     </ListingContainerDiv>
   );
 };
+
+const StyledPreviousNextButton = styled.button`
+  @media (min-width: 768px) {
+    width: 100px;
+    font-size: 20px;
+    padding: 5px 5px;
+  }
+  @media (max-width: 767px) {
+    width: 85px;
+    font-size: 15px;
+    padding: 10px 10px;
+  }
+  /* margin-right: 30px; */
+  cursor: pointer;
+  background-color: #659db0;
+  border: none;
+  border-radius: 5px;
+  color: white;
+`;
+
+const PreviousNextButtonDiv = styled.div`
+  display: flex;
+  gap: 15px;
+`;
 
 const ListingContainerDiv = styled.div`
   display: flex;

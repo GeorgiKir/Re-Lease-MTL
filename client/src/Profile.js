@@ -118,7 +118,9 @@ const ListingInfoProfileDiv = styled.div`
   }
   @media (max-width: 767px) {
     width: 90%;
-    min-height: 40vh;
+    /* min-height: 40vh; */
+    height: fit-content;
+    margin-top: 30px;
   }
   display: flex;
   flex-direction: column;
@@ -145,10 +147,9 @@ const IndividualInfoDiv = styled.div`
     }
   }
   justify-content: flex-start;
-
   display: flex;
   flex-direction: row;
-  margin: 0px auto;
+  margin: 3px auto;
   width: 80%;
 `;
 const MyListingWrapper = styled.div`

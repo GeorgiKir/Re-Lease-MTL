@@ -60,18 +60,18 @@ const VistingHoursInputForm = ({
       {dateObject && (
         <StyledScheduleInputContainer>
           <ButtonContainerDiv>
-            <p>Add the visiting hours</p>
-            <button
-              style={{
-                height: "35px",
-                fontSize: "30px",
-                width: "30%",
-              }}
+            {/* <p>Add the visiting hours</p> */}
+            <StyledAddHoursButton
+              // style={{
+              //   height: "35px",
+              //   fontSize: "30px",
+              //   width: "30%",
+              // }}
               type="button"
               onClick={addInput}
             >
-              +
-            </button>
+              Add a timeslot
+            </StyledAddHoursButton>
           </ButtonContainerDiv>
           <TimeslotInputContainer>
             {arr.map((item, i) => {
@@ -116,6 +116,23 @@ const VistingHoursInputForm = ({
   );
 };
 
+const StyledAddHoursButton = styled.button`
+  @media (min-width: 768px) {
+    width: 150px;
+    font-size: 20px;
+    padding: 10px 10px;
+  }
+  @media (max-width: 767px) {
+    width: 75px;
+    font-size: 15px;
+    padding: 10px 10px;
+  }
+  cursor: pointer;
+  background-color: #467abf;
+  border: none;
+  border-radius: 5px;
+  color: white;
+`;
 const SubmitScheduleButton = styled.button`
   height: 35px;
   width: 50%;
@@ -147,20 +164,25 @@ const TimeslotInputContainer = styled.div`
   }
 `;
 export const StyledScheduleInputContainer = styled.div`
+  @media (min-width: 768px) {
+    & p {
+      text-align: start;
+      color: black;
+      font-size: 20px;
+    }
+  }
+  @media (max-width: 767px) {
+    & p {
+      text-align: start;
+      color: black;
+      font-size: 15px;
+    }
+  }
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
   margin-bottom: 20px;
-
-  & p {
-    text-align: start;
-    color: black;
-    font-size: 20px;
-    /* margin-bottom: 10px;
-    border: 1px solid blue;
-    width: fit-content; */
-  }
 `;
 export const StyledVisitForm = styled.div`
   display: flex;

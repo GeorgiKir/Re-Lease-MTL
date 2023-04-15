@@ -8,6 +8,9 @@ import {
 import styled from "styled-components";
 import { useState, useEffect } from "react";
 import { FiPlusCircle } from "react-icons/fi";
+import { FiMapPin } from "react-icons/fi";
+import { TbHomeDollar } from "react-icons/tb";
+import { FaBed } from "react-icons/fa";
 import ListingModal from "./ListingModal";
 
 const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
@@ -55,77 +58,35 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
                   setActiveMarker(null);
                 }}
               >
-                <div style={{ width: "350px" }}>
-                  <img
-                    src={selectedElement.listingImage}
-                    width="350px"
-                    height="scale"
-                    style={{ borderRadius: "10px" }}
-                  />
-                  <p>{selectedElement.listingAddress}</p>
-                  <p>{selectedElement.price} $</p>
+                <InfoWindowInfoContainer style={{ maxWidth: "350px" }}>
+                  <img src={selectedElement.listingImage} />
+                  <PlusButtonContainer>
+                    <TextInfoContainer>
+                      <IconInfoMapModalDiv>
+                        <FiMapPin style={{ fontSize: "20px" }} />
+                        <p>{selectedElement.listingAddress}</p>
+                      </IconInfoMapModalDiv>
+                      <IconInfoMapModalDiv>
+                        <TbHomeDollar style={{ fontSize: "20px" }} />
+                        <p>{selectedElement.price}$</p>
+                      </IconInfoMapModalDiv>
+                      <IconInfoMapModalDiv>
+                        <FaBed style={{ fontSize: "20px" }} />
+                        <p>{selectedElement.numBDR} bedrooms</p>
+                      </IconInfoMapModalDiv>
+                    </TextInfoContainer>
 
-                  <FiPlusCircle
-                    style={{ fontSize: "30px" }}
-                    onClick={() => {
-                      setShowListingModal(true);
-                    }}
-                  />
-                </div>
+                    <FiPlusCircle
+                      style={{ fontSize: "30px", cursor: "pointer" }}
+                      onClick={() => {
+                        setShowListingModal(true);
+                      }}
+                    />
+                  </PlusButtonContainer>
+                </InfoWindowInfoContainer>
               </InfoWindow>
             )}
-            {/* {activeMarker && (
-              <OverlayView
-                position={mapCenter}
-                mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-                getPixelPositionOffset={getPixelPositionOffset}
-              >
-                <div
-                  style={{
-                    width: "400px",
-                    backgroundColor: "white",
-                    borderRadius: "10px",
-                    overflow: "hidden",
-                  }}
-                >
-                  <button
-                    style={{
-                      position: "absolute",
-                      margin: "5px ",
-                      display: "flex",
-                      alignItems: "center",
-                      fontSize: "20px",
-                      color: "white",
-                      backgroundColor: "rgba(0, 0, 0, 0.52)",
-                      border: "none",
-                      width: "30px",
-                      height: "30px",
-                      borderRadius: "50%",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => {
-                      setActiveMarker(null);
-                    }}
-                  >
-                    <CgClose />
-                  </button>
 
-                  <img
-                    src={selectedElement.listingImage}
-                    width="100%"
-                    height="scale"
-                    // style={{ borderRadius: "10px" }}
-                  />
-                  <p>{selectedElement.listingAddress}</p>
-                  <p>{selectedElement.price} $</p>
-                  <FiPlusCircle
-                    style={{ fontSize: "30px", cursor: "pointer" }}
-                    onClick={() => {
-                      setShowListingModal(true);
-                    }}
-                  />
-                </div>
-              </OverlayView> */}
             {showListingModal && (
               <ListingModal
                 listingInfo={selectedElement}
@@ -138,4 +99,45 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
     </>
   );
 };
+
+const IconInfoMapModalDiv = styled.div`
+  display: flex;
+  align-items: center;
+  margin-bottom: 2px;
+`;
+
+const TextInfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const PlusButtonContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-top: 5px;
+`;
+
+const InfoWindowInfoContainer = styled.div`
+  @media (min-width: 600px) {
+    & img {
+      width: 350px;
+      height: "scale";
+    }
+    & p {
+      font-size: 20px;
+      margin-left: 15px;
+    }
+  }
+
+  @media (max-width: 599px) {
+    & img {
+      width: 100%;
+      height: "scale";
+    }
+    & p {
+      font-size: 15px;
+      margin-left: 10px;
+    }
+  }
+`;
 export default Map;

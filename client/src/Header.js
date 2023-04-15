@@ -15,7 +15,7 @@ const Header = () => {
     <>
       <StyledHeader>
         <NavContainer>
-          <StyledNav to={"/"}>RE:lease MTL</StyledNav>
+          <StyledNav to={"/"}>Re:Lease MTL</StyledNav>
           <StyledNav>About us</StyledNav>
           <StyledNav to={"/search"}>
             <FiSearch style={{ fontSize: "25px" }} />

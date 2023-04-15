@@ -87,16 +87,16 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
             }}
           />
           <h2>Address:</h2>
-          <p style={{ marginTop: "15px" }}>
+          <p>
             {listingInfo.listingAddress} {listingInfo.borough}{" "}
             {listingInfo.postalCode}
           </p>
           <h2>Price:</h2>
-          <p style={{ marginTop: "15px" }}>{listingInfo.price} $</p>
+          <p>{listingInfo.price} $</p>
           <h2>Bedrooms:</h2>
-          <p style={{ marginTop: "15px" }}>{listingInfo.numBDR} bedrooms</p>
+          <p>{listingInfo.numBDR} bedrooms</p>
           <h2>Description:</h2>
-          <p style={{ marginTop: "15px" }}>{listingInfo.listingDescription}</p>
+          <p>{listingInfo.listingDescription}</p>
           {targetVisitArray &&
             targetVistingTime.listingId !== targetVistingTime.visitorId &&
             !checkIfAlreadyHasVisit &&
@@ -107,7 +107,7 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
                 }}
               >
                 <h1>Visiting Schedule</h1>
-                <div style={{}}>
+                <div>
                   {targetVisitArray.map((item) => {
                     return (
                       <>
@@ -187,11 +187,16 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
 };
 
 const VisitingTimeslotsContainer = styled.div`
+  @media (min-width: 768px) {
+    width: 80%;
+  }
+  @media (max-width: 767px) {
+    width: 100%;
+  }
   display: flex;
   flex-wrap: wrap;
   margin: 20px auto;
-  width: 75%;
-  gap: 15px;
+  gap: 10px;
 `;
 
 const ListingModalForm = styled.form`
@@ -199,35 +204,62 @@ const ListingModalForm = styled.form`
 `;
 
 const StyledVisitorForm = styled.div`
+  @media (min-width: 768px) {
+    & h1 {
+      font-weight: 600;
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    & h2 {
+      font-size: 20px;
+      font-weight: 500;
+      border-bottom: 1px solid gray;
+    }
+    & p {
+      font-size: 15px;
+      margin: 15px 0px;
+    }
+    & label {
+      font-size: 20px;
+      margin-bottom: 5px;
+    }
+  }
+  @media (max-width: 767px) {
+    & h1 {
+      font-weight: 600;
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+    & h2 {
+      font-size: 15px;
+      font-weight: 500;
+      border-bottom: 1px solid gray;
+    }
+    & p {
+      font-size: 15px;
+      margin: 15px 0px;
+    }
+    & label {
+      font-size: 13px;
+      margin-bottom: 0px;
+      font-weight: 500;
+    }
+  }
   display: flex;
   margin: 5% auto;
   flex-direction: column;
   justify-content: space-between;
-  width: 70%;
+  width: 75%;
   height: fit-content;
-  & h1 {
-    font-weight: 600;
-    font-size: 20px;
-    margin-bottom: 20px;
-  }
-  & h2 {
-    font-size: 20px;
-    font-weight: 500;
-    border-bottom: 1px solid gray;
-  }
-  & p {
-    font-size: 15px;
-    /* font-weight: 500; */
-    margin: 15px 0px;
-  }
-  & label {
-    font-size: 20px;
-
-    margin-bottom: 5px;
-  }
 `;
 
 const ListingInfoContainer = styled.div`
+  @media (min-width: 768px) {
+    width: 60%;
+  }
+  @media (max-width: 767px) {
+    width: 90%;
+  }
   overflow-y: scroll;
   position: relative;
   border-radius: 5px;
@@ -236,7 +268,7 @@ const ListingInfoContainer = styled.div`
   color: black;
   border: 1px solid red;
   background-color: white;
-  width: 60%;
+
   height: 90%;
   z-index: 6;
 `;

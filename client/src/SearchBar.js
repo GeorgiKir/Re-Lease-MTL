@@ -18,7 +18,16 @@ const SearchBar = ({
 
   return (
     <StyledSearchBar>
-      <StyledSearchForm>
+      <StyledSearchForm
+        onSubmit={(e) => {
+          handleSearchSubmit(
+            searchCriteria.borough,
+            searchCriteria.price,
+            searchCriteria.bedroom,
+            e
+          );
+        }}
+      >
         <FormInputElement>
           <label>Borough: </label>
           <select
@@ -60,14 +69,7 @@ const SearchBar = ({
             border: "none",
             cursor: "pointer",
           }}
-          type="button"
-          onClick={() => {
-            handleSearchSubmit(
-              searchCriteria.borough,
-              searchCriteria.price,
-              searchCriteria.bedroom
-            );
-          }}
+          type="submit"
         >
           <FiSearch style={{ fontSize: "20px", color: "white" }} />
         </button>
