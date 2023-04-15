@@ -24,7 +24,8 @@ const ListingCreationForm = () => {
     price: "",
     numBDR: "",
     listingDescription: "",
-    listingImage: "",
+    selectedTimeSlots: [],
+    listingImage: [],
   });
 
   const handleChange = (value, name) => {
@@ -34,22 +35,28 @@ const ListingCreationForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    // setListingFormInfo({
+    //   ...ListingFormInfo,
+    //   selectedTimeSlots: visitingHoursToBeAdded,
+    // });
+    console.log("SUBMIT CLICKED");
 
     if (visitingHoursToBeAdded.length <= 0) {
       console.log("Please select some visiting hours");
-    } else {
-      fetch(`/timeSlots/addTimeSlots`, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-type": "application/json",
-        },
-        body: JSON.stringify({ selectedTimeSlots: visitingHoursToBeAdded }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-        });
+    } else if (ListingFormInfo.selectedTimeSlots.length > 0) {
+      console.log("Listing is good on the FE");
+      // fetch(`/timeSlots/addTimeSlots`, {
+      //   method: "POST",
+      //   headers: {
+      //     Accept: "application/json",
+      //     "Content-type": "application/json",
+      //   },
+      //   body: JSON.stringify({ selectedTimeSlots: visitingHoursToBeAdded }),
+      // })
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     console.log(data);
+      //   });
 
       fetch(`/listings/addListing`, {
         method: "POST",
@@ -266,9 +273,12 @@ const ListingCreationForm = () => {
               >
                 Previous
               </StyledPreviousNextButton>
-              <StyledPreviousNextButton type="submit">
-                Submit
-              </StyledPreviousNextButton>
+              {ListingFormInfo.listingImage &&
+                ListingFormInfo.listingImage !== [] && (
+                  <StyledPreviousNextButton type="submit">
+                    Create Listing
+                  </StyledPreviousNextButton>
+                )}
             </PreviousNextButtonDiv>
           </FormInputContainer>
         )}
@@ -326,6 +336,7 @@ const FormInputContainer = styled.div`
     }
     flex-direction: column;
   }
+  /* height: fit-content; */
   display: flex;
   width: 70%;
   justify-content: space-between;
@@ -338,7 +349,7 @@ const StyledListingForm = styled.form`
   }
   @media (max-width: 767px) {
     justify-content: space-evenly;
-    height: 50vh;
+    /* height: 50vh; */
   }
   display: flex;
   flex-direction: column;

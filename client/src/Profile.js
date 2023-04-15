@@ -14,6 +14,7 @@ import { FiMapPin } from "react-icons/fi";
 import { TbHomeDollar } from "react-icons/tb";
 import { FaBed } from "react-icons/fa";
 import { GrDocumentText } from "react-icons/gr";
+import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
 
 const Profile = () => {
   const [profileState, setProfileState] = useState("myListing");
@@ -21,6 +22,36 @@ const Profile = () => {
   // const [listingUpdate, setListingUpdate] = useState(false);
   const { currentUser } = useContext(CurrentUserContext);
   const { user, isAuthenticated } = useAuth0();
+  const [showPhotoTracker, setShowPhotoTracker] = useState(0);
+  const [numOfListingPhotos, setNumOfListingPhotos] = useState(null);
+  // const numOfListingPhotos = currentUser.listing.listingImage.length;
+  // let showPhotoTracker = 0;
+  console.log(numOfListingPhotos);
+
+  useEffect(() => {
+    if (currentUser.listing) {
+      setNumOfListingPhotos(currentUser.listing.listingImage.length);
+    }
+  }, [currentUser]);
+
+  const handlePhotoTracker = (count) => {
+    if (count === 1) {
+      if (showPhotoTracker === numOfListingPhotos - 1) {
+        setShowPhotoTracker(0);
+        // console.log("end of tracker reached");
+      } else {
+        setShowPhotoTracker((prev) => prev + 1);
+      }
+    } else {
+      if (showPhotoTracker === 0) {
+        setShowPhotoTracker(numOfListingPhotos - 1);
+      } else {
+        setShowPhotoTracker((prev) => prev - 1);
+      }
+    }
+    // setShowPhotoTracker(1);
+    console.log(count);
+  };
 
   // useEffect(() => {
   //   setListingUpdate(!listingUpdate);
@@ -37,7 +68,50 @@ const Profile = () => {
         <ProfilePageContentDiv>
           {currentUser.listing && profileState === "myListing" && (
             <ListingInfoMainContainer>
-              <img src={currentUser.listing.listingImage} />
+              <ArrowContainerDiv
+                style={{
+                  borderTopLeftRadius: "5px",
+                  borderBottomLeftRadius: "5px",
+                }}
+              >
+                <SlArrowLeft
+                  style={{ color: "white", fontSize: "30px" }}
+                  onClick={() => {
+                    handlePhotoTracker(0);
+                  }}
+                />
+              </ArrowContainerDiv>
+              <img
+                src={currentUser.listing.listingImage[showPhotoTracker].url}
+              />
+              <MobileArrowContainerDiv>
+                <SlArrowLeft
+                  style={{ color: "white", fontSize: "20px" }}
+                  onClick={() => {
+                    handlePhotoTracker(0);
+                  }}
+                />
+                <SlArrowRight
+                  style={{ color: "white", fontSize: "20px" }}
+                  onClick={() => {
+                    handlePhotoTracker(1);
+                  }}
+                />
+              </MobileArrowContainerDiv>
+              <ArrowContainerDiv
+                style={{
+                  borderTopRightRadius: "5px",
+                  borderBottomRightRadius: "5px",
+                }}
+              >
+                <SlArrowRight
+                  style={{ color: "white", fontSize: "30px" }}
+                  onClick={() => {
+                    handlePhotoTracker(1);
+                  }}
+                />
+              </ArrowContainerDiv>
+
               <ListingInfoProfileDiv>
                 <IndividualInfoDiv>
                   <FiMapPin style={{ fontSize: "30px" }} />
@@ -87,6 +161,30 @@ const Profile = () => {
   );
 };
 
+const MobileArrowContainerDiv = styled.div`
+  @media (min-width: 768px) {
+    display: none;
+  }
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  padding: 5px 0px;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  background-color: rgba(28, 35, 33, 0.81);
+  justify-content: space-evenly;
+`;
+const ArrowContainerDiv = styled.div`
+  @media (max-width: 767.9px) {
+    display: none;
+  }
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(28, 35, 33, 0.81);
+`;
+
 const ListingInfoMainContainer = styled.div`
   @media (min-width: 768px) {
     display: flex;
@@ -94,7 +192,7 @@ const ListingInfoMainContainer = styled.div`
     & img {
       width: 60%;
       height: scale;
-      border-radius: 5px;
+      /* border-radius: 5px; */
     }
   }
   @media (max-width: 767.9px) {
@@ -106,7 +204,9 @@ const ListingInfoMainContainer = styled.div`
     & img {
       width: 80%;
       height: 300px;
-      border-radius: 5px;
+      /* border-radius: 5px; */
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
     }
   }
 `;

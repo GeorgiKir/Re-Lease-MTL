@@ -58,7 +58,7 @@ const postListing = async (req, res) => {
     numBDR,
     postalCode,
     listingDescription,
-    visitSchedule,
+    selectedTimeSlots,
     listingImage,
     borough,
   } = req.body;
@@ -96,27 +96,31 @@ const postListing = async (req, res) => {
       checkIfListingExists ||
       !price ||
       !numBDR ||
-      !listingImage
+      !listingImage ||
+      !selectedTimeSlots
     ) {
+      console.log("UH-OH");
       res.status(404).json({ status: 404, data: "Something went wrong." });
     } else {
-      let publidId;
-      let listingImgUrl;
-      const cloudinaryResult = await cloudinary.uploader
-        .upload(listingImage, {
-          upload_preset: "ReLease_Photos",
-        })
-        .then((data) => {
-          console.log("data: ", data.public_id, data.secure_url);
-          publidId = data.public_id;
-          listingImgUrl = data.secure_url;
-          // console.log(data.secure_url);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      console.log("Listing is good");
+      let listingImgUrl = [];
+      for (let i = 0; i < listingImage.length; i++) {
+        const cloudinaryResult = await cloudinary.uploader
+          .upload(listingImage[i], {
+            upload_preset: "ReLease_Photos",
+          })
+          .then((data) => {
+            // console.log("data: ", data.public_id, data.secure_url);
+            // publidId = data.public_id;
+            listingImgUrl.push({ id: data.public_id, url: data.secure_url });
+            // console.log(data.secure_url);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
 
-      if (publidId && listingImgUrl) {
+      if (listingImgUrl.length == listingImage.length) {
         const createNewListing = await db.collection("listings").insertOne({
           _id: listingId,
           listingCoords: coords,
@@ -127,7 +131,7 @@ const postListing = async (req, res) => {
           numBDR: numBDR,
           listingDescription: listingDescription,
           listingImage: listingImgUrl,
-          listingImgPublicId: publidId,
+          // listingImgPublicId: publidId,
         });
 
         const addNewListingToUserProfile = await db
@@ -146,15 +150,24 @@ const postListing = async (req, res) => {
                   borough: borough,
                   listingDescription: listingDescription,
                   listingImage: listingImgUrl,
-                  listingImgPublicId: publidId,
+                  // listingImgPublicId: publidId,
                 },
               },
             }
           );
 
+        let arr = await selectedTimeSlots.map((item) => {
+          return { ...item, _id: uuidv4() };
+        });
+
+        const timeSlotsResult = await db
+          .collection("timeslots")
+          .insertMany(arr);
+
         // console.log("object id: ", `ObjectId('${listingId}')`);
         // console.log("add new listing: ", addNewListingToUserProfile);
         if (
+          timeSlotsResult.acknowledged &&
           createNewListing.acknowledged &&
           addNewListingToUserProfile.acknowledged
         ) {

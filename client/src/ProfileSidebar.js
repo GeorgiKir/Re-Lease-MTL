@@ -61,7 +61,7 @@ const StyledProfileBar = styled.div`
   background-color: #7d98a1;
   box-shadow: 0px 6px 15px -10px rgba(0, 0, 0, 0.64);
   height: 35px;
-
+  z-index: 1;
   color: white;
   top: 0;
   & .StyledProfileBarLink:nth-child(1) {

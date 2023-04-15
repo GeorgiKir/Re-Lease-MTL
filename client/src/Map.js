@@ -12,12 +12,42 @@ import { FiMapPin } from "react-icons/fi";
 import { TbHomeDollar } from "react-icons/tb";
 import { FaBed } from "react-icons/fa";
 import ListingModal from "./ListingModal";
+import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
 
 const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
   const [selectedElement, setSelectedElement] = useState(null);
   const [activeMarker, setActiveMarker] = useState(null);
   const [showInfoWindow, setInfoWindowFlag] = useState(true);
   const [showListingModal, setShowListingModal] = useState(false);
+  const [showPhotoTracker, setShowPhotoTracker] = useState(0);
+  const [numOfListingPhotos, setNumOfListingPhotos] = useState(null);
+  // let numOfListingPhotos;
+
+  // const numOfListingPhotos = selectedElement.listingImage.length;
+
+  useEffect(() => {
+    if (selectedElement) {
+      setNumOfListingPhotos(selectedElement.listingImage.length);
+    }
+  }, [selectedElement]);
+
+  const handlePhotoTracker = (count) => {
+    if (count == 1) {
+      if (showPhotoTracker == numOfListingPhotos - 1) {
+        setShowPhotoTracker(0);
+      } else {
+        setShowPhotoTracker((prev) => prev + 1);
+      }
+    } else {
+      if (showPhotoTracker == 0) {
+        setShowPhotoTracker(numOfListingPhotos - 1);
+
+        return;
+      } else {
+        setShowPhotoTracker((prev) => prev - 1);
+      }
+    }
+  };
 
   const containerStyle = {
     width: "100%",
@@ -51,7 +81,7 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
                 />
               );
             })}
-            {activeMarker && (
+            {activeMarker && selectedElement && (
               <InfoWindow
                 position={activeMarker}
                 onCloseClick={() => {
@@ -59,7 +89,29 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
                 }}
               >
                 <InfoWindowInfoContainer style={{ maxWidth: "350px" }}>
-                  <img src={selectedElement.listingImage} />
+                  <div style={{ display: "flex" }}>
+                    <ArrowContainerDiv>
+                      <SlArrowLeft
+                        style={{ color: "white" }}
+                        onClick={() => {
+                          handlePhotoTracker(0);
+                        }}
+                      />
+                    </ArrowContainerDiv>
+
+                    <img
+                      src={selectedElement.listingImage[showPhotoTracker].url}
+                    />
+
+                    <ArrowContainerDiv>
+                      <SlArrowRight
+                        style={{ color: "white" }}
+                        onClick={() => {
+                          handlePhotoTracker(1);
+                        }}
+                      />
+                    </ArrowContainerDiv>
+                  </div>
                   <PlusButtonContainer>
                     <TextInfoContainer>
                       <IconInfoMapModalDiv>
@@ -100,6 +152,20 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
   );
 };
 
+const ArrowContainerDiv = styled.div`
+  @media (min-width: 600px) {
+    font-size: 15px;
+  }
+  @media (max-width: 767.9px) {
+    font-size: 10px;
+  }
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(28, 35, 33, 0.81);
+`;
+
 const IconInfoMapModalDiv = styled.div`
   display: flex;
   align-items: center;
@@ -120,7 +186,7 @@ const PlusButtonContainer = styled.div`
 const InfoWindowInfoContainer = styled.div`
   @media (min-width: 600px) {
     & img {
-      width: 350px;
+      width: 300px;
       height: "scale";
     }
     & p {
@@ -131,7 +197,7 @@ const InfoWindowInfoContainer = styled.div`
 
   @media (max-width: 599px) {
     & img {
-      width: 100%;
+      width: calc(100% - 20px);
       height: "scale";
     }
     & p {

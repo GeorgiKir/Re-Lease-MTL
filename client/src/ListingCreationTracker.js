@@ -137,14 +137,14 @@ const ListingTrackerContainer = styled.div`
   @media (min-width: 768px) {
     display: flex;
   }
-  @media (max-width: 767px) {
+  @media (max-width: 767.9999px) {
     display: none;
   }
   justify-content: center;
   /* align-items: center; */
   /* border: 1px solid black; */
   height: 75px;
-  width: 100%;
+  width: 90%;
   /* width: 70%; */
   margin: 0px 0px 50px 0px;
 `;
