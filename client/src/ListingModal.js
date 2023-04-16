@@ -268,9 +268,11 @@ const ListingInfoContainer = styled.div`
   color: black;
   border: 1px solid red;
   background-color: white;
-
   height: 90%;
   z-index: 6;
+  & p {
+    line-height: 1.3;
+  }
 `;
 const ListingModalContainer = styled.div`
   display: flex;

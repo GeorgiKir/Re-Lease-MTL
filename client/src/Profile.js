@@ -15,47 +15,44 @@ import { TbHomeDollar } from "react-icons/tb";
 import { FaBed } from "react-icons/fa";
 import { GrDocumentText } from "react-icons/gr";
 import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
+  const navigate = useNavigate();
   const [profileState, setProfileState] = useState("myListing");
-  // const [listingCreationTracker, setListingCreationTracker] = useState("1");
-  // const [listingUpdate, setListingUpdate] = useState(false);
-  const { currentUser } = useContext(CurrentUserContext);
+  const { currentUser, logoutState } = useContext(CurrentUserContext);
   const { user, isAuthenticated } = useAuth0();
   const [showPhotoTracker, setShowPhotoTracker] = useState(0);
   const [numOfListingPhotos, setNumOfListingPhotos] = useState(null);
-  // const numOfListingPhotos = currentUser.listing.listingImage.length;
-  // let showPhotoTracker = 0;
-  console.log(numOfListingPhotos);
+  let handlePhotoTracker;
+  if (!isAuthenticated) {
+    navigate("/");
+  } else {
+    handlePhotoTracker = (count) => {
+      if (count === 1) {
+        if (showPhotoTracker === numOfListingPhotos - 1) {
+          setShowPhotoTracker(0);
+          // console.log("end of tracker reached");
+        } else {
+          setShowPhotoTracker((prev) => prev + 1);
+        }
+      } else {
+        if (showPhotoTracker === 0) {
+          setShowPhotoTracker(numOfListingPhotos - 1);
+        } else {
+          setShowPhotoTracker((prev) => prev - 1);
+        }
+      }
+    };
+  }
 
   useEffect(() => {
-    if (currentUser.listing) {
-      setNumOfListingPhotos(currentUser.listing.listingImage.length);
+    if (!logoutState && isAuthenticated) {
+      if (currentUser.listing) {
+        setNumOfListingPhotos(currentUser.listing.listingImage.length);
+      }
     }
   }, [currentUser]);
-
-  const handlePhotoTracker = (count) => {
-    if (count === 1) {
-      if (showPhotoTracker === numOfListingPhotos - 1) {
-        setShowPhotoTracker(0);
-        // console.log("end of tracker reached");
-      } else {
-        setShowPhotoTracker((prev) => prev + 1);
-      }
-    } else {
-      if (showPhotoTracker === 0) {
-        setShowPhotoTracker(numOfListingPhotos - 1);
-      } else {
-        setShowPhotoTracker((prev) => prev - 1);
-      }
-    }
-    // setShowPhotoTracker(1);
-    console.log(count);
-  };
-
-  // useEffect(() => {
-  //   setListingUpdate(!listingUpdate);
-  // }, [currentUser]);
 
   return (
     isAuthenticated &&
@@ -72,14 +69,13 @@ const Profile = () => {
                 style={{
                   borderTopLeftRadius: "5px",
                   borderBottomLeftRadius: "5px",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  handlePhotoTracker(0);
                 }}
               >
-                <SlArrowLeft
-                  style={{ color: "white", fontSize: "30px" }}
-                  onClick={() => {
-                    handlePhotoTracker(0);
-                  }}
-                />
+                <SlArrowLeft style={{ color: "white", fontSize: "30px" }} />
               </ArrowContainerDiv>
               <img
                 src={currentUser.listing.listingImage[showPhotoTracker].url}
@@ -102,14 +98,13 @@ const Profile = () => {
                 style={{
                   borderTopRightRadius: "5px",
                   borderBottomRightRadius: "5px",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  handlePhotoTracker(1);
                 }}
               >
-                <SlArrowRight
-                  style={{ color: "white", fontSize: "30px" }}
-                  onClick={() => {
-                    handlePhotoTracker(1);
-                  }}
-                />
+                <SlArrowRight style={{ color: "white", fontSize: "30px" }} />
               </ArrowContainerDiv>
 
               <ListingInfoProfileDiv>
@@ -216,11 +211,11 @@ const ListingInfoProfileDiv = styled.div`
     height: 60vh;
     margin-left: 20px;
   }
-  @media (max-width: 767px) {
+  @media (max-width: 767.9px) {
     width: 90%;
     /* min-height: 40vh; */
     height: fit-content;
-    margin-top: 30px;
+    margin-top: 10px;
   }
   display: flex;
   flex-direction: column;
@@ -231,13 +226,24 @@ const IndividualInfoDiv = styled.div`
   @media (min-width: 768px) {
     gap: 10%;
     & p {
-      text-align: justify;
-      text-justify: inter-word;
+      /* text-align: justify; */
+      /* text-justify: inter-word; */
+      line-height: 1.2;
+      font-size: 15px;
+      width: fit-content;
+    }
+  }
+  @media (min-width: 1160px) {
+    gap: 10%;
+    & p {
+      /* text-align: justify; */
+      /* text-justify: inter-word; */
+      line-height: 1.2;
       font-size: 20px;
       width: fit-content;
     }
   }
-  @media (max-width: 767px) {
+  @media (max-width: 767.9px) {
     gap: 20%;
     & p {
       text-align: justify;
@@ -277,7 +283,7 @@ const MyListingWrapper = styled.div`
       border-bottom: 1px solid #5e6572;
     }
   }
-  @media (max-width: 767px) {
+  @media (max-width: 767.9px) {
     width: 80%;
     padding: 10px 5px;
     & p {
@@ -302,16 +308,13 @@ export const ProfilePageContentDiv = styled.div`
     width: 85%;
     justify-content: space-between;
   }
-  @media (max-width: 767px) {
+  @media (max-width: 767.9px) {
     flex-direction: column;
     width: 95%;
   }
   display: flex;
-
   align-items: center;
   margin: 125px auto 50px auto;
-  /* height: fit-content; */
-  /* border: 1px solid black; */
   height: 100%;
 `;
 

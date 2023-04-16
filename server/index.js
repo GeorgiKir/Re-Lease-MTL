@@ -30,7 +30,7 @@ app.get("/hello", (req, res) => {
 app.get("/users/:userEmail", getUser);
 app.post("/listings/addListing", postListing);
 app.get("/listings/listingResults/:borough/:price/:bedrooms", getListings);
-app.delete("/listings/deletelisting/:listingId", deleteListing);
+app.patch("/listings/deletelisting/:listingId", deleteListing);
 app.patch("/listings/deletelisting/:userEmail", deleteListingFromUserDB);
 app.patch("/listings/reserveAVisitTime", scheduleReservation);
 app.post("/timeSlots/addTimeSlots", postTimeSlots);

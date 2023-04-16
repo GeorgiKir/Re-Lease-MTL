@@ -13,21 +13,23 @@ import { TbHomeDollar } from "react-icons/tb";
 import { FaBed } from "react-icons/fa";
 import ListingModal from "./ListingModal";
 import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
+import { AiOutlineComment } from "react-icons/ai";
+import { useContext } from "react";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
+  const { currentUser, logoutState } = useContext(CurrentUserContext);
   const [selectedElement, setSelectedElement] = useState(null);
   const [activeMarker, setActiveMarker] = useState(null);
   const [showInfoWindow, setInfoWindowFlag] = useState(true);
   const [showListingModal, setShowListingModal] = useState(false);
   const [showPhotoTracker, setShowPhotoTracker] = useState(0);
   const [numOfListingPhotos, setNumOfListingPhotos] = useState(null);
-  // let numOfListingPhotos;
-
-  // const numOfListingPhotos = selectedElement.listingImage.length;
 
   useEffect(() => {
     if (selectedElement) {
       setNumOfListingPhotos(selectedElement.listingImage.length);
+      setShowPhotoTracker(0);
     }
   }, [selectedElement]);
 
@@ -63,11 +65,9 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
         center={mapCenter}
         mapContainerStyle={containerStyle}
       >
-        {/* {markerPosition && <MarkerF position={markerPosition} />} */}
         {listings && (
           <>
             {listings.map((listing, index) => {
-              // console.log(listing.listingCoords);
               return (
                 <MarkerF
                   key={index}
@@ -76,7 +76,6 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
                     console.log("Clicked");
                     setSelectedElement(listing);
                     setActiveMarker(listing.listingCoords);
-                    // console.log(activeMarker);
                   }}
                 />
               );
@@ -90,26 +89,24 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
               >
                 <InfoWindowInfoContainer style={{ maxWidth: "350px" }}>
                   <div style={{ display: "flex" }}>
-                    <ArrowContainerDiv>
-                      <SlArrowLeft
-                        style={{ color: "white" }}
-                        onClick={() => {
-                          handlePhotoTracker(0);
-                        }}
-                      />
+                    <ArrowContainerDiv
+                      onClick={() => {
+                        handlePhotoTracker(0);
+                      }}
+                    >
+                      <SlArrowLeft style={{ color: "white" }} />
                     </ArrowContainerDiv>
 
                     <img
                       src={selectedElement.listingImage[showPhotoTracker].url}
                     />
 
-                    <ArrowContainerDiv>
-                      <SlArrowRight
-                        style={{ color: "white" }}
-                        onClick={() => {
-                          handlePhotoTracker(1);
-                        }}
-                      />
+                    <ArrowContainerDiv
+                      onClick={() => {
+                        handlePhotoTracker(1);
+                      }}
+                    >
+                      <SlArrowRight style={{ color: "white" }} />
                     </ArrowContainerDiv>
                   </div>
                   <PlusButtonContainer>
@@ -127,13 +124,29 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
                         <p>{selectedElement.numBDR} bedrooms</p>
                       </IconInfoMapModalDiv>
                     </TextInfoContainer>
-
-                    <FiPlusCircle
-                      style={{ fontSize: "30px", cursor: "pointer" }}
-                      onClick={() => {
-                        setShowListingModal(true);
-                      }}
-                    />
+                    <div>
+                      <AiOutlineComment
+                        style={{
+                          fontSize: "30px",
+                          cursor: "pointer",
+                          marginRight: "10px",
+                        }}
+                      />
+                      <FiPlusCircle
+                        style={{
+                          fontSize: "30px",
+                          cursor: "pointer",
+                          color: currentUser ? "black" : "gray",
+                        }}
+                        onClick={() => {
+                          if (!currentUser) {
+                            return;
+                          } else {
+                            setShowListingModal(true);
+                          }
+                        }}
+                      />
+                    </div>
                   </PlusButtonContainer>
                 </InfoWindowInfoContainer>
               </InfoWindow>
@@ -159,6 +172,7 @@ const ArrowContainerDiv = styled.div`
   @media (max-width: 767.9px) {
     font-size: 10px;
   }
+  cursor: pointer;
   width: fit-content;
   display: flex;
   flex-direction: column;
@@ -190,7 +204,7 @@ const InfoWindowInfoContainer = styled.div`
       height: "scale";
     }
     & p {
-      font-size: 20px;
+      font-size: 18px;
       margin-left: 15px;
     }
   }

@@ -23,9 +23,12 @@ const Header = () => {
         </NavContainer>
         <ProfileOptionsContainer>
           {currentUser && (
-            <StyledNav to={"/profile"}>
-              <FiUser style={{ fontSize: "30px" }} />
-            </StyledNav>
+            <>
+              <p>{currentUser.nickname}</p>
+              <StyledNav to={"/profile"}>
+                <FiUser style={{ fontSize: "30px" }} />
+              </StyledNav>
+            </>
           )}
           <LoginButton />
           <LogoutButton />

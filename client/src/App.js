@@ -10,6 +10,7 @@ import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 import Profile from "./Profile";
 import SearchPage from "./SearchPage";
+import LogoutPage from "./LogoutPage";
 
 function App() {
   const { user, isAuthenticated } = useAuth0();
@@ -18,6 +19,7 @@ function App() {
     setCurrentUser,
     verificationState,
     setVerificationState,
+    logoutState,
   } = useContext(CurrentUserContext);
   // const [verificationState, setVerificationState] = useState("Initial");
 
@@ -34,6 +36,7 @@ function App() {
             JSON.stringify({
               email: data.data.email,
               _id: data.data._id,
+              nickname: user.nickname,
               listing: data.data.listingInfo ? data.data.listingInfo : "",
             })
           );
@@ -54,12 +57,19 @@ function App() {
       <BrowserRouter>
         <GlobalStyle />
         <Header />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/profile" element={<Profile />} />
-        </Routes>
+        {logoutState && <LogoutPage />}
+        {!logoutState && (
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/search" element={<SearchPage />} />
+            {/* <Route
+              path="/profile"
+              element={isAuthenticated ? <Profile /> : <HomePage />}
+            /> */}
+            <Route path="/profile" element={<Profile />} />
+          </Routes>
+        )}
         <Footer />
       </BrowserRouter>
     </>

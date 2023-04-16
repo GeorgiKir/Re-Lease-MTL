@@ -47,7 +47,7 @@ const HeroImageContainer = styled.div`
       font-weight: 500;
     }
   }
-  @media (max-width: 767px) {
+  @media (max-width: 767.9px) {
     & h2 {
       color: white;
       font-size: 60px;
@@ -70,7 +70,7 @@ export const MainPageContainer = styled.div`
     min-height: calc(100vh - 180px);
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 767.9px) {
     margin-top: 35px;
     /* height: calc(100vh - 180px); */
     height: calc(100vh);

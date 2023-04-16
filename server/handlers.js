@@ -99,7 +99,6 @@ const postListing = async (req, res) => {
       !listingImage ||
       !selectedTimeSlots
     ) {
-      console.log("UH-OH");
       res.status(404).json({ status: 404, data: "Something went wrong." });
     } else {
       console.log("Listing is good");
@@ -110,10 +109,7 @@ const postListing = async (req, res) => {
             upload_preset: "ReLease_Photos",
           })
           .then((data) => {
-            // console.log("data: ", data.public_id, data.secure_url);
-            // publidId = data.public_id;
             listingImgUrl.push({ id: data.public_id, url: data.secure_url });
-            // console.log(data.secure_url);
           })
           .catch((err) => {
             console.log(err);
@@ -164,8 +160,6 @@ const postListing = async (req, res) => {
           .collection("timeslots")
           .insertMany(arr);
 
-        // console.log("object id: ", `ObjectId('${listingId}')`);
-        // console.log("add new listing: ", addNewListingToUserProfile);
         if (
           timeSlotsResult.acknowledged &&
           createNewListing.acknowledged &&
@@ -223,17 +217,34 @@ const getListings = async (req, res) => {
 
 const deleteListing = async (req, res) => {
   const { listingId } = req.params;
+  const { listingPhotos, email } = req.body;
+
   const client = new MongoClient(MONGO_URI, options);
   try {
     await client.connect();
     const db = client.db("re-lease");
+
+    await listingPhotos.forEach((item) => {
+      cloudinary.uploader.destroy(item.id);
+    });
+    console.log(listingPhotos.length);
+
+    const deleteListingResultFromUserDB = await db
+      .collection("users")
+      .updateOne({ email: email }, { $unset: { listingInfo: "" } });
+
     const deleteListingResult = await db
       .collection("listings")
       .deleteOne({ _id: listingId });
+
     const deleteTimeslots = await db
       .collection("timeslots")
       .deleteMany({ ownerId: listingId });
-    if (deleteListingResult.acknowledged && deleteTimeslots.acknowledged) {
+    if (
+      deleteListingResult.acknowledged &&
+      deleteTimeslots.acknowledged &&
+      deleteListingResultFromUserDB.acknowledged
+    ) {
       res.status(200).json({
         status: 200,
         message: "Listing deleted",
@@ -252,17 +263,17 @@ const deleteListingFromUserDB = async (req, res) => {
   const { userEmail } = req.params;
   const client = new MongoClient(MONGO_URI, options);
   try {
-    await client.connect();
-    const db = client.db("re-lease");
-    const deleteListingResult = await db
-      .collection("users")
-      .updateOne({ email: userEmail }, { $unset: { listingInfo: "" } });
-    if (deleteListingResult.acknowledged) {
-      res.status(200).json({
-        status: 200,
-        data: "Listing deleted",
-      });
-    }
+    // await client.connect();
+    // const db = client.db("re-lease");
+    // const deleteListingResult = await db
+    //   .collection("users")
+    //   .updateOne({ email: userEmail }, { $unset: { listingInfo: "" } });
+    // if (deleteListingResult.acknowledged) {
+    //   res.status(200).json({
+    //     status: 200,
+    //     data: "Listing deleted",
+    //   });
+    // }
   } catch (err) {
     console.log("Error: ", err);
   } finally {

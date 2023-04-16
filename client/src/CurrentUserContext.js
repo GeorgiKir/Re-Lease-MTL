@@ -6,6 +6,7 @@ export const CurrentUserContext = createContext();
 
 export const CurrentUserProvider = ({ children }) => {
   const [verificationState, setVerificationState] = useState("Initial");
+  const [logoutState, setLogoutState] = useState(false);
   const [currentUser, setCurrentUser] = useState(() => {
     let userId = JSON.parse(window.sessionStorage.getItem("userId"));
     if (userId) {
@@ -22,8 +23,9 @@ export const CurrentUserProvider = ({ children }) => {
 
   const logoutContext = () => {
     // setVerificationState("Initial");
-    setCurrentUser(null);
+    setLogoutState(true);
     window.sessionStorage.clear();
+    setCurrentUser(null);
   };
 
   return (
@@ -33,6 +35,7 @@ export const CurrentUserProvider = ({ children }) => {
         setCurrentUser,
         loginContext,
         logoutContext,
+        logoutState,
 
         // verificationState,
         // setVerificationState,

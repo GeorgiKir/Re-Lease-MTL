@@ -11,19 +11,27 @@ const DeleteListingButton = () => {
 
   const handleListingDelete = () => {
     console.log(user.email);
-    fetch(`/listings/deletelisting/${user.email}`, {
-      method: "PATCH",
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((e) => {
-        console.log("Error: ", e);
-      });
+    // fetch(`/listings/deletelisting/${user.email}`, {
+    //   method: "PATCH",
+    // })
+    //   .then((res) => res.json())
+    //   .then((data) => {
+    //     console.log(data);
+    //   })
+    //   .catch((e) => {
+    //     console.log("Error: ", e);
+    //   });
 
     fetch(`/listings/deletelisting/${currentUser._id}`, {
-      method: "DELETE",
+      method: "PATCH",
+      body: JSON.stringify({
+        listingPhotos: currentUser.listing.listingImage,
+        email: user.email,
+      }),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
     })
       .then((res) => res.json())
       .then((data) => {
@@ -41,7 +49,7 @@ const DeleteListingButton = () => {
           handleListingDelete();
         }}
       >
-        Delete Listing
+        <p>Delete Listing</p>
       </StyledDeleteButton>
     </DeleteButtonContainerDiv>
   );
@@ -59,6 +67,15 @@ const DeleteButtonContainerDiv = styled.div`
 `;
 
 const StyledDeleteButton = styled.button`
+  /* @media (min-width: 1160px) {
+    font-size: 10px;
+  }
+  @media (min-width: 768px) {
+    font-size: 20px;
+  }
+  @media (max-width: 767px) {
+    font-size: 15px;
+  } */
   position: relative;
   /* font-family: "Raleway", sans-serif; */
   font-family: "Open Sans", sans-serif;
@@ -66,6 +83,7 @@ const StyledDeleteButton = styled.button`
   border: 3px solid gray;
   border-radius: 5px;
   margin: 0px auto;
+  font-size: 20px;
   background: none;
   cursor: pointer;
   color: black;
@@ -75,7 +93,7 @@ const StyledDeleteButton = styled.button`
   height: fit-content;
   width: fit-content;
   padding: 5px;
-  font-size: 30px;
+
   align-items: center;
   &::before {
     content: "";

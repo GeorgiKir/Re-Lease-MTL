@@ -8,12 +8,15 @@ import VisitingHoursModal from "./VisitingHoursModal";
 import { boroughs } from "./boroughs";
 import ListingCreationTracker from "./ListingCreationTracker";
 import UploadImage from "./UploadImage";
+import gearImg from "./assets/gear_img.png";
+import ProcessingPage from "./ProcessingPage";
 
 const ListingCreationForm = () => {
   const { user, isAuthenticated } = useAuth0();
   const [selectingVistingHours, setSelectingVisitingHours] = useState(false);
   const [listingCreationTracker, setListingCreationTracker] = useState(1);
   const [visitingHoursToBeAdded, setVisitingHoursToBeAdded] = useState([]);
+  const [processingState, setProcessingState] = useState(false);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [ListingFormInfo, setListingFormInfo] = useState({
     listingId: currentUser._id,
@@ -30,33 +33,14 @@ const ListingCreationForm = () => {
 
   const handleChange = (value, name) => {
     setListingFormInfo({ ...ListingFormInfo, [name]: value });
-    // console.log(value[0]);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // setListingFormInfo({
-    //   ...ListingFormInfo,
-    //   selectedTimeSlots: visitingHoursToBeAdded,
-    // });
-    console.log("SUBMIT CLICKED");
-
     if (visitingHoursToBeAdded.length <= 0) {
       console.log("Please select some visiting hours");
     } else if (ListingFormInfo.selectedTimeSlots.length > 0) {
       console.log("Listing is good on the FE");
-      // fetch(`/timeSlots/addTimeSlots`, {
-      //   method: "POST",
-      //   headers: {
-      //     Accept: "application/json",
-      //     "Content-type": "application/json",
-      //   },
-      //   body: JSON.stringify({ selectedTimeSlots: visitingHoursToBeAdded }),
-      // })
-      //   .then((res) => res.json())
-      //   .then((data) => {
-      //     console.log(data);
-      //   });
 
       fetch(`/listings/addListing`, {
         method: "POST",
@@ -85,6 +69,7 @@ const ListingCreationForm = () => {
               setCurrentUser(
                 JSON.parse(window.sessionStorage.getItem("userId"))
               );
+              setProcessingState(false);
             })
             .catch((e) => {
               console.log("Error: ", e);
@@ -94,195 +79,219 @@ const ListingCreationForm = () => {
   };
   return (
     <ListingContainerDiv>
-      <ListingCreationTracker
-        listingCreationTracker={listingCreationTracker}
-        visitingHoursToBeAdded={visitingHoursToBeAdded}
-        listingImage={ListingFormInfo.listingImage}
-      />
-      <StyledListingForm onSubmit={(e) => handleSubmit(e)}>
-        {listingCreationTracker === 1 && (
-          <>
-            <FormInputContainer>
-              <h2>Street Address</h2>
-              <input
-                required
-                name="listingAddress"
-                value={ListingFormInfo.listingAddress}
-                type="text"
-                placeholder={"Enter the address"}
-                onChange={(e) => handleChange(e.target.value, e.target.name)}
-              />
-            </FormInputContainer>
-            <FormInputContainer>
-              <h2>Neighbourhood</h2>
-              <select
-                required
-                name="borough"
-                value={ListingFormInfo.borough}
-                placeholder={"Enter the neighbourhood"}
-                onChange={(e) => handleChange(e.target.value, e.target.name)}
-              >
-                <option value="" style={{ color: "gray" }}>
-                  Please Select a neighbourhood
-                </option>
-                ;
-                {boroughs.map((borough) => {
-                  return (
-                    <option value={borough.borough}>{borough.borough}</option>
-                  );
-                })}
-              </select>
-            </FormInputContainer>
-            <FormInputContainer>
-              <h2>Postal Code</h2>
-              <input
-                required
-                maxLength="6"
-                name="postalCode"
-                value={ListingFormInfo.postalCode}
-                type="text"
-                placeholder={"Enter the postal code"}
-                onChange={(e) => handleChange(e.target.value, e.target.name)}
-              />
-            </FormInputContainer>{" "}
-            {ListingFormInfo.postalCode.length > 0 &&
-              ListingFormInfo.listingAddress.length > 0 &&
-              ListingFormInfo.borough.length > 0 && (
-                <StyledPreviousNextButton
-                  type="button"
-                  onClick={() => setListingCreationTracker(2)}
-                >
-                  Next
-                </StyledPreviousNextButton>
-              )}
-          </>
-        )}
-        {listingCreationTracker === 2 && (
-          <>
-            <FormInputContainer>
-              <h2>Price</h2>
-              <input
-                required
-                name="price"
-                type="text"
-                placeholder={"Enter the price per month"}
-                value={ListingFormInfo.price}
-                onChange={(e) => handleChange(e.target.value, e.target.name)}
-              />
-            </FormInputContainer>
-            <FormInputContainer>
-              <h2># of Bedrooms</h2>
-              <input
-                required
-                name="numBDR"
-                type="number"
-                value={ListingFormInfo.numBDR}
-                placeholder={"Enter the number of bedrooms"}
-                onChange={(e) => handleChange(e.target.value, e.target.name)}
-              />
-            </FormInputContainer>
-
-            <FormInputContainer>
-              <h2>Description</h2>
-              <textarea
-                name="listingDescription"
-                value={ListingFormInfo.listingDescription}
-                maxLength="300"
-                rows="10"
-                cols="50"
-                onChange={(e) => handleChange(e.target.value, e.target.name)}
-              />
-            </FormInputContainer>
-            <PreviousNextButtonDiv>
-              <StyledPreviousNextButton
-                type="button"
-                onClick={() => setListingCreationTracker(1)}
-              >
-                Previous
-              </StyledPreviousNextButton>
-              {ListingFormInfo.price.length > 0 &&
-                ListingFormInfo.numBDR.length > 0 &&
-                ListingFormInfo.numBDR > 0 &&
-                ListingFormInfo.listingDescription.length > 0 && (
-                  <StyledPreviousNextButton
-                    type="button"
-                    onClick={() => setListingCreationTracker(3)}
-                  >
-                    Next
-                  </StyledPreviousNextButton>
-                )}
-            </PreviousNextButtonDiv>
-          </>
-        )}
-        {(listingCreationTracker === 3 || listingCreationTracker === 4) && (
-          <>
-            <FormInputContainer>
-              <h2>Visiting Hours</h2>
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectingVisitingHours(true);
-                }}
-              >
-                Set Hours
-              </button>
-            </FormInputContainer>
-            {selectingVistingHours && (
-              <VisitingHoursModal
-                setListingCreationTracker={setListingCreationTracker}
-                setSelectingVisitingHours={setSelectingVisitingHours}
-                visitingHoursToBeAdded={visitingHoursToBeAdded}
-                setVisitingHoursToBeAdded={setVisitingHoursToBeAdded}
-                ListingFormInfo={ListingFormInfo}
-                setListingFormInfo={setListingFormInfo}
-              />
-            )}
-            <PreviousNextButtonDiv>
-              <StyledPreviousNextButton
-                type="button"
-                onClick={() => setListingCreationTracker(2)}
-              >
-                Previous
-              </StyledPreviousNextButton>
-              {visitingHoursToBeAdded.length > 0 && (
-                <StyledPreviousNextButton
-                  type="button"
-                  onClick={() => setListingCreationTracker(5)}
-                >
-                  Next
-                </StyledPreviousNextButton>
-              )}
-            </PreviousNextButtonDiv>
-          </>
-        )}
-        {listingCreationTracker === 5 && (
-          <FormInputContainer
-            style={{
-              flexDirection: "column",
-              alignItems: "center",
+      {processingState && <ProcessingPage />}
+      {!processingState && (
+        <>
+          <ListingCreationTracker
+            listingCreationTracker={listingCreationTracker}
+            visitingHoursToBeAdded={visitingHoursToBeAdded}
+            listingImage={ListingFormInfo.listingImage}
+          />
+          <StyledListingForm
+            onSubmit={(e) => {
+              handleSubmit(e);
+              setProcessingState(true);
             }}
           >
-            <UploadImage
-              ListingFormInfo={ListingFormInfo}
-              setListingFormInfo={setListingFormInfo}
-            />
-            <PreviousNextButtonDiv>
-              <StyledPreviousNextButton
-                type="button"
-                onClick={() => setListingCreationTracker(4)}
-              >
-                Previous
-              </StyledPreviousNextButton>
-              {ListingFormInfo.listingImage &&
-                ListingFormInfo.listingImage !== [] && (
-                  <StyledPreviousNextButton type="submit">
-                    Create Listing
+            {listingCreationTracker === 1 && (
+              <>
+                <FormInputContainer>
+                  <h2>Street Address</h2>
+                  <input
+                    required
+                    name="listingAddress"
+                    value={ListingFormInfo.listingAddress}
+                    type="text"
+                    placeholder={"Enter the address"}
+                    onChange={(e) =>
+                      handleChange(e.target.value, e.target.name)
+                    }
+                  />
+                </FormInputContainer>
+                <FormInputContainer>
+                  <h2>Neighbourhood</h2>
+                  <select
+                    required
+                    name="borough"
+                    value={ListingFormInfo.borough}
+                    placeholder={"Enter the neighbourhood"}
+                    onChange={(e) =>
+                      handleChange(e.target.value, e.target.name)
+                    }
+                  >
+                    <option value="" style={{ color: "gray" }}>
+                      Please Select a neighbourhood
+                    </option>
+                    ;
+                    {boroughs.map((borough) => {
+                      return (
+                        <option value={borough.borough}>
+                          {borough.borough}
+                        </option>
+                      );
+                    })}
+                  </select>
+                </FormInputContainer>
+                <FormInputContainer>
+                  <h2>Postal Code</h2>
+                  <input
+                    required
+                    maxLength="6"
+                    name="postalCode"
+                    value={ListingFormInfo.postalCode}
+                    type="text"
+                    placeholder={"Enter the postal code"}
+                    onChange={(e) =>
+                      handleChange(e.target.value, e.target.name)
+                    }
+                  />
+                </FormInputContainer>{" "}
+                {ListingFormInfo.postalCode.length > 0 &&
+                  ListingFormInfo.listingAddress.length > 0 &&
+                  ListingFormInfo.borough.length > 0 && (
+                    <StyledPreviousNextButton
+                      type="button"
+                      onClick={() => setListingCreationTracker(2)}
+                    >
+                      Next
+                    </StyledPreviousNextButton>
+                  )}
+              </>
+            )}
+            {listingCreationTracker === 2 && (
+              <>
+                <FormInputContainer>
+                  <h2>Price</h2>
+                  <input
+                    required
+                    name="price"
+                    type="text"
+                    placeholder={"Enter the price per month"}
+                    value={ListingFormInfo.price}
+                    onChange={(e) =>
+                      handleChange(e.target.value, e.target.name)
+                    }
+                  />
+                </FormInputContainer>
+                <FormInputContainer>
+                  <h2># of Bedrooms</h2>
+                  <input
+                    required
+                    name="numBDR"
+                    type="number"
+                    value={ListingFormInfo.numBDR}
+                    placeholder={"Enter the number of bedrooms"}
+                    onChange={(e) =>
+                      handleChange(e.target.value, e.target.name)
+                    }
+                  />
+                </FormInputContainer>
+
+                <FormInputContainer>
+                  <h2>Description</h2>
+                  <textarea
+                    name="listingDescription"
+                    value={ListingFormInfo.listingDescription}
+                    maxLength="300"
+                    rows="10"
+                    cols="50"
+                    onChange={(e) =>
+                      handleChange(e.target.value, e.target.name)
+                    }
+                  />
+                </FormInputContainer>
+                <PreviousNextButtonDiv>
+                  <StyledPreviousNextButton
+                    type="button"
+                    onClick={() => setListingCreationTracker(1)}
+                  >
+                    Previous
                   </StyledPreviousNextButton>
+                  {ListingFormInfo.price.length > 0 &&
+                    ListingFormInfo.numBDR.length > 0 &&
+                    ListingFormInfo.numBDR > 0 &&
+                    ListingFormInfo.listingDescription.length > 0 && (
+                      <StyledPreviousNextButton
+                        type="button"
+                        onClick={() => setListingCreationTracker(3)}
+                      >
+                        Next
+                      </StyledPreviousNextButton>
+                    )}
+                </PreviousNextButtonDiv>
+              </>
+            )}
+            {(listingCreationTracker === 3 || listingCreationTracker === 4) && (
+              <>
+                <FormInputContainer>
+                  <h2>Visiting Hours</h2>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectingVisitingHours(true);
+                    }}
+                  >
+                    Set Hours
+                  </button>
+                </FormInputContainer>
+                {selectingVistingHours && (
+                  <VisitingHoursModal
+                    setListingCreationTracker={setListingCreationTracker}
+                    setSelectingVisitingHours={setSelectingVisitingHours}
+                    visitingHoursToBeAdded={visitingHoursToBeAdded}
+                    setVisitingHoursToBeAdded={setVisitingHoursToBeAdded}
+                    ListingFormInfo={ListingFormInfo}
+                    setListingFormInfo={setListingFormInfo}
+                  />
                 )}
-            </PreviousNextButtonDiv>
-          </FormInputContainer>
-        )}
-      </StyledListingForm>
+                <PreviousNextButtonDiv>
+                  <StyledPreviousNextButton
+                    type="button"
+                    onClick={() => setListingCreationTracker(2)}
+                  >
+                    Previous
+                  </StyledPreviousNextButton>
+                  {visitingHoursToBeAdded.length > 0 && (
+                    <StyledPreviousNextButton
+                      type="button"
+                      onClick={() => setListingCreationTracker(5)}
+                    >
+                      Next
+                    </StyledPreviousNextButton>
+                  )}
+                </PreviousNextButtonDiv>
+              </>
+            )}
+            {listingCreationTracker === 5 && (
+              <FormInputContainer
+                style={{
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <UploadImage
+                  ListingFormInfo={ListingFormInfo}
+                  setListingFormInfo={setListingFormInfo}
+                />
+                <PreviousNextButtonDiv>
+                  <StyledPreviousNextButton
+                    type="button"
+                    onClick={() => setListingCreationTracker(4)}
+                  >
+                    Previous
+                  </StyledPreviousNextButton>
+                  {ListingFormInfo.listingImage &&
+                    ListingFormInfo.listingImage !== [] && (
+                      <StyledPreviousNextButton type="submit">
+                        Create Listing
+                      </StyledPreviousNextButton>
+                    )}
+                </PreviousNextButtonDiv>
+              </FormInputContainer>
+            )}
+          </StyledListingForm>
+        </>
+      )}
     </ListingContainerDiv>
   );
 };

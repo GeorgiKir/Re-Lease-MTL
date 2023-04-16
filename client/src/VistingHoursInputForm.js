@@ -108,10 +108,6 @@ const VistingHoursInputForm = ({
             setListingCreationTracker(4);
             return [...visitingHoursToBeAdded, ...dateObject];
           });
-          // setListingFormInfo({
-          //   ...ListingFormInfo,
-          //   selectedTimeSlots: visitingHoursToBeAdded,
-          // });
           setListingFormInfo({
             ...ListingFormInfo,
             selectedTimeSlots: [
