@@ -4,22 +4,29 @@ import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import styled from "styled-components";
 import { CgClose } from "react-icons/cg";
+import { FiTrash2 } from "react-icons/fi";
 import { ImSpinner } from "react-icons/im";
 import { format } from "date-fns";
+import DeleteConfirmation from "./DeleteConfirmation";
 
 const UpcomingVisitsSchedulePage = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [showUpcomingVisits, setShowUpcomingVisits] = useState(null);
   const [visitorHasDeleted, setVisitorHasDeleted] = useState(false);
   const [loadingState, setLoadingState] = useState(null);
+  const [targetVisitForDeletion, setTargetVisitForDeletion] = useState(null);
+  const [cancelVisitState, setCancelVisitState] = useState(false);
 
   useEffect(() => {
     setLoadingState(true);
     fetch(`/timeSlots/visitorId/${currentUser._id}`)
       .then((res) => res.json())
-      .then((data) => {
+      .then(async (data) => {
         if (data.status === 200) {
-          setShowUpcomingVisits(data.data.sort((a, b) => a._id - b._id));
+          // console.log(data.data);
+          setShowUpcomingVisits(
+            data.data.sort((a, b) => new Date(a._id) - new Date(b._id))
+          );
           setLoadingState(false);
         } else if (data.status === 400) {
           setShowUpcomingVisits(null);
@@ -28,7 +35,7 @@ const UpcomingVisitsSchedulePage = () => {
       });
   }, [visitorHasDeleted]);
 
-  const handleTimeslotDeleteByVisitor = (e, visitId, index) => {
+  const handleTimeslotDeleteByVisitor = (visitId) => {
     fetch(`/timeSlots/deleteTimeSlot/${visitId}`, {
       method: "PATCH",
     })
@@ -54,19 +61,29 @@ const UpcomingVisitsSchedulePage = () => {
                       <UpcomingVisitContainer>
                         <>
                           <p>
-                            {element.address}: <br />
-                            {element.hour}{" "}
+                            {element.address}: {element.hour}{" "}
                           </p>
-                          <CgClose
+                          <FiTrash2
                             style={{ cursor: "pointer", fontSize: "25px" }}
                             onClick={(e) => {
-                              handleTimeslotDeleteByVisitor(
-                                e,
-                                element._id,
-                                index
-                              );
+                              console.log(element._id);
+                              setTargetVisitForDeletion(element._id);
+                              setCancelVisitState(true);
+                              // handleTimeslotDeleteByVisitor(
+                              //   element._id,
+                              // );
                             }}
                           />
+                          {cancelVisitState && (
+                            <DeleteConfirmation
+                              elementId={targetVisitForDeletion}
+                              cancelVisitState={cancelVisitState}
+                              setCancelVisitState={setCancelVisitState}
+                              handleTimeslotDeleteByVisitor={
+                                handleTimeslotDeleteByVisitor
+                              }
+                            />
+                          )}
                         </>
                       </UpcomingVisitContainer>
                     );
@@ -85,7 +102,7 @@ const UpcomingVisitsSchedulePage = () => {
 
 const UpcomingVisitContainer = styled.div`
   @media (min-width: 768px) {
-    width: 40%;
+    width: 60%;
     & p {
       margin: 0px;
       font-size: 20px;
@@ -93,7 +110,7 @@ const UpcomingVisitContainer = styled.div`
   }
 
   @media (max-width: 767px) {
-    width: 70%;
+    width: 50%;
     margin-bottom: 10px;
     & p {
       margin: 0px;
@@ -105,7 +122,7 @@ const UpcomingVisitContainer = styled.div`
   align-items: center;
   justify-content: space-between;
   height: 50px;
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 5px;
   margin: 5px auto 0px auto;
 `;

@@ -27,7 +27,9 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
-          setTargetVisitArray(data.data);
+          setTargetVisitArray(
+            data.data.sort((a, b) => new Date(a._id) - new Date(b._id))
+          );
 
           data.data.forEach((item) => {
             item.timeslots.map((element) => {
@@ -216,7 +218,7 @@ const StyledVisitorForm = styled.div`
       border-bottom: 1px solid gray;
     }
     & p {
-      font-size: 15px;
+      font-size: 18px;
       margin: 15px 0px;
     }
     & label {
@@ -231,7 +233,7 @@ const StyledVisitorForm = styled.div`
       margin-bottom: 10px;
     }
     & h2 {
-      font-size: 15px;
+      font-size: 18px;
       font-weight: 500;
       border-bottom: 1px solid gray;
     }

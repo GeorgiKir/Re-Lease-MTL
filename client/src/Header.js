@@ -16,7 +16,7 @@ const Header = () => {
       <StyledHeader>
         <NavContainer>
           <StyledNav to={"/"}>Re:Lease MTL</StyledNav>
-          <StyledNav>About us</StyledNav>
+          <a href="#about">About us</a>
           <StyledNav to={"/search"}>
             <FiSearch style={{ fontSize: "25px" }} />
           </StyledNav>
@@ -24,7 +24,7 @@ const Header = () => {
         <ProfileOptionsContainer>
           {currentUser && (
             <>
-              <p>{currentUser.nickname}</p>
+              <p>Hi, {currentUser.nickname}!</p>
               <StyledNav to={"/profile"}>
                 <FiUser style={{ fontSize: "30px" }} />
               </StyledNav>
@@ -79,7 +79,7 @@ const ProfileOptionsContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 15%;
+  width: 20%;
   margin: 0px 10%;
   position: relative;
 `;
@@ -97,6 +97,25 @@ export const NavContainer = styled.div`
   @media (max-width: 767px) {
     width: 100%;
   }
+  & a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    @media (min-width: 768px) {
+      &:after {
+        display: block;
+        content: "";
+        border-bottom: solid 3px white;
+        transform: scaleX(0);
+        transition: transform 500ms ease-in-out;
+      }
+      &:hover:after {
+        transform: scaleX(1);
+      }
+    }
+  }
 `;
 
 const StyledHeader = styled.div`
@@ -111,8 +130,8 @@ const StyledHeader = styled.div`
   justify-content: space-between;
   align-items: center;
   width: 100vw;
-  /* background-color: #efefef; */
-  background-color: #1c2321;
+  background-color: #0078a0;
+  /* background-color: #1c2321; */
   height: 55px;
   z-index: 2;
   color: white;

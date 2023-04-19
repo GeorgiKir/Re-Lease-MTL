@@ -16,6 +16,7 @@ import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
 import { AiOutlineComment } from "react-icons/ai";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
+import CommentsModal from "./CommentsModal";
 
 const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
   const { currentUser, logoutState } = useContext(CurrentUserContext);
@@ -25,6 +26,7 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
   const [showListingModal, setShowListingModal] = useState(false);
   const [showPhotoTracker, setShowPhotoTracker] = useState(0);
   const [numOfListingPhotos, setNumOfListingPhotos] = useState(null);
+  const [showCommentModal, setShowCommentModal] = useState(false);
 
   useEffect(() => {
     if (selectedElement) {
@@ -131,6 +133,9 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
                           cursor: "pointer",
                           marginRight: "10px",
                         }}
+                        onClick={() => {
+                          setShowCommentModal(true);
+                        }}
                       />
                       <FiPlusCircle
                         style={{
@@ -150,6 +155,13 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
                   </PlusButtonContainer>
                 </InfoWindowInfoContainer>
               </InfoWindow>
+            )}
+            {showCommentModal && (
+              <CommentsModal
+                selectedElement={selectedElement}
+                setSelectedElement={setSelectedElement}
+                setShowCommentModal={setShowCommentModal}
+              />
             )}
 
             {showListingModal && (
@@ -177,7 +189,8 @@ const ArrowContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: rgba(28, 35, 33, 0.81);
+  background-color: #0078a0;
+  /* background-color: rgba(28, 35, 33, 0.81); */
 `;
 
 const IconInfoMapModalDiv = styled.div`

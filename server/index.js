@@ -13,6 +13,8 @@ const {
   postTimeSlots,
   getTimeSlots,
   deleteTimeslot,
+  postComment,
+  getListing,
 } = require("./handlers");
 
 const PORT = 8000;
@@ -29,6 +31,7 @@ app.get("/hello", (req, res) => {
 });
 app.get("/users/:userEmail", getUser);
 app.post("/listings/addListing", postListing);
+app.get("/listings/getSingleListing/:listingId", getListing);
 app.get("/listings/listingResults/:borough/:price/:bedrooms", getListings);
 app.patch("/listings/deletelisting/:listingId", deleteListing);
 app.patch("/listings/deletelisting/:userEmail", deleteListingFromUserDB);
@@ -36,6 +39,7 @@ app.patch("/listings/reserveAVisitTime", scheduleReservation);
 app.post("/timeSlots/addTimeSlots", postTimeSlots);
 app.get("/timeSlots/:searchField/:listingId", getTimeSlots);
 app.patch("/timeSlots/deleteTimeSlot/:visitId", deleteTimeslot);
+app.patch("/listings/comments/postComment", postComment);
 // endpoint for getting all listings based on criteria
 // endpoint for getting a single listing
 

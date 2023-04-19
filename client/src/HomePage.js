@@ -5,6 +5,8 @@ import styled from "styled-components";
 import bgImage from "./assets/facade1.jpg";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { boroughs } from "./boroughs";
+import { keyframes } from "styled-components";
+import AboutUs from "./AboutUs";
 
 const HomePage = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
@@ -18,15 +20,36 @@ const HomePage = () => {
     <MainPageContainer style={{ marginTop: "0px", width: "100%" }}>
       <HomePageContentDiv>
         <HeroImageContainer>
-          <h2>Reduce.</h2>
-          <h2>Reuse.</h2>
-          <h2>Recycle.</h2>
-          <h2>Re:Lease.</h2>
+          <SlideInTextDiv>
+            <h2>Reduce.</h2>
+          </SlideInTextDiv>
+          <SlideInTextDiv>
+            <h2>Reuse.</h2>
+          </SlideInTextDiv>
+          <SlideInTextDiv>
+            <h2>Recycle.</h2>
+          </SlideInTextDiv>
+          <SlideInTextDiv>
+            <h2>Re:Lease.</h2>
+          </SlideInTextDiv>
         </HeroImageContainer>
-      </HomePageContentDiv>{" "}
+      </HomePageContentDiv>
+      <AboutUs id="about" />
     </MainPageContainer>
   );
 };
+
+const SlideInTextDiv = styled.div``;
+const SlideInFromLeft = keyframes`
+from {
+  margin-left: -150%;
+  opacity: 0;
+}
+to {
+  margin-left: 0%;
+  opacity: 1;
+}
+`;
 
 const HeroImageContainer = styled.div`
   display: flex;
@@ -54,6 +77,19 @@ const HeroImageContainer = styled.div`
       font-weight: 500;
     }
   }
+  overflow: hidden;
+  & ${SlideInTextDiv}:nth-child(1) {
+    animation: ${SlideInFromLeft} 1.5s ease-in-out;
+  }
+  & ${SlideInTextDiv}:nth-child(2) {
+    animation: ${SlideInFromLeft} 1.75s ease-in-out;
+  }
+  & ${SlideInTextDiv}:nth-child(3) {
+    animation: ${SlideInFromLeft} 2s ease-in-out;
+  }
+  & ${SlideInTextDiv}:nth-child(4) {
+    animation: ${SlideInFromLeft} 2.25s ease-in-out;
+  }
 `;
 
 const HomePageContentDiv = styled.div`
@@ -67,7 +103,7 @@ const HomePageContentDiv = styled.div`
 export const MainPageContainer = styled.div`
   @media (min-width: 768px) {
     margin-top: 75px;
-    min-height: calc(100vh - 180px);
+    min-height: calc(100vh - 100px);
   }
 
   @media (max-width: 767.9px) {

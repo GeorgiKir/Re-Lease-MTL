@@ -61,6 +61,7 @@ const postListing = async (req, res) => {
     selectedTimeSlots,
     listingImage,
     borough,
+    comments,
   } = req.body;
   const fullAddress = `${listingAddress} ${postalCode} Montreal QC Canada`;
 
@@ -127,6 +128,7 @@ const postListing = async (req, res) => {
           numBDR: numBDR,
           listingDescription: listingDescription,
           listingImage: listingImgUrl,
+          comments: comments,
           // listingImgPublicId: publidId,
         });
 
@@ -434,6 +436,90 @@ const deleteTimeslot = async (req, res) => {
   }
 };
 
+const postComment = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  const { listingId, comment, reply, commentId, username } = req.body;
+  try {
+    await client.connect();
+    const db = client.db("re-lease");
+
+    if (reply) {
+      const newReply = await db
+        .collection("listings")
+        .updateOne(
+          { _id: listingId, "comments.id": commentId },
+          { $set: { "comments.$.reply": reply } }
+        );
+      if (newReply.acknowledged) {
+        res.status(200).json({
+          status: 200,
+          message: "Replied successfully!",
+          data: reply,
+        });
+      } else {
+        res.status(400).json({
+          status: 400,
+          data: "Unable to leave reply",
+        });
+      }
+    } else if (comment) {
+      const commentToBePosted = {
+        id: uuidv4(),
+        username: username,
+        comment: comment,
+        reply: null,
+      };
+      const newComment = await db
+        .collection("listings")
+        .updateOne(
+          { _id: listingId },
+          { $push: { comments: commentToBePosted } }
+        );
+      if (newComment.acknowledged) {
+        res.status(200).json({
+          status: 200,
+          message: "commented successfully!",
+          data: comment,
+        });
+      } else {
+        res.status(400).json({
+          status: 400,
+          data: "Unable to leave comment",
+        });
+      }
+    }
+  } catch (err) {
+    console.log("Error: ", err);
+  } finally {
+    await client.close();
+    console.log("disconnected!");
+  }
+};
+
+const getListing = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  try {
+    const { listingId } = req.params;
+    await client.connect();
+    const db = client.db("re-lease");
+    let targetListing = await db
+      .collection("listings")
+      .findOne({ _id: listingId });
+    if (targetListing) {
+      res.status(200).json({ status: 200, data: targetListing });
+    } else {
+      res.status(400).json({
+        status: 400,
+        data: "Cannot find your listing",
+      });
+    }
+  } catch (err) {
+    console.log("Error: ", err);
+  } finally {
+    await client.close();
+    console.log("disconnected!");
+  }
+};
 module.exports = {
   getUser,
   postListing,
@@ -444,4 +530,6 @@ module.exports = {
   postTimeSlots,
   getTimeSlots,
   deleteTimeslot,
+  postComment,
+  getListing,
 };

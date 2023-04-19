@@ -29,6 +29,7 @@ const ListingCreationForm = () => {
     listingDescription: "",
     selectedTimeSlots: [],
     listingImage: [],
+    comments: [],
   });
 
   const handleChange = (value, name) => {
@@ -64,6 +65,7 @@ const ListingCreationForm = () => {
                   email: data.data.email,
                   _id: data.data._id,
                   listing: data.data.listingInfo,
+                  nickname: currentUser.nickname,
                 })
               );
               setCurrentUser(
@@ -315,7 +317,7 @@ const StyledPreviousNextButton = styled.button`
   color: white;
 `;
 
-const PreviousNextButtonDiv = styled.div`
+export const PreviousNextButtonDiv = styled.div`
   display: flex;
   gap: 15px;
 `;

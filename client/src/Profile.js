@@ -16,6 +16,10 @@ import { FaBed } from "react-icons/fa";
 import { GrDocumentText } from "react-icons/gr";
 import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineComment } from "react-icons/ai";
+import CommentsModal from "./CommentsModal";
+import ListingUserCommentsModal from "./ListingUserCommentModal";
+import { GoPencil } from "react-icons/go";
 
 const Profile = () => {
   const navigate = useNavigate();
@@ -24,7 +28,9 @@ const Profile = () => {
   const { user, isAuthenticated } = useAuth0();
   const [showPhotoTracker, setShowPhotoTracker] = useState(0);
   const [numOfListingPhotos, setNumOfListingPhotos] = useState(null);
+  const [showCommentModal, setShowCommentModal] = useState(false);
   let handlePhotoTracker;
+
   if (!isAuthenticated) {
     navigate("/");
   } else {
@@ -75,7 +81,7 @@ const Profile = () => {
                   handlePhotoTracker(0);
                 }}
               >
-                <SlArrowLeft style={{ color: "white", fontSize: "30px" }} />
+                <SlArrowLeft style={{ fontSize: "35px" }} />
               </ArrowContainerDiv>
               <img
                 src={currentUser.listing.listingImage[showPhotoTracker].url}
@@ -104,7 +110,7 @@ const Profile = () => {
                   handlePhotoTracker(1);
                 }}
               >
-                <SlArrowRight style={{ color: "white", fontSize: "30px" }} />
+                <SlArrowRight style={{ fontSize: "35px" }} />
               </ArrowContainerDiv>
 
               <ListingInfoProfileDiv>
@@ -131,7 +137,35 @@ const Profile = () => {
                   <GrDocumentText style={{ fontSize: "30px" }} />
                   <p>{currentUser.listing.listingDescription}</p>
                 </IndividualInfoDiv>
-                <DeleteListingButton />
+                <div
+                  style={{
+                    display: "flex",
+                    border: "1px solid black",
+                    alignItems: "flex-end",
+                    justifyContent: "space-evenly",
+                  }}
+                >
+                  <DeleteListingButton />
+
+                  <button
+                    style={{ display: "flex", alignItems: "center" }}
+                    onClick={() => {
+                      setShowCommentModal(true);
+                    }}
+                  >
+                    <AiOutlineComment style={{ fontSize: "35px" }} />{" "}
+                    <p>Comments</p>
+                  </button>
+                  <button>
+                    <GoPencil />
+                    <p>Edit</p>
+                  </button>
+                </div>
+                {showCommentModal && (
+                  <ListingUserCommentsModal
+                    setShowCommentModal={setShowCommentModal}
+                  />
+                )}
               </ListingInfoProfileDiv>
             </ListingInfoMainContainer>
           )}
@@ -177,7 +211,10 @@ const ArrowContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  background-color: rgba(28, 35, 33, 0.81);
+  background-color: transparent;
+  color: #00abe4;
+  font-weight: 600;
+  /* background-color: rgba(28, 35, 33, 0.81); */
 `;
 
 const ListingInfoMainContainer = styled.div`
@@ -187,7 +224,7 @@ const ListingInfoMainContainer = styled.div`
     & img {
       width: 60%;
       height: scale;
-      /* border-radius: 5px; */
+      border-radius: 10px;
     }
   }
   @media (max-width: 767.9px) {
@@ -199,7 +236,7 @@ const ListingInfoMainContainer = styled.div`
     & img {
       width: 80%;
       height: 300px;
-      /* border-radius: 5px; */
+      /* border-radius: 10px; */
       border-top-right-radius: 5px;
       border-top-left-radius: 5px;
     }
@@ -263,7 +300,7 @@ const MyListingWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   background-color: #efefef;
-  border: 1px solid gray;
+  /* border: 1px solid gray; */
   height: fit-content;
   border-radius: 5px;
   margin: 0px auto;
@@ -307,14 +344,16 @@ export const ProfilePageContentDiv = styled.div`
     flex-direction: row;
     width: 85%;
     justify-content: space-between;
+    margin: 155px auto 50px auto;
   }
   @media (max-width: 767.9px) {
     flex-direction: column;
     width: 95%;
+    margin: 125px auto 50px auto;
   }
   display: flex;
   align-items: center;
-  margin: 125px auto 50px auto;
+
   height: 100%;
 `;
 

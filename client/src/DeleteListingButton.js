@@ -3,9 +3,12 @@ import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
+import { useState } from "react";
+import DeleteConfirmation from "./DeleteConfirmation";
 
 const DeleteListingButton = () => {
   const { user, isAuthenticated } = useAuth0();
+  const [cancelVisitState, setCancelVisitState] = useState(false);
 
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
@@ -36,7 +39,11 @@ const DeleteListingButton = () => {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setCurrentUser({ _id: currentUser._id, email: currentUser.email });
+        setCurrentUser({
+          _id: currentUser._id,
+          email: currentUser.email,
+          nickname: currentUser.nickname,
+        });
       })
       .catch((e) => {
         console.log("Error: ", e);
@@ -46,22 +53,28 @@ const DeleteListingButton = () => {
     <DeleteButtonContainerDiv>
       <StyledDeleteButton
         onClick={() => {
-          handleListingDelete();
+          setCancelVisitState(true);
         }}
       >
         <p>Delete Listing</p>
       </StyledDeleteButton>
+      {cancelVisitState && (
+        <DeleteConfirmation
+          setCancelVisitState={setCancelVisitState}
+          handleListingDelete={handleListingDelete}
+        />
+      )}
     </DeleteButtonContainerDiv>
   );
 };
 
 const DeleteButtonContainerDiv = styled.div`
-  @media (min-width: 768px) {
+  /* @media (min-width: 768px) {
     width: 80%;
   }
   @media (max-width: 767px) {
     width: 100%;
-  }
+  } */
 
   display: flex;
 `;
@@ -94,7 +107,7 @@ const StyledDeleteButton = styled.button`
   width: fit-content;
   padding: 5px;
 
-  align-items: center;
+  /* align-items: center;
   &::before {
     content: "";
     left: 0;
@@ -109,6 +122,6 @@ const StyledDeleteButton = styled.button`
   &:hover::before,
   :focus::before {
     transform: scaleX(1);
-  }
+  } */
 `;
 export default DeleteListingButton;

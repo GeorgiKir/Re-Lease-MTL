@@ -115,7 +115,10 @@ video {
     }
 
     p {
-        font-family: "Open Sans", sans-serif;
+        /* font-family: "Raleway", sans-serif; */
+        font-family: 'Jost', sans-serif;
+        /* color: #003D6D; */
+        /* font-family: "Open Sans", sans-serif; */
     }
     ol, ul {
         list-style: none;

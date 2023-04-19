@@ -75,12 +75,13 @@ const SearchBarMobile = ({
                 cursor: "pointer",
               }}
               type="button"
-              onClick={() => {
+              onClick={(e) => {
                 setShowDropdownSearch(false);
                 handleSearchSubmit(
                   searchCriteria.borough,
                   searchCriteria.price,
-                  searchCriteria.bedroom
+                  searchCriteria.bedroom,
+                  e
                 );
               }}
             >
@@ -128,7 +129,7 @@ const MobileStyledSearchBar = styled.div`
   align-items: center;
   width: 100%;
   margin-top: 55px;
-  background-color: #7d98a1;
+  background-color: #00abe4;
   min-height: 40px;
   font-size: 20px;
   color: white;

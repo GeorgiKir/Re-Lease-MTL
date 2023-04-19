@@ -17,7 +17,8 @@ const StyledFooter = styled.div`
   justify-content: center;
   align-items: center;
   /* width: 98.9vw; */
-  background-color: black;
+  background-color: #0078a0;
+  /* background-color: black; */
   height: 50px;
   color: white;
   bottom: 0;

@@ -42,8 +42,12 @@ const SearchBar = ({
               Select a borough
             </option>
             ;
-            {boroughs.map((borough) => {
-              return <option value={borough.borough}>{borough.borough}</option>;
+            {boroughs.map((borough, index) => {
+              return (
+                <option key={index} value={borough.borough}>
+                  {borough.borough}
+                </option>
+              );
             })}
           </select>
         </FormInputElement>
@@ -141,7 +145,8 @@ const StyledSearchBar = styled.div`
   align-items: center;
   width: 100%;
   margin-top: 55px;
-  background-color: #7d98a1;
+  background-color: #00abe4;
+  /* background-color: #7d98a1; */
   height: 40px;
   font-size: 20px;
   color: white;
