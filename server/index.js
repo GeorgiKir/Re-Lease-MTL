@@ -15,6 +15,7 @@ const {
   deleteTimeslot,
   postComment,
   getListing,
+  updateListing,
 } = require("./handlers");
 
 const PORT = 8000;
@@ -40,6 +41,7 @@ app.post("/timeSlots/addTimeSlots", postTimeSlots);
 app.get("/timeSlots/:searchField/:listingId", getTimeSlots);
 app.patch("/timeSlots/deleteTimeSlot/:visitId", deleteTimeslot);
 app.patch("/listings/comments/postComment", postComment);
+app.patch("/listings/updateListings/:listingId", updateListing);
 // endpoint for getting all listings based on criteria
 // endpoint for getting a single listing
 

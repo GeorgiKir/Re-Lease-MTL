@@ -147,6 +147,7 @@ const StyledSearchBar = styled.div`
   margin-top: 55px;
   background-color: #00abe4;
   /* background-color: #7d98a1; */
+  z-index: 1;
   height: 40px;
   font-size: 20px;
   color: white;

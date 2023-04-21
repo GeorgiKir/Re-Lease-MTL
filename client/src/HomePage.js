@@ -8,7 +8,7 @@ import { boroughs } from "./boroughs";
 import { keyframes } from "styled-components";
 import AboutUs from "./AboutUs";
 
-const HomePage = () => {
+const HomePage = ({ setNavigationState }) => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const navigate = useNavigate();
   const { user, isAuthenticated } = useAuth0();
@@ -16,6 +16,11 @@ const HomePage = () => {
   const handleNavigation = () => {
     navigate("/login");
   };
+
+  useEffect(() => {
+    setNavigationState("home");
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
   return (
     <MainPageContainer style={{ marginTop: "0px", width: "100%" }}>
       <HomePageContentDiv>
@@ -79,16 +84,16 @@ const HeroImageContainer = styled.div`
   }
   overflow: hidden;
   & ${SlideInTextDiv}:nth-child(1) {
-    animation: ${SlideInFromLeft} 1.5s ease-in-out;
+    animation: ${SlideInFromLeft} 1.5s ease-in;
   }
   & ${SlideInTextDiv}:nth-child(2) {
-    animation: ${SlideInFromLeft} 1.75s ease-in-out;
+    animation: ${SlideInFromLeft} 1.75s ease-in;
   }
   & ${SlideInTextDiv}:nth-child(3) {
-    animation: ${SlideInFromLeft} 2s ease-in-out;
+    animation: ${SlideInFromLeft} 2s ease-in;
   }
   & ${SlideInTextDiv}:nth-child(4) {
-    animation: ${SlideInFromLeft} 2.25s ease-in-out;
+    animation: ${SlideInFromLeft} 2.25s ease-in;
   }
 `;
 
@@ -97,19 +102,19 @@ const HomePageContentDiv = styled.div`
   justify-content: space-between;
   margin: 0px auto;
   /* width: 75vw; */
-  height: 100%;
+  height: 100vh;
 `;
 
 export const MainPageContainer = styled.div`
   @media (min-width: 768px) {
     margin-top: 75px;
-    min-height: calc(100vh - 100px);
+    min-height: calc(100vh - 150px);
   }
 
   @media (max-width: 767.9px) {
     margin-top: 35px;
     /* height: calc(100vh - 180px); */
-    height: calc(100vh);
+    min-height: calc(100vh);
   }
 
   background-size: cover;

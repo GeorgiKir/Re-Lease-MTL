@@ -19,9 +19,10 @@ import { useNavigate } from "react-router-dom";
 import { AiOutlineComment } from "react-icons/ai";
 import CommentsModal from "./CommentsModal";
 import ListingUserCommentsModal from "./ListingUserCommentModal";
-import { GoPencil } from "react-icons/go";
+import { AiOutlineEdit } from "react-icons/ai";
+import EditListingModal from "./EditListingModal";
 
-const Profile = () => {
+const Profile = ({ setNavigationState }) => {
   const navigate = useNavigate();
   const [profileState, setProfileState] = useState("myListing");
   const { currentUser, logoutState } = useContext(CurrentUserContext);
@@ -29,6 +30,8 @@ const Profile = () => {
   const [showPhotoTracker, setShowPhotoTracker] = useState(0);
   const [numOfListingPhotos, setNumOfListingPhotos] = useState(null);
   const [showCommentModal, setShowCommentModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [updateMessage, setUpdateMessage] = useState(null);
   let handlePhotoTracker;
 
   if (!isAuthenticated) {
@@ -38,7 +41,6 @@ const Profile = () => {
       if (count === 1) {
         if (showPhotoTracker === numOfListingPhotos - 1) {
           setShowPhotoTracker(0);
-          // console.log("end of tracker reached");
         } else {
           setShowPhotoTracker((prev) => prev + 1);
         }
@@ -56,9 +58,11 @@ const Profile = () => {
     if (!logoutState && isAuthenticated) {
       if (currentUser.listing) {
         setNumOfListingPhotos(currentUser.listing.listingImage.length);
+        setNavigationState("profile");
+        window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
       }
     }
-  }, [currentUser]);
+  }, [currentUser, updateMessage]);
 
   return (
     isAuthenticated &&
@@ -137,17 +141,10 @@ const Profile = () => {
                   <GrDocumentText style={{ fontSize: "30px" }} />
                   <p>{currentUser.listing.listingDescription}</p>
                 </IndividualInfoDiv>
-                <div
-                  style={{
-                    display: "flex",
-                    border: "1px solid black",
-                    alignItems: "flex-end",
-                    justifyContent: "space-evenly",
-                  }}
-                >
+                <ProfileButtonContainer>
                   <DeleteListingButton />
 
-                  <button
+                  <ProfileStyledButton
                     style={{ display: "flex", alignItems: "center" }}
                     onClick={() => {
                       setShowCommentModal(true);
@@ -155,12 +152,16 @@ const Profile = () => {
                   >
                     <AiOutlineComment style={{ fontSize: "35px" }} />{" "}
                     <p>Comments</p>
-                  </button>
-                  <button>
-                    <GoPencil />
+                  </ProfileStyledButton>
+                  <ProfileStyledButton
+                    onClick={() => {
+                      setShowEditModal(true);
+                    }}
+                  >
+                    <AiOutlineEdit style={{ fontSize: "35px" }} />
                     <p>Edit</p>
-                  </button>
-                </div>
+                  </ProfileStyledButton>
+                </ProfileButtonContainer>
                 {showCommentModal && (
                   <ListingUserCommentsModal
                     setShowCommentModal={setShowCommentModal}
@@ -184,11 +185,73 @@ const Profile = () => {
               <UpcomingVisitsSchedulePage />
             </MyListingWrapper>
           )}
+          {showEditModal && (
+            <EditListingModal
+              listing={currentUser.listing}
+              setShowEditModal={setShowEditModal}
+              updateMessage={updateMessage}
+              setUpdateMessage={setUpdateMessage}
+            />
+          )}
         </ProfilePageContentDiv>
       </MainPageContainer>
     )
   );
 };
+
+export const ProfileStyledButton = styled.button`
+  @media (min-width: 768px) {
+    font-size: 15px;
+  }
+  @media (max-width: 767.9px) {
+    font-size: 15px;
+  }
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  display: flex;
+  font-size: 15px;
+  align-items: center;
+  border-radius: 5px;
+  border: 2px solid #0078a0;
+  gap: 5px;
+  padding: 0px 10px;
+  /* font-size: 20px; */
+  cursor: pointer;
+  color: #0078a0;
+
+  &:hover,
+  :focus {
+    color: white;
+    border: none;
+  }
+  &::before {
+    content: "";
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    z-index: -1;
+    background-color: #0078a0;
+    position: absolute;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 500ms ease-in-out;
+  }
+  &:hover::before,
+  :focus::before {
+    transform: scaleX(1);
+  }
+`;
+
+const ProfileButtonContainer = styled.div`
+  display: flex;
+  /* border: 1px solid black; */
+  font-size: 20px;
+  align-items: flex-end;
+  justify-content: space-evenly;
+  /* margin-top: 20px; */
+`;
 
 const MobileArrowContainerDiv = styled.div`
   @media (min-width: 768px) {
@@ -218,6 +281,7 @@ const ArrowContainerDiv = styled.div`
 `;
 
 const ListingInfoMainContainer = styled.div`
+  /* border: 1px solid black; */
   @media (min-width: 768px) {
     display: flex;
     flex-direction: row;
@@ -245,7 +309,7 @@ const ListingInfoMainContainer = styled.div`
 const ListingInfoProfileDiv = styled.div`
   @media (min-width: 768px) {
     width: 40%;
-    height: 60vh;
+    /* height: 60vh; */
     margin-left: 20px;
   }
   @media (max-width: 767.9px) {
@@ -257,6 +321,7 @@ const ListingInfoProfileDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
+  /* height: 100%; */
   /* border: 1px solid green; */
 `;
 const IndividualInfoDiv = styled.div`

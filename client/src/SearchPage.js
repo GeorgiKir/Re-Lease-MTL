@@ -10,7 +10,7 @@ import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import SearchBarMobile from "./SearchBarMobile";
 
-const SearchPage = () => {
+const SearchPage = ({ setNavigationState }) => {
   const { currentUser } = useContext(CurrentUserContext);
   const [searchCriteria, setSearchCriteria] = useState({
     borough: "",
@@ -27,6 +27,11 @@ const SearchPage = () => {
   const [listings, setListings] = useState(null);
   const [showListingModal, setShowListingModal] = useState(false);
   const [targetListingForModal, setTargetListingForModal] = useState(null);
+
+  useEffect(() => {
+    setNavigationState("search");
+    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+  }, []);
 
   const handleSearchSubmit = (borough, price, bedrooms, e) => {
     e.preventDefault();

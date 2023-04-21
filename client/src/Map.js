@@ -17,6 +17,7 @@ import { AiOutlineComment } from "react-icons/ai";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import CommentsModal from "./CommentsModal";
+import { BsArrowsFullscreen } from "react-icons/bs";
 
 const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
   const { currentUser, logoutState } = useContext(CurrentUserContext);
@@ -102,7 +103,13 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
                     <img
                       src={selectedElement.listingImage[showPhotoTracker].url}
                     />
-
+                    {/* <BsArrowsFullscreen
+                    style={{
+                      position: "absolute",
+                      marginLeft: "290px",
+                      marginTop: "180px",
+                    }}
+                    /> */}
                     <ArrowContainerDiv
                       onClick={() => {
                         handlePhotoTracker(1);
@@ -232,5 +239,11 @@ const InfoWindowInfoContainer = styled.div`
       margin-left: 10px;
     }
   }
+  /* & svg:nth-child(3) {
+    position: absolute;
+
+    margin-left: 290px;
+    margin-top: 180px;
+  } */
 `;
 export default Map;

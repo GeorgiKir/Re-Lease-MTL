@@ -111,7 +111,6 @@ const AboutUsTextDiv = styled.div`
   font-size: 25px;
   line-height: 1.2;
   color: #001117;
-
   height: fit-content;
 
   text-justify: inter-word;
@@ -120,7 +119,7 @@ const AboutUsTextDiv = styled.div`
   @media (min-width: 768px) {
     width: 50%;
     & h1 {
-      font-size: 25px;
+      font-size: 20px;
       margin-bottom: 10px;
     }
     & h2 {

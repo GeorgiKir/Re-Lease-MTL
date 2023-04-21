@@ -14,6 +14,7 @@ import LogoutPage from "./LogoutPage";
 
 function App() {
   const { user, isAuthenticated } = useAuth0();
+  const [navigationState, setNavigationState] = useState("home");
   const {
     currentUser,
     setCurrentUser,
@@ -26,7 +27,7 @@ function App() {
   useEffect(() => {
     if (isAuthenticated && user) {
       // setVerificationState("Checking");
-      // console.log(user);
+      console.log(user);
       fetch(`/users/${user.email}`)
         .then((res) => res.json())
         .then((data) => {
@@ -56,18 +57,26 @@ function App() {
     <>
       <BrowserRouter>
         <GlobalStyle />
-        <Header />
+        <Header navigationState={navigationState} />
         {logoutState && <LogoutPage />}
         {!logoutState && (
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<LoginPage />} />
-            <Route path="/search" element={<SearchPage />} />
-            {/* <Route
+            <Route
+              path="/"
+              element={<HomePage setNavigationState={setNavigationState} />}
+            />
+            <Route
+              path="/login"
+              element={<LoginPage setNavigationState={setNavigationState} />}
+            />
+            <Route
+              path="/search"
+              element={<SearchPage setNavigationState={setNavigationState} />}
+            />
+            <Route
               path="/profile"
-              element={isAuthenticated ? <Profile /> : <HomePage />}
-            /> */}
-            <Route path="/profile" element={<Profile />} />
+              element={<Profile setNavigationState={setNavigationState} />}
+            />
           </Routes>
         )}
         <Footer />

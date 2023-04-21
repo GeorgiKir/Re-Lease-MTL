@@ -63,7 +63,7 @@ const postListing = async (req, res) => {
     borough,
     comments,
   } = req.body;
-  const fullAddress = `${listingAddress} ${postalCode} Montreal QC Canada`;
+  const fullAddress = `${listingAddress}, ${postalCode}, Montreal, QC, Canada`;
 
   try {
     const coords = await geocoder.geocode(fullAddress).then((res) => {
@@ -520,6 +520,120 @@ const getListing = async (req, res) => {
     console.log("disconnected!");
   }
 };
+
+const updateListing = async (req, res) => {
+  const client = new MongoClient(MONGO_URI, options);
+  var geocoder = NodeGeocoder({
+    provider: "opencage",
+    apiKey: OPENCAGE_KEY,
+  });
+  const { listingId } = req.params;
+  const {
+    email,
+    postalCode,
+    listingAddress,
+    borough,
+    price,
+    numBDR,
+    listingDescription,
+    listingImage,
+    comments,
+  } = req.body;
+
+  const fullAddress = `${listingAddress}, ${postalCode}, Montreal QC, Canada`;
+
+  try {
+    await client.connect();
+    const db = client.db("re-lease");
+    const coords = await geocoder.geocode(fullAddress).then((res) => {
+      if (res.length < 1) {
+        return null;
+      } else {
+        return { lat: res[0].latitude, lng: res[0].longitude };
+      }
+    });
+    console.log("coords: ", coords);
+
+    if (
+      coords === undefined ||
+      coords === null ||
+      (coords.lat === 45.50884 && coords.lng === -73.58781)
+    ) {
+      return res
+        .status(400)
+        .json({
+          status: 400,
+          message: "Invalid address",
+          data: "Invalid address.",
+        });
+    } else {
+      const updateTargetListing = await db.collection("listings").updateOne(
+        { _id: listingId },
+        {
+          $set: {
+            listingCoords: coords,
+            listingAddress: listingAddress,
+            postalCode: postalCode,
+            borough: borough,
+            price: price,
+            numBDR: numBDR,
+            listingDescription: listingDescription,
+          },
+        }
+      );
+
+      const updateListingInUserProfile = await db.collection("users").updateOne(
+        { email: email },
+        {
+          $set: {
+            listingInfo: {
+              _id: listingId,
+              listingCoords: coords,
+              listingAddress: listingAddress,
+              postalCode: postalCode,
+              price: price,
+              numBDR: numBDR,
+              borough: borough,
+              listingDescription: listingDescription,
+              listingImage: listingImage,
+              comments: comments,
+            },
+          },
+        }
+      );
+      if (
+        updateTargetListing.acknowledged &&
+        updateListingInUserProfile.acknowledged
+      ) {
+        return res.status(200).json({
+          status: 200,
+          message: "Successfully updated!",
+          data: {
+            _id: listingId,
+            listingCoords: coords,
+            listingAddress: listingAddress,
+            postalCode: postalCode,
+            price: price,
+            numBDR: numBDR,
+            borough: borough,
+            listingDescription: listingDescription,
+            listingImage: listingImage,
+            comments: comments,
+          },
+        });
+      } else {
+        return res
+          .status(400)
+          .json({ status: 400, data: "Something went wrong" });
+      }
+    }
+  } catch (err) {
+    console.log("Error: ", err);
+  } finally {
+    await client.close();
+    console.log("disconnected!");
+  }
+};
 module.exports = {
   getUser,
   postListing,
@@ -532,4 +646,5 @@ module.exports = {
   deleteTimeslot,
   postComment,
   getListing,
+  updateListing,
 };

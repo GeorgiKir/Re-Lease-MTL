@@ -76,7 +76,6 @@ const ListingUserCommentsModal = ({ setShowCommentModal }) => {
               (selectedElement.comments.length < 1 && (
                 <CommentFeedDiv>No comments yet...</CommentFeedDiv>
               ))}
-
             {selectedElement.comments &&
               selectedElement.comments.length > 0 && (
                 <CommentFeedDiv>
@@ -181,6 +180,7 @@ const CommentForm = styled.form`
   justify-content: space-between;
   width: 75%;
   margin: 0px auto 25px auto;
+  height: 15%;
 `;
 const IndividualCommentDiv = styled.div`
   display: flex;
@@ -196,7 +196,7 @@ const CommentFeedDiv = styled.div`
   flex-direction: column;
   /* justify-content: space-between; */
   width: 75%;
-  height: 70%;
+  height: 85%;
   padding-right: 15px;
   overflow-y: scroll;
 `;

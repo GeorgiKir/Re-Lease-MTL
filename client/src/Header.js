@@ -9,14 +9,14 @@ import { Link, NavLink } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import HeaderMobile from "./HeaderMobile";
 
-const Header = () => {
+const Header = ({ navigationState }) => {
   const { currentUser } = useContext(CurrentUserContext);
   return (
     <>
       <StyledHeader>
         <NavContainer>
           <StyledNav to={"/"}>Re:Lease MTL</StyledNav>
-          <a href="#about">About us</a>
+          {navigationState === "home" && <a href="#about">About us</a>}
           <StyledNav to={"/search"}>
             <FiSearch style={{ fontSize: "25px" }} />
           </StyledNav>

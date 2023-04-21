@@ -5,6 +5,7 @@ import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { useState } from "react";
 import DeleteConfirmation from "./DeleteConfirmation";
+import { FiTrash2 } from "react-icons/fi";
 
 const DeleteListingButton = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -56,7 +57,8 @@ const DeleteListingButton = () => {
           setCancelVisitState(true);
         }}
       >
-        <p>Delete Listing</p>
+        <FiTrash2 style={{ fontSize: "27px" }} />
+        <p>Delete</p>
       </StyledDeleteButton>
       {cancelVisitState && (
         <DeleteConfirmation
@@ -79,7 +81,7 @@ const DeleteButtonContainerDiv = styled.div`
   display: flex;
 `;
 
-const StyledDeleteButton = styled.button`
+export const StyledDeleteButton = styled.button`
   /* @media (min-width: 1160px) {
     font-size: 10px;
   }
@@ -89,39 +91,44 @@ const StyledDeleteButton = styled.button`
   @media (max-width: 767px) {
     font-size: 15px;
   } */
+  cursor: pointer;
   position: relative;
-  /* font-family: "Raleway", sans-serif; */
-  font-family: "Open Sans", sans-serif;
-  /* font-weight: 500; */
-  border: 3px solid gray;
+  /* font-family: "Open Sans", sans-serif; */
+  border: 2px solid #0078a0;
   border-radius: 5px;
   margin: 0px auto;
-  font-size: 20px;
+  font-size: 15px;
   background: none;
   cursor: pointer;
-  color: black;
+  color: #0078a0;
   display: flex;
+  align-items: center;
   gap: 5px;
-  margin-top: 20px;
   height: fit-content;
-  width: fit-content;
-  padding: 5px;
+  padding: 4px 10px;
+  overflow: hidden;
 
-  /* align-items: center;
+  &:hover,
+  :focus {
+    color: white;
+    border: none;
+  }
   &::before {
     content: "";
     left: 0;
     right: 0;
+    top: 0;
     bottom: 0;
-    height: 4px;
-    background-color: black;
+    z-index: -1;
+    background-color: #0078a0;
     position: absolute;
     transform: scaleX(0);
+    transform-origin: left;
     transition: transform 500ms ease-in-out;
   }
   &:hover::before,
   :focus::before {
     transform: scaleX(1);
-  } */
+  }
 `;
 export default DeleteListingButton;

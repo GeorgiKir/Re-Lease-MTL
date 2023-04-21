@@ -169,6 +169,7 @@ const CommentsModal = ({
 const CommentForm = styled.form`
   display: flex;
   justify-content: space-between;
+  height: 100%;
 `;
 const IndividualCommentDiv = styled.div`
   display: flex;
@@ -180,16 +181,17 @@ const IndividualCommentDiv = styled.div`
 
 const CommentFeedDiv = styled.div`
   display: flex;
-  margin: 8% auto;
+  margin: 15px auto;
   flex-direction: column;
   /* justify-content: space-between; */
   width: 75%;
-  height: fit-content;
+  /* height: ; */
+  /* height: fit-content; */
   padding-right: 15px;
   overflow-y: scroll;
 `;
 
-const CommentInfoContainer = styled.div`
+export const CommentInfoContainer = styled.div`
   @media (min-width: 768px) {
     width: 70%;
   }
@@ -210,15 +212,22 @@ const CommentInfoContainer = styled.div`
   justify-content: space-between;
   /* padding-bottom: 20px; */
   color: black;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   background-color: white;
-  height: 90%;
+  height: 95%;
   z-index: 6;
   & p {
     line-height: 1.3;
   }
+  & ${CommentFeedDiv}:nth-child(2) {
+    height: 80%;
+    margin-top: 8%;
+  }
+  & ${CommentFeedDiv}:nth-child(3) {
+    height: 20%;
+  }
 `;
-const CommentModalContainer = styled.div`
+export const CommentModalContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
