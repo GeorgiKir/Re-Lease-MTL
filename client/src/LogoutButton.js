@@ -3,8 +3,10 @@ import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { StyledNav } from "./Header";
 import { SignUpBigButton } from "./LoginButton";
+import { Trans, useTranslation } from "react-i18next";
 
 const LogoutButton = () => {
+  const { t, i18n } = useTranslation();
   const { logout, isAuthenticated } = useAuth0();
   const { logoutContext } = useContext(CurrentUserContext);
   const handleLogout = () => {
@@ -14,7 +16,7 @@ const LogoutButton = () => {
 
   return (
     isAuthenticated && (
-      <StyledNav onClick={() => handleLogout()}>Log Out</StyledNav>
+      <StyledNav onClick={() => handleLogout()}>{t("header.logout")}</StyledNav>
     )
   );
 };

@@ -8,8 +8,10 @@ import { boroughs } from "./boroughs";
 import { keyframes } from "styled-components";
 import AboutUs from "./AboutUs";
 import { BiRightArrow } from "react-icons/bi";
+import { Trans, useTranslation } from "react-i18next";
 
 const HomePage = ({ setNavigationState }) => {
+  const { t, i18n } = useTranslation();
   const { loginWithRedirect, isAuthenticated, user } = useAuth0();
   const { loginContext, currentUser } = useContext(CurrentUserContext);
   const handleLogin = () => {
@@ -26,13 +28,13 @@ const HomePage = ({ setNavigationState }) => {
       <HomePageContentDiv>
         <HeroImageContainer>
           <SlideInTextDiv>
-            <h2>Reduce.</h2>
+            <h2>{t("heroImage.reduce")}</h2>
           </SlideInTextDiv>
           <SlideInTextDiv>
-            <h2>Reuse.</h2>
+            <h2>{t("heroImage.reuse")}</h2>
           </SlideInTextDiv>
           <SlideInTextDiv>
-            <h2>Recycle.</h2>
+            <h2>{t("heroImage.recycle")}</h2>
           </SlideInTextDiv>
           <SlideInTextDiv>
             <h2>Re:Lease.</h2>
@@ -43,7 +45,9 @@ const HomePage = ({ setNavigationState }) => {
                 handleLogin();
               }}
             >
-              <p style={{ margin: "10px", fontSize: "35px" }}>Sign Up</p>
+              <p style={{ margin: "10px", fontSize: "35px" }}>
+                {t("heroImage.signup")}
+              </p>
               <BiRightArrow size={40} />
             </CustomSignUpButton>
           )}

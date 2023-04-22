@@ -11,8 +11,10 @@ import UploadImage from "./UploadImage";
 import gearImg from "./assets/gear_img.png";
 import ProcessingPage from "./ProcessingPage";
 import ViewScheduleModal from "./ViewScheduleModal";
+import { Trans, useTranslation } from "react-i18next";
 
 const ListingCreationForm = () => {
+  const { t, i18n } = useTranslation();
   const { user, isAuthenticated } = useAuth0();
   const [selectingVistingHours, setSelectingVisitingHours] = useState(false);
   const [listingCreationTracker, setListingCreationTracker] = useState(1);
@@ -100,33 +102,32 @@ const ListingCreationForm = () => {
             {listingCreationTracker === 1 && (
               <>
                 <FormInputContainer>
-                  <h2>Street Address</h2>
+                  <h2>{t("form.streetAdress")}</h2>
                   <input
                     required
                     name="listingAddress"
                     value={ListingFormInfo.listingAddress}
                     type="text"
-                    placeholder={"Enter the address"}
+                    placeholder={t("form.enterStreetAdress")}
                     onChange={(e) =>
                       handleChange(e.target.value, e.target.name)
                     }
                   />
                 </FormInputContainer>
                 <FormInputContainer>
-                  <h2>Neighbourhood</h2>
+                  <h2>{t("form.neighbourhood")}</h2>
                   <select
                     required
                     name="borough"
                     value={ListingFormInfo.borough}
-                    placeholder={"Enter the neighbourhood"}
+                    // placeholder={"Enter the neighbourhood"}
                     onChange={(e) =>
                       handleChange(e.target.value, e.target.name)
                     }
                   >
                     <option value="" style={{ color: "gray" }}>
-                      Please Select a neighbourhood
+                      {t("form.selectNeighbourhood")}
                     </option>
-                    ;
                     {boroughs.map((borough) => {
                       return (
                         <option value={borough.borough}>
@@ -137,14 +138,14 @@ const ListingCreationForm = () => {
                   </select>
                 </FormInputContainer>
                 <FormInputContainer>
-                  <h2>Postal Code</h2>
+                  <h2>{t("form.postalCode")}</h2>
                   <input
                     required
                     maxLength="6"
                     name="postalCode"
                     value={ListingFormInfo.postalCode}
                     type="text"
-                    placeholder={"Enter the postal code"}
+                    placeholder={t("form.enterPostalCode")}
                     onChange={(e) =>
                       handleChange(e.target.value, e.target.name)
                     }
@@ -158,7 +159,7 @@ const ListingCreationForm = () => {
                         type="button"
                         onClick={() => setListingCreationTracker(2)}
                       >
-                        Next
+                        {t("buttons.next")}
                       </StyledPreviousNextButton>
                     )}
                 </>
@@ -167,12 +168,12 @@ const ListingCreationForm = () => {
             {listingCreationTracker === 2 && (
               <>
                 <FormInputContainer>
-                  <h2>Price</h2>
+                  <h2>{t("form.price")}</h2>
                   <input
                     required
                     name="price"
                     type="text"
-                    placeholder={"Enter the price per month"}
+                    placeholder={t("form.selectPrice")}
                     value={ListingFormInfo.price}
                     onChange={(e) =>
                       handleChange(e.target.value, e.target.name)
@@ -180,13 +181,13 @@ const ListingCreationForm = () => {
                   />
                 </FormInputContainer>
                 <FormInputContainer>
-                  <h2># of Bedrooms</h2>
+                  <h2>{t("form.bedrooms")}</h2>
                   <input
                     required
                     name="numBDR"
                     type="number"
                     value={ListingFormInfo.numBDR}
-                    placeholder={"Enter the number of bedrooms"}
+                    placeholder={t("form.selectBedrooms")}
                     onChange={(e) =>
                       handleChange(e.target.value, e.target.name)
                     }
@@ -211,7 +212,7 @@ const ListingCreationForm = () => {
                     type="button"
                     onClick={() => setListingCreationTracker(1)}
                   >
-                    Previous
+                    {t("buttons.previous")}
                   </StyledPreviousNextButton>
                   {ListingFormInfo.price.length > 0 &&
                     ListingFormInfo.numBDR.length > 0 &&
@@ -221,7 +222,7 @@ const ListingCreationForm = () => {
                         type="button"
                         onClick={() => setListingCreationTracker(3)}
                       >
-                        Next
+                        {t("buttons.next")}
                       </StyledPreviousNextButton>
                     )}
                 </PreviousNextButtonDiv>
@@ -230,7 +231,7 @@ const ListingCreationForm = () => {
             {(listingCreationTracker === 3 || listingCreationTracker === 4) && (
               <>
                 <FormInputContainer>
-                  <h2>Visiting Hours</h2>
+                  <h2>{t("form.visitingHours")}</h2>
                   <div style={{ display: "flex", flexDirection: "column" }}>
                     <button
                       type="button"
@@ -238,7 +239,7 @@ const ListingCreationForm = () => {
                         setSelectingVisitingHours(true);
                       }}
                     >
-                      Set Hours
+                      {t("form.setHours")}
                     </button>
                     <button
                       type="button"
@@ -246,7 +247,7 @@ const ListingCreationForm = () => {
                         setToggleViewVisitHours(true);
                       }}
                     >
-                      View my schedule
+                      {t("form.viewSchedule")}
                     </button>
                     {toggleViewVisitHours && (
                       <ViewScheduleModal
@@ -271,14 +272,14 @@ const ListingCreationForm = () => {
                     type="button"
                     onClick={() => setListingCreationTracker(2)}
                   >
-                    Previous
+                    {t("buttons.previous")}
                   </StyledPreviousNextButton>
                   {visitingHoursToBeAdded.length > 0 && (
                     <StyledPreviousNextButton
                       type="button"
                       onClick={() => setListingCreationTracker(5)}
                     >
-                      Next
+                      {t("buttons.next")}
                     </StyledPreviousNextButton>
                   )}
                 </PreviousNextButtonDiv>
@@ -300,12 +301,12 @@ const ListingCreationForm = () => {
                     type="button"
                     onClick={() => setListingCreationTracker(4)}
                   >
-                    Previous
+                    {t("buttons.previous")}
                   </StyledPreviousNextButton>
                   {ListingFormInfo.listingImage &&
                     ListingFormInfo.listingImage.length > 0 && (
                       <StyledPreviousNextButton type="submit">
-                        Create Listing
+                        {t("form.createListing")}
                       </StyledPreviousNextButton>
                     )}
                 </PreviousNextButtonDiv>
@@ -320,7 +321,8 @@ const ListingCreationForm = () => {
 
 const StyledPreviousNextButton = styled.button`
   @media (min-width: 768px) {
-    width: 100px;
+    min-width: 100px;
+    max-width: fit-content;
     font-size: 20px;
     padding: 5px 5px;
   }
@@ -330,8 +332,10 @@ const StyledPreviousNextButton = styled.button`
     padding: 10px 10px;
   }
   /* margin-right: 30px; */
+  font-family: "Jost", sans-serif;
   cursor: pointer;
   background-color: #659db0;
+
   border: none;
   border-radius: 5px;
   color: white;

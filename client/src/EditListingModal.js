@@ -8,6 +8,7 @@ import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { ProfileStyledButton } from "./Profile";
 import { StyledDeleteButton } from "./DeleteListingButton";
+import { Trans, useTranslation } from "react-i18next";
 
 const EditListingModal = ({
   listing,
@@ -15,6 +16,7 @@ const EditListingModal = ({
   updateMessage,
   setUpdateMessage,
 }) => {
+  const { t, i18n } = useTranslation();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   //   const [updateMessage, setUpdateMessage] = useState(null);
   const [editedFormInfo, setEditedFormInfo] = useState({
@@ -80,7 +82,7 @@ const EditListingModal = ({
         />
         <EditForm onSubmit={(e) => handleSubmit(e)}>
           <EditFormInputContainer>
-            <h2>Street Address</h2>
+            <h2>{t("form.streetAdress")}</h2>
             <input
               required
               type="text"
@@ -90,7 +92,7 @@ const EditListingModal = ({
             ></input>
           </EditFormInputContainer>
           <EditFormInputContainer>
-            <h2>Neighbourhood</h2>
+            <h2>{t("form.neighbourhood")}</h2>
             <select
               required
               name="borough"
@@ -109,7 +111,7 @@ const EditListingModal = ({
             </select>
           </EditFormInputContainer>
           <EditFormInputContainer>
-            <h2>Postal Code</h2>
+            <h2>{t("form.postalCode")}</h2>
             <input
               required
               type="text"
@@ -120,7 +122,7 @@ const EditListingModal = ({
             ></input>
           </EditFormInputContainer>
           <EditFormInputContainer>
-            <h2>Price</h2>
+            <h2>{t("form.price")}</h2>
             <input
               required
               type="number"
@@ -130,7 +132,7 @@ const EditListingModal = ({
             ></input>
           </EditFormInputContainer>
           <EditFormInputContainer>
-            <h2># of bedrooms</h2>
+            <h2>{t("form.bedrooms")}</h2>
             <input
               required
               type="number"
@@ -163,7 +165,7 @@ const EditListingModal = ({
               }}
               type="submit"
             >
-              Submit
+              {t("buttons.submit")}
             </StyledDeleteButton>
           </div>
         </EditForm>

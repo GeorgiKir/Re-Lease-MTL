@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import { StyledNav } from "./Header";
 import { boroughs } from "./boroughs";
 import { FiSearch } from "react-icons/fi";
+import { Trans, useTranslation } from "react-i18next";
 
 const SearchBar = ({
   searchCriteria,
@@ -12,6 +13,7 @@ const SearchBar = ({
   setMapCenter,
   setZoom,
 }) => {
+  const { t, i18n } = useTranslation();
   const handleChange = (value, name) => {
     setSearchCriteria({ ...searchCriteria, [name]: value });
   };
@@ -29,7 +31,7 @@ const SearchBar = ({
         }}
       >
         <FormInputElement>
-          <label>Borough: </label>
+          <label>{t("searchBar.borough")}</label>
           <select
             required
             name="borough"
@@ -39,7 +41,7 @@ const SearchBar = ({
             }}
           >
             <option value="" style={{ color: "gray" }}>
-              Select a borough
+              {t("searchBar.selectBorough")}
             </option>
             ;
             {boroughs.map((borough, index) => {
@@ -52,7 +54,7 @@ const SearchBar = ({
           </select>
         </FormInputElement>
         <FormInputElement>
-          <label>Price: </label>
+          <label>{t("searchBar.price")} </label>
           <input
             type="number"
             name="price"
@@ -60,7 +62,7 @@ const SearchBar = ({
           />
         </FormInputElement>
         <FormInputElement>
-          <label>Bedrooms: </label>
+          <label>{t("searchBar.bedrooms")} </label>
           <input
             type="number"
             name="bedroom"
@@ -104,13 +106,11 @@ export const FormInputElement = styled.div`
   & label {
     display: block;
     text-align: center;
-    /* border: 1px solid green; */
     height: fit-content;
   }
 `;
 
 export const StyledSearchForm = styled.form`
-  /* border: 1px solid blue; */
   @media (min-width: 768px) {
     display: flex;
     flex-direction: row;
@@ -136,17 +136,14 @@ const StyledSearchBar = styled.div`
   @media (max-width: 767px) {
     display: none;
   }
-  /* border: 1px solid black; */
   font-family: "Jost", sans-serif;
   position: fixed;
-
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: 100%;
   margin-top: 55px;
   background-color: #00abe4;
-  /* background-color: #7d98a1; */
   z-index: 1;
   height: 40px;
   font-size: 20px;

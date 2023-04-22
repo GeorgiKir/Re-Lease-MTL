@@ -1,0 +1,83 @@
+{
+  "header": {
+    "aboutUs": "À propos",
+    "hello": "Bonjour, ",
+    "login": "Connexion",
+    "logout": "Déconnexion"
+  },
+  "heroImage": {
+    "reduce": "Réduire",
+    "reuse": "Réutiliser",
+    "recycle": "Recycler",
+    "signup": "S'inscrire"
+  },
+  "aboutUs": {
+    "part1": "La cession de bail simplifiée avec notre plateforme.",
+    "part2": "Que vous soyez un locataire cherchant à céder votre bail ou un futur locataire à la recherche d'un appartement, nous avons ce qu'il vous faut.",
+    "part3": "Notre site pratique connecte les locataires avec des gens fiables, simplifiant ainsi le processus de cession. Affichez votre chez-soi ou trouvez votre appartement idéal dès aujourd'hui.",
+    "link1": "Cession de bail ou sous-location?",
+    "link2": "Notre processus"
+  },
+  "profileHeader": {
+    "myListing": "Mon listing",
+    "listingSchedule": "Horraire de mon listing",
+    "visitSchedule": "Horraire de mes visites"
+  },
+  "form": {
+    "streetAdress": "Adresse",
+    "enterStreetAdress": "Entrez votre adresse civique",
+    "neighbourhood": "Quartier",
+    "selectNeighbourhood": "Veuillez sélectionner un quartier",
+    "postalCode": "Code postal",
+    "enterPostalCode": "Entrez votre code postal",
+    "price": "Prix",
+    "selectPrice": "Entrez le prix par mois",
+    "bedrooms": "Nb de chambres",
+    "selectBedrooms": "Entrez le nombre de chambres",
+    "visitingHours": "Heures de visite",
+    "setHours": "Fixer des heures",
+    "viewSchedule": "Afficher horraire",
+    "selectDate": "Veuillez sélectionner une date",
+    "addTimeslot": "Ajouter une plage horaire",
+    "submitTimeslots": "Soumettre les plages horaires",
+    "submitSchedule": "Soumettre l'horaire",
+    "createListing": "Publier mon listing"
+  },
+  "buttons": {
+    "next": "Suivant",
+    "previous": "Précédent",
+    "submit": "Soumettre",
+    "delete": "Supprimer",
+    "comments": "Commentaires",
+    "edit": "Modifier",
+    "cancel": "Annuler",
+    "confirm": "Confirmer"
+  },
+  "searchBar": {
+    "borough": "Arrondissement:",
+    "selectBorough": "Sélectionnez un arrondissement",
+    "price": "Prix:",
+    "bedrooms": "Chambres:"
+  },
+  "listingModal": {
+    "bedrooms": "chambres",
+    "Bedrooms": "Chambres",
+    "address": "Adresse",
+    "price": "Prix",
+    "visitingSchedule": "Calendrier des visites",
+    "yourListing": "Ceci est votre annonce actuelle",
+    "alreadyHaveVisit": "Vous avez déjà une visite à cette adresse",
+    "noMoreVisits": "Pas de visites disponibles"
+  },
+  "commentsModal": {
+    "asked": "a demandé:",
+    "reply": "Répondre",
+    "listingUserReplied": "Le créateur de l'annonce a répondu:",
+    "noCommentsYet": "Aucun commentaire à afficher",
+    "post": "Publier"
+  },
+  "deleteConfirmation": {
+    "deleteVisit": "Cette action supprimera définitivement votre visite",
+    "deleteListing": "Cette action supprimera définitivement votre annonce"
+  }
+}

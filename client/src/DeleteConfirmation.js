@@ -2,29 +2,30 @@ import React from "react";
 import styled from "styled-components";
 import { PreviousNextButtonDiv } from "./ListingCreationForm";
 import { ImWarning } from "react-icons/im";
+import { Trans, useTranslation } from "react-i18next";
+
 const DeleteConfirmation = ({
   elementId,
   setCancelVisitState,
   handleTimeslotDeleteByVisitor,
   handleListingDelete,
 }) => {
+  const { t, i18n } = useTranslation();
   return (
     <DeleteModalContainer>
       <DeleteInfoContainer>
         <ImWarning style={{ fontSize: "35px", color: "red" }} />
         {handleTimeslotDeleteByVisitor && (
-          <p>This will permanently delete your visit</p>
+          <p>{t("deleteConfirmation.deleteVisit")}</p>
         )}
-        {handleListingDelete && (
-          <p>This will permanently delete your listing</p>
-        )}
+        {handleListingDelete && <p>{t("deleteConfirmation.deleteListing")}</p>}
         <PreviousNextButtonDiv>
           <button
             onClick={() => {
               setCancelVisitState(false);
             }}
           >
-            Cancel
+            {t("buttons.cancel")}
           </button>
           <button
             onClick={() => {
@@ -36,7 +37,7 @@ const DeleteConfirmation = ({
               setCancelVisitState(false);
             }}
           >
-            Confirm
+            {t("buttons.confirm")}
           </button>
         </PreviousNextButtonDiv>
       </DeleteInfoContainer>

@@ -3,6 +3,7 @@ import { useState } from "react";
 import styled from "styled-components";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
+import { Trans, useTranslation } from "react-i18next";
 
 const VistingHoursInputForm = ({
   visitingHoursToBeAdded,
@@ -12,6 +13,7 @@ const VistingHoursInputForm = ({
   setSelectingVisitingHours,
   setListingCreationTracker,
 }) => {
+  const { t, i18n } = useTranslation();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [dateObject, setDateObject] = useState("");
   const [arr, setArr] = useState([]);
@@ -48,7 +50,7 @@ const VistingHoursInputForm = ({
   return (
     <StyledVisitForm>
       <StyledScheduleInputContainer>
-        <p>Please select a date</p>
+        <p>{t("form.selectDate")}</p>
         <input
           type="date"
           min={new Date().toISOString().split("T")[0]}
@@ -61,7 +63,7 @@ const VistingHoursInputForm = ({
         <StyledScheduleInputContainer>
           <ButtonContainerDiv>
             <StyledAddHoursButton type="button" onClick={addInput}>
-              Add a timeslot
+              {t("form.addTimeslot")}
             </StyledAddHoursButton>
           </ButtonContainerDiv>
           <TimeslotInputContainer>
@@ -88,7 +90,7 @@ const VistingHoursInputForm = ({
           setDateObject(arr);
         }}
       >
-        Submit timeslots
+        {t("form.submitTimeslots")}
       </SubmitTimeslotsButton>
       <SubmitScheduleButton
         type="button"
@@ -108,7 +110,7 @@ const VistingHoursInputForm = ({
           });
         }}
       >
-        Sumbit Schedule
+        {t("form.submitSchedule")}
       </SubmitScheduleButton>
     </StyledVisitForm>
   );

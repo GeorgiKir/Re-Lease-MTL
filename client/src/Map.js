@@ -18,8 +18,10 @@ import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import CommentsModal from "./CommentsModal";
 import { BsArrowsFullscreen } from "react-icons/bs";
+import { Trans, useTranslation } from "react-i18next";
 
 const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
+  const { t, i18n } = useTranslation();
   const { currentUser, logoutState } = useContext(CurrentUserContext);
   const [selectedElement, setSelectedElement] = useState(null);
   const [activeMarker, setActiveMarker] = useState(null);
@@ -130,7 +132,9 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
                       </IconInfoMapModalDiv>
                       <IconInfoMapModalDiv>
                         <FaBed style={{ fontSize: "20px" }} />
-                        <p>{selectedElement.numBDR} bedrooms</p>
+                        <p>
+                          {selectedElement.numBDR} {t("listingModal.bedrooms")}
+                        </p>
                       </IconInfoMapModalDiv>
                     </TextInfoContainer>
                     <div>

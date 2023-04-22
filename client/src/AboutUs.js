@@ -3,24 +3,19 @@ import styled from "styled-components";
 import blueBgImg from "./assets/blue_bg.jpg";
 import movingImg from "./assets/moving1.jpg";
 import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
+import { Trans, useTranslation } from "react-i18next";
 
 const AboutUs = () => {
+  const { t, i18n } = useTranslation();
   return (
     <AboutUsContainerDiv id="about">
       <FirstImgContainer>
         <img src={movingImg} />
       </FirstImgContainer>
       <AboutUsTextDiv>
-        <h2>Lease assignment made easy with our platform.</h2>
-        <h1>
-          Whether you're a tenant looking to assign your lease or a renter in
-          need of an apartment, we've got you covered.
-        </h1>
-        <h1>
-          Our user-friendly website connects renters with reliable tenants,
-          streamlining the assignment process. List your space or find your
-          perfect apartment today.
-        </h1>
+        <h2>{t("aboutUs.part1")}</h2>
+        <h1>{t("aboutUs.part2")}</h1>
+        <h1>{t("aboutUs.part3")}</h1>
         <br />
         <div
           style={{
@@ -36,7 +31,7 @@ const AboutUs = () => {
               target="_blank"
               href="https://www.tal.gouv.qc.ca/en/assignment-of-a-lease-or-subleasing/assignment-of-lease-agreement-and-notice-to-sublet-the-dwelling"
             >
-              <p>Assigning a Lease vs Subletting?</p>
+              <p>{t("aboutUs.link1")}</p>
             </a>
           </AboutUsLinkButton>
           <SlArrowRight
@@ -58,7 +53,7 @@ const AboutUs = () => {
           }}
         >
           <AboutUsLinkButton style={{ margin: "0px", padding: "0px" }}>
-            <p>Our Process</p>
+            <p>{t("aboutUs.link2")}</p>
           </AboutUsLinkButton>
           <SlArrowRight
             style={{

@@ -1,0 +1,83 @@
+{
+  "header": {
+    "aboutUs": "About us",
+    "hello": "Hi, ",
+    "login": "Log In",
+    "logout": "Log out"
+  },
+  "heroImage": {
+    "reduce": "Reduce",
+    "reuse": "Reuse",
+    "recycle": "Recycle",
+    "signup": "Sign Up"
+  },
+  "aboutUs": {
+    "part1": "Lease assignment made easy with our platform.",
+    "part2": "Whether you're a tenant looking to assign your lease or a renter in need of an apartment, we've got you covered",
+    "part3": "Our user-friendly website connects renters with reliable tenants,  streamlining the assignment process. List your space or find your perfect apartment today.",
+    "link1": "Assigning a Lease vs Subletting?",
+    "link2": "Our Process"
+  },
+  "profileHeader": {
+    "myListing": "My Listing",
+    "listingSchedule": "Listing Schedule",
+    "visitSchedule": "Visit Schedule"
+  },
+  "form": {
+    "streetAdress": "Street Address",
+    "enterStreetAdress": "Enter your street address",
+    "neighbourhood": "Neighbourhood",
+    "selectNeighbourhood": "Please Select a neighbourhood",
+    "postalCode": "Postal Code",
+    "enterPostalCode": "Enter your postal code",
+    "price": "Price",
+    "selectPrice": "Enter the price per month",
+    "bedrooms": "# of Bedrooms",
+    "selectBedrooms": "Enter the number of bedrooms",
+    "visitingHours": "Visiting Hours",
+    "setHours": "Set Hours",
+    "viewSchedule": "View my Schedule",
+    "selectDate": "Please select a date",
+    "addTimeslot": "Add a timeslot",
+    "submitTimeslots": "Submit timeslots",
+    "submitSchedule": "Sumbit Schedule",
+    "createListing": "Create Listing"
+  },
+  "buttons": {
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "delete": "Delete",
+    "comments": "Comments",
+    "edit": "Edit",
+    "cancel": "Cancel",
+    "confirm": "Confirm"
+  },
+  "searchBar": {
+    "borough": "Borough:",
+    "selectBorough": "Select a borough",
+    "price": "Price:",
+    "bedrooms": "Bedrooms:"
+  },
+  "listingModal": {
+    "bedrooms": "bedrooms",
+    "Bedrooms": "Bedrooms",
+    "address": "Address",
+    "price": "Price",
+    "visitingSchedule": "Visiting Schedule",
+    "yourListing": "This is your current listing",
+    "alreadyHaveVisit": "You already have a visit at this address",
+    "noMoreVisits": "No more available visits"
+  },
+  "commentsModal": {
+    "asked": "asked",
+    "reply": "Reply",
+    "listingUserReplied": "Listing user replied:",
+    "noCommentsYet": "No comments yet...",
+    "post": "Post"
+  },
+  "deleteConfirmation": {
+    "deleteVisit": "This will permanently delete your visit",
+    "deleteListing": "This will permanently delete your listing"
+  }
+}

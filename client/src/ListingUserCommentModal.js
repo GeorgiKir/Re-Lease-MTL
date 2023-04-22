@@ -5,8 +5,10 @@ import { MdSubdirectoryArrowRight } from "react-icons/md";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { ProfileStyledButton } from "./Profile";
+import { Trans, useTranslation } from "react-i18next";
 
 const ListingUserCommentsModal = ({ setShowCommentModal }) => {
+  const { t, i18n } = useTranslation();
   const { currentUser } = useContext(CurrentUserContext);
   const [showReplyState, setShowReplyState] = useState(false);
   const [commentorUsername, setCommentorUsername] = useState(null);
@@ -75,7 +77,9 @@ const ListingUserCommentsModal = ({ setShowCommentModal }) => {
           <>
             {!selectedElement.comments ||
               (selectedElement.comments.length < 1 && (
-                <CommentFeedDiv>No comments yet...</CommentFeedDiv>
+                <CommentFeedDiv>
+                  {t("commentsModal.noCommentsYet")}
+                </CommentFeedDiv>
               ))}
             {selectedElement.comments &&
               selectedElement.comments.length > 0 && (
@@ -85,7 +89,7 @@ const ListingUserCommentsModal = ({ setShowCommentModal }) => {
                       <div key={index}>
                         <IndividualCommentDiv>
                           <p style={{ fontWeight: "500", marginBottom: "3px" }}>
-                            "{comment.username}" asked:
+                            "{comment.username}" {t("commentsModal.asked")}
                           </p>
                           <p style={{ paddingLeft: "15px" }}>
                             {comment.comment}
@@ -102,7 +106,7 @@ const ListingUserCommentsModal = ({ setShowCommentModal }) => {
                                 setShowReplyState(true);
                               }}
                             >
-                              Reply
+                              {t("commentsModal.reply")}
                             </p>
                           )}
                         </IndividualCommentDiv>
@@ -114,7 +118,7 @@ const ListingUserCommentsModal = ({ setShowCommentModal }) => {
                               <MdSubdirectoryArrowRight
                                 style={{ color: "blue" }}
                               />
-                              "Listing user" replied:
+                              {t("commentsModal.listingUserReplied")}
                             </p>
                             <p style={{ paddingLeft: "15px" }}>
                               {comment.reply}
@@ -165,7 +169,9 @@ const ListingUserCommentsModal = ({ setShowCommentModal }) => {
                     });
                   }}
                 ></textarea>
-                <ProfileStyledButton type="submit">Reply</ProfileStyledButton>
+                <ProfileStyledButton type="submit">
+                  {t("commentsModal.reply")}
+                </ProfileStyledButton>
               </CommentForm>
             )}
             {/* </CommentFeedDiv> */}

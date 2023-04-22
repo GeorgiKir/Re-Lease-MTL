@@ -21,8 +21,10 @@ import CommentsModal from "./CommentsModal";
 import ListingUserCommentsModal from "./ListingUserCommentModal";
 import { AiOutlineEdit } from "react-icons/ai";
 import EditListingModal from "./EditListingModal";
+import { Trans, useTranslation } from "react-i18next";
 
 const Profile = ({ setNavigationState }) => {
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
   const [profileState, setProfileState] = useState("myListing");
   const { currentUser, logoutState } = useContext(CurrentUserContext);
@@ -133,7 +135,9 @@ const Profile = ({ setNavigationState }) => {
                 </IndividualInfoDiv>
                 <IndividualInfoDiv>
                   <FaBed style={{ fontSize: "30px" }} />
-                  <p>{currentUser.listing.numBDR} bedrooms</p>
+                  <p>
+                    {currentUser.listing.numBDR} {t("listingModal.bedrooms")}
+                  </p>
                 </IndividualInfoDiv>
                 <IndividualInfoDiv>
                   <GrDocumentText style={{ fontSize: "30px" }} />
@@ -149,7 +153,7 @@ const Profile = ({ setNavigationState }) => {
                     }}
                   >
                     <AiOutlineComment style={{ fontSize: "35px" }} />{" "}
-                    <p>Comments</p>
+                    <p>{t("buttons.comments")}</p>
                   </ProfileStyledButton>
                   <ProfileStyledButton
                     onClick={() => {
@@ -157,7 +161,7 @@ const Profile = ({ setNavigationState }) => {
                     }}
                   >
                     <AiOutlineEdit style={{ fontSize: "35px" }} />
-                    <p>Edit</p>
+                    <p>{t("buttons.edit")}</p>
                   </ProfileStyledButton>
                 </ProfileButtonContainer>
                 {showCommentModal && (
@@ -204,6 +208,7 @@ export const ProfileStyledButton = styled.button`
   @media (max-width: 767.9px) {
     font-size: 15px;
   }
+  font-family: "Jost", sans-serif;
   position: relative;
   z-index: 1;
   overflow: hidden;

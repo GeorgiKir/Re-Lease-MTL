@@ -6,6 +6,7 @@ import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import DeleteListingButton from "./DeleteListingButton";
 import { ProfileStyledButton } from "./Profile";
+import { Trans, useTranslation } from "react-i18next";
 
 const CommentsModal = ({
   myListing,
@@ -13,6 +14,7 @@ const CommentsModal = ({
   setShowCommentModal,
   setSelectedElement,
 }) => {
+  const { t, i18n } = useTranslation();
   const { currentUser } = useContext(CurrentUserContext);
   const [showReplyState, setShowReplyState] = useState(false);
   const [commentorUsername, setCommentorUsername] = useState(null);
@@ -77,7 +79,7 @@ const CommentsModal = ({
         />
         {!selectedElement.comments ||
           (selectedElement.comments.length < 1 && (
-            <CommentFeedDiv>No comments yet...</CommentFeedDiv>
+            <CommentFeedDiv>{t("commentsModal.noCommentsYet")}</CommentFeedDiv>
           ))}
 
         {selectedElement.comments && selectedElement.comments.length > 0 && (
@@ -87,7 +89,7 @@ const CommentsModal = ({
                 <div key={index}>
                   <IndividualCommentDiv>
                     <p style={{ fontWeight: "500", marginBottom: "3px" }}>
-                      "{comment.username}" asked:
+                      "{comment.username}" {t("commentsModal.asked")}
                     </p>
                     <p style={{ paddingLeft: "15px" }}>{comment.comment}</p>
                     {selectedElement._id === currentUser._id && (
@@ -102,7 +104,7 @@ const CommentsModal = ({
                           setShowReplyState(true);
                         }}
                       >
-                        Reply
+                        {t("commentsModal.reply")}
                       </p>
                     )}
                   </IndividualCommentDiv>
@@ -110,7 +112,7 @@ const CommentsModal = ({
                     <IndividualCommentDiv style={{ marginLeft: "25px" }}>
                       <p style={{ fontWeight: "500", marginBottom: "3px" }}>
                         <MdSubdirectoryArrowRight style={{ color: "blue" }} />
-                        "Listing user" replied:
+                        {t("commentsModal.listingUserReplied")}
                       </p>
                       <p style={{ paddingLeft: "15px" }}>{comment.reply}</p>
                     </IndividualCommentDiv>
@@ -150,7 +152,7 @@ const CommentsModal = ({
                 //   justifyContent: "center",
                 // }}
               >
-                <p>Post</p>
+                <p>{t("commentsModal.post")}</p>
               </ProfileStyledButton>
             </CommentForm>
           )}
@@ -174,7 +176,7 @@ const CommentsModal = ({
                   });
                 }}
               ></textarea>
-              <button type="submit">Reply</button>
+              <button type="submit">{t("commentsModal.reply")}</button>
             </CommentForm>
           )}
         </CommentFeedDiv>

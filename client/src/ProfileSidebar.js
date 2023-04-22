@@ -2,8 +2,10 @@ import React from "react";
 import styled from "styled-components";
 import { NavLink } from "react-router-dom";
 import { StyledNav } from "./Header";
+import { Trans, useTranslation } from "react-i18next";
 
 const ProfileSidebar = ({ profileState, setProfileState }) => {
+  const { t, i18n } = useTranslation();
   console.log(profileState);
   return (
     <StyledProfileBar profileState={profileState}>
@@ -13,7 +15,7 @@ const ProfileSidebar = ({ profileState, setProfileState }) => {
           setProfileState("myListing");
         }}
       >
-        <p>My Listing</p>
+        <p>{t("profileHeader.myListing")}</p>
       </StyledProfileBarLink>
       <StyledProfileBarLink
         className={"StyledProfileBarLink"}
@@ -21,7 +23,7 @@ const ProfileSidebar = ({ profileState, setProfileState }) => {
           setProfileState("ListingSchedule");
         }}
       >
-        <p>Listing Schedule</p>
+        <p>{t("profileHeader.listingSchedule")}</p>
       </StyledProfileBarLink>
       <StyledProfileBarLink
         className={"StyledProfileBarLink"}
@@ -29,7 +31,7 @@ const ProfileSidebar = ({ profileState, setProfileState }) => {
           setProfileState("VisitSchedule");
         }}
       >
-        <p>Visit Schedule</p>
+        <p>{t("profileHeader.visitSchedule")}</p>
       </StyledProfileBarLink>
     </StyledProfileBar>
   );
@@ -63,11 +65,7 @@ const StyledProfileBar = styled.div`
   width: 100%;
   margin: 55px auto 0px auto;
   background-color: transparent;
-  /* background-color: #00abe4; */
-  /* background-color: #7d98a1; */
-  /* box-shadow: 0px 6px 15px -10px rgba(0, 0, 0, 0.64); */
   height: 55px;
-  /* z-index: 1; */
   color: #0078a0;
   top: 0;
   & .StyledProfileBarLink:nth-child(1) {

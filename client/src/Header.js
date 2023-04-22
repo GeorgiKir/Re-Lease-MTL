@@ -2,29 +2,60 @@ import React from "react";
 import styled from "styled-components";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FiSearch, FiUser } from "react-icons/fi";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { Link, NavLink } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import HeaderMobile from "./HeaderMobile";
+import { Trans, useTranslation } from "react-i18next";
 
 const Header = ({ navigationState }) => {
+  const { t, i18n } = useTranslation();
+  const [languagesState, setLanguageState] = useState("english");
+
+  const changeLanguage = (language) => {
+    i18n.changeLanguage(language);
+  };
   const { currentUser } = useContext(CurrentUserContext);
   return (
     <>
       <StyledHeader>
         <NavContainer>
           <StyledNav to={"/"}>Re:Lease MTL</StyledNav>
-          {navigationState === "home" && <a href="#about">About us</a>}
+          {navigationState === "home" && (
+            <a href="#about">{t("header.aboutUs")}</a>
+          )}
           <StyledNav to={"/search"}>
             <FiSearch style={{ fontSize: "25px" }} />
           </StyledNav>
         </NavContainer>
         <ProfileOptionsContainer>
+          {languagesState === "french" && (
+            <button
+              onClick={() => {
+                changeLanguage("en");
+                setLanguageState("english");
+              }}
+            >
+              EN
+            </button>
+          )}
+          {languagesState === "english" && (
+            <button
+              onClick={() => {
+                changeLanguage("fr");
+                setLanguageState("french");
+              }}
+            >
+              FR
+            </button>
+          )}
           {currentUser && (
             <>
-              <p>Hi, {currentUser.nickname}!</p>
+              <p>
+                {t("header.hello")} {currentUser.nickname}!
+              </p>
               <StyledNav to={"/profile"}>
                 <FiUser style={{ fontSize: "30px" }} />
               </StyledNav>
@@ -64,7 +95,7 @@ const ProfileOptionsContainer = styled.div`
   display: flex;
   justify-content: space-around;
   align-items: center;
-  width: 20%;
+  width: 25%;
   margin: 0px 10%;
   position: relative;
 `;

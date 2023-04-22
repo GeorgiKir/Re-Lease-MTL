@@ -6,8 +6,10 @@ import { CurrentUserContext } from "./CurrentUserContext";
 import { useState } from "react";
 import DeleteConfirmation from "./DeleteConfirmation";
 import { FiTrash2 } from "react-icons/fi";
+import { Trans, useTranslation } from "react-i18next";
 
 const DeleteListingButton = () => {
+  const { t, i18n } = useTranslation();
   const { user, isAuthenticated } = useAuth0();
   const [cancelVisitState, setCancelVisitState] = useState(false);
 
@@ -58,7 +60,7 @@ const DeleteListingButton = () => {
         }}
       >
         <FiTrash2 style={{ fontSize: "27px" }} />
-        <p>Delete</p>
+        <p>{t("buttons.delete")}</p>
       </StyledDeleteButton>
       {cancelVisitState && (
         <DeleteConfirmation

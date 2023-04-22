@@ -8,8 +8,10 @@ import { format } from "date-fns";
 import { StyledVisitForm } from "./VistingHoursInputForm";
 import { FaRegSadCry } from "react-icons/fa";
 import DeleteListingButton, { StyledDeleteButton } from "./DeleteListingButton";
+import { Trans, useTranslation } from "react-i18next";
 
 const ListingModal = ({ listingInfo, setShowListingModal }) => {
+  const { t, i18n } = useTranslation();
   const { currentUser } = useContext(CurrentUserContext);
 
   const [targetVistingTime, setTargetVisitingTime] = useState({
@@ -89,16 +91,18 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
               setTargetVisitArray(null);
             }}
           />
-          <h2>Address:</h2>
+          <h2>{t("listingModal.address")}</h2>
           <p>
             {listingInfo.listingAddress} {listingInfo.borough}{" "}
             {listingInfo.postalCode}
           </p>
-          <h2>Price:</h2>
+          <h2>{t("listingModal.price")}</h2>
           <p>{listingInfo.price} $</p>
-          <h2>Bedrooms:</h2>
-          <p>{listingInfo.numBDR} bedrooms</p>
-          <h2>Description:</h2>
+          <h2>{t("listingModal.Bedrooms")}</h2>
+          <p>
+            {listingInfo.numBDR} {t("listingModal.bedrooms")}
+          </p>
+          <h2>Description</h2>
           <p>{listingInfo.listingDescription}</p>
           {targetVisitArray &&
             targetVistingTime.listingId !== targetVistingTime.visitorId &&
@@ -109,7 +113,7 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
                   handleListingModalSubmit(e);
                 }}
               >
-                <h1>Visiting Schedule</h1>
+                <h1>{t("listingModal.visitingSchedule")}</h1>
                 <div>
                   {targetVisitArray.map((item) => {
                     return (
@@ -145,24 +149,22 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
                   style={{
                     display: "block",
                     padding: "5px 10px",
-                    // width: "100px",
-                    // height: "50px",
                     fontSize: "20px",
                   }}
                   type="submit"
                 >
-                  Submit
+                  {t("buttons.submit")}
                 </StyledDeleteButton>
               </ListingModalForm>
             )}
           {targetVisitArray &&
             targetVistingTime.listingId === targetVistingTime.visitorId && (
-              <p>This is your current listing</p>
+              <p>{t("listingModal.yourListing")}</p>
             )}
           {targetVisitArray &&
             targetVistingTime.listingId !== targetVistingTime.visitorId &&
             checkIfAlreadyHasVisit && (
-              <p>You already have a visit at this address</p>
+              <p>{t("listingModal.alreadyHaveVisit")}</p>
             )}
           {targetVisitArray &&
             !checkAvailablityOfVisits &&
@@ -180,7 +182,7 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
                     fontSize: "40px",
                   }}
                 />
-                <p>No more available visits</p>
+                <p>{t("listingModal.noMoreVisits")}</p>
               </div>
             )}
         </StyledVisitorForm>
@@ -271,7 +273,6 @@ const ListingInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   color: black;
-  border: 1px solid red;
   background-color: white;
   height: 95%;
   z-index: 6;

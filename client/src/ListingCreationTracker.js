@@ -107,7 +107,7 @@ const CounterContainer3 = styled.div`
   border: ${(props) =>
     props.listingCreationTracker > 3 ? "3px solid #009acd" : "3px solid black"};
   color: ${(props) =>
-    props.listingCreationTracker > 3 || props.visitingHoursToBeAdded.length > 0
+    props.listingCreationTracker > 3 && props.visitingHoursToBeAdded.length > 0
       ? "white"
       : "black"};
 `;
