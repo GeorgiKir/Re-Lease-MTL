@@ -559,13 +559,11 @@ const updateListing = async (req, res) => {
       coords === null ||
       (coords.lat === 45.50884 && coords.lng === -73.58781)
     ) {
-      return res
-        .status(400)
-        .json({
-          status: 400,
-          message: "Invalid address",
-          data: "Invalid address.",
-        });
+      return res.status(400).json({
+        status: 400,
+        message: "Invalid address",
+        data: "Invalid address.",
+      });
     } else {
       const updateTargetListing = await db.collection("listings").updateOne(
         { _id: listingId },

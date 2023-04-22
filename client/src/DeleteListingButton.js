@@ -111,7 +111,6 @@ export const StyledDeleteButton = styled.button`
   &:hover,
   :focus {
     color: white;
-    border: none;
   }
   &::before {
     content: "";

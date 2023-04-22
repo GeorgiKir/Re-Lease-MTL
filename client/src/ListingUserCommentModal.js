@@ -4,6 +4,7 @@ import { GrClose } from "react-icons/gr";
 import { MdSubdirectoryArrowRight } from "react-icons/md";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
+import { ProfileStyledButton } from "./Profile";
 
 const ListingUserCommentsModal = ({ setShowCommentModal }) => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -164,7 +165,7 @@ const ListingUserCommentsModal = ({ setShowCommentModal }) => {
                     });
                   }}
                 ></textarea>
-                <button type="submit">Reply</button>
+                <ProfileStyledButton type="submit">Reply</ProfileStyledButton>
               </CommentForm>
             )}
             {/* </CommentFeedDiv> */}
@@ -175,12 +176,30 @@ const ListingUserCommentsModal = ({ setShowCommentModal }) => {
   );
 };
 
-const CommentForm = styled.form`
+export const CommentForm = styled.form`
+  @media (max-width: 767.9px) {
+    flex-direction: column;
+  }
   display: flex;
   justify-content: space-between;
   width: 75%;
-  margin: 0px auto 25px auto;
+  margin: 0px auto 40px auto;
+  padding-top: 10px;
   height: 15%;
+  align-items: center;
+  & button {
+    @media (max-width: 767.9px) {
+      width: 40%;
+    }
+    height: 40%;
+    font-size: 20px;
+    background: transparent;
+    width: 20%;
+    justify-content: center;
+  }
+  & textarea {
+    max-width: 85%;
+  }
 `;
 const IndividualCommentDiv = styled.div`
   display: flex;
@@ -198,7 +217,7 @@ const CommentFeedDiv = styled.div`
   width: 75%;
   height: 85%;
   padding-right: 15px;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 const CommentInfoContainer = styled.div`
@@ -220,9 +239,7 @@ const CommentInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* padding-bottom: 20px; */
   color: black;
-  border: 1px solid red;
   background-color: white;
   height: 90%;
   z-index: 6;

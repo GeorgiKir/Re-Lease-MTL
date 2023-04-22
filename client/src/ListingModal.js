@@ -7,6 +7,7 @@ import { CurrentUserContext } from "./CurrentUserContext";
 import { format } from "date-fns";
 import { StyledVisitForm } from "./VistingHoursInputForm";
 import { FaRegSadCry } from "react-icons/fa";
+import DeleteListingButton, { StyledDeleteButton } from "./DeleteListingButton";
 
 const ListingModal = ({ listingInfo, setShowListingModal }) => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -140,18 +141,18 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
                     );
                   })}
                 </div>
-                <button
+                <StyledDeleteButton
                   style={{
                     display: "block",
-                    margin: "0px auto",
-                    width: "150px",
-                    height: "50px",
+                    padding: "5px 10px",
+                    // width: "100px",
+                    // height: "50px",
                     fontSize: "20px",
                   }}
                   type="submit"
                 >
                   Submit
-                </button>
+                </StyledDeleteButton>
               </ListingModalForm>
             )}
           {targetVisitArray &&
@@ -202,7 +203,7 @@ const VisitingTimeslotsContainer = styled.div`
 `;
 
 const ListingModalForm = styled.form`
-  margin-top: 25px;
+  margin: 25px 0px 25px 0px;
 `;
 
 const StyledVisitorForm = styled.div`
@@ -213,6 +214,7 @@ const StyledVisitorForm = styled.div`
       margin-bottom: 20px;
     }
     & h2 {
+      color: #00abe4;
       font-size: 20px;
       font-weight: 500;
       border-bottom: 1px solid gray;
@@ -233,6 +235,7 @@ const StyledVisitorForm = styled.div`
       margin-bottom: 10px;
     }
     & h2 {
+      color: #00abe4;
       font-size: 18px;
       font-weight: 500;
       border-bottom: 1px solid gray;
@@ -270,7 +273,7 @@ const ListingInfoContainer = styled.div`
   color: black;
   border: 1px solid red;
   background-color: white;
-  height: 90%;
+  height: 95%;
   z-index: 6;
   & p {
     line-height: 1.3;

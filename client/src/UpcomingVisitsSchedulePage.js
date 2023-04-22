@@ -50,7 +50,6 @@ const UpcomingVisitsSchedulePage = () => {
     <div>
       {showUpcomingVisits && (
         <>
-          {/* {console.log(showUpcomingVisits)} */}
           {showUpcomingVisits.map((item) => {
             return (
               <>
@@ -64,14 +63,11 @@ const UpcomingVisitsSchedulePage = () => {
                             {element.address}: {element.hour}{" "}
                           </p>
                           <FiTrash2
-                            style={{ cursor: "pointer", fontSize: "25px" }}
+                            // style={{ cursor: "pointer", fontSize: "25px" }}
                             onClick={(e) => {
                               console.log(element._id);
                               setTargetVisitForDeletion(element._id);
                               setCancelVisitState(true);
-                              // handleTimeslotDeleteByVisitor(
-                              //   element._id,
-                              // );
                             }}
                           />
                           {cancelVisitState && (
@@ -125,6 +121,14 @@ const UpcomingVisitContainer = styled.div`
   /* border: 1px solid black; */
   border-radius: 5px;
   margin: 5px auto 0px auto;
+  & svg {
+    cursor: pointer;
+    font-size: 25px;
+    &:hover {
+      scale: 1.5;
+      color: #00abe4;
+    }
+  }
 `;
 
 export default UpcomingVisitsSchedulePage;

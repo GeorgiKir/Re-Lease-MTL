@@ -60,16 +60,7 @@ const VistingHoursInputForm = ({
       {dateObject && (
         <StyledScheduleInputContainer>
           <ButtonContainerDiv>
-            {/* <p>Add the visiting hours</p> */}
-            <StyledAddHoursButton
-              // style={{
-              //   height: "35px",
-              //   fontSize: "30px",
-              //   width: "30%",
-              // }}
-              type="button"
-              onClick={addInput}
-            >
+            <StyledAddHoursButton type="button" onClick={addInput}>
               Add a timeslot
             </StyledAddHoursButton>
           </ButtonContainerDiv>

@@ -152,6 +152,9 @@ const EditListingModal = ({
             ></textarea>
           </EditFormInputContainer>
           <div>
+            {updateMessage && (
+              <p style={{ marginBottom: "15px" }}>{updateMessage}</p>
+            )}
             <StyledDeleteButton
               style={{
                 fontSize: "30px",
@@ -164,7 +167,6 @@ const EditListingModal = ({
             </StyledDeleteButton>
           </div>
         </EditForm>
-        {updateMessage && <p>{updateMessage}</p>}
       </CommentInfoContainer>
     </CommentModalContainer>
   );

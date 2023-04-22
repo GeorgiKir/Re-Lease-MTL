@@ -10,6 +10,7 @@ import ListingCreationTracker from "./ListingCreationTracker";
 import UploadImage from "./UploadImage";
 import gearImg from "./assets/gear_img.png";
 import ProcessingPage from "./ProcessingPage";
+import ViewScheduleModal from "./ViewScheduleModal";
 
 const ListingCreationForm = () => {
   const { user, isAuthenticated } = useAuth0();
@@ -18,6 +19,7 @@ const ListingCreationForm = () => {
   const [visitingHoursToBeAdded, setVisitingHoursToBeAdded] = useState([]);
   const [processingState, setProcessingState] = useState(false);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const [toggleViewVisitHours, setToggleViewVisitHours] = useState(false);
   const [ListingFormInfo, setListingFormInfo] = useState({
     listingId: currentUser._id,
     email: currentUser.email,
@@ -147,17 +149,19 @@ const ListingCreationForm = () => {
                       handleChange(e.target.value, e.target.name)
                     }
                   />
-                </FormInputContainer>{" "}
-                {ListingFormInfo.postalCode.length > 0 &&
-                  ListingFormInfo.listingAddress.length > 0 &&
-                  ListingFormInfo.borough.length > 0 && (
-                    <StyledPreviousNextButton
-                      type="button"
-                      onClick={() => setListingCreationTracker(2)}
-                    >
-                      Next
-                    </StyledPreviousNextButton>
-                  )}
+                </FormInputContainer>
+                <>
+                  {ListingFormInfo.postalCode.length > 0 &&
+                    ListingFormInfo.listingAddress.length > 0 &&
+                    ListingFormInfo.borough.length > 0 && (
+                      <StyledPreviousNextButton
+                        type="button"
+                        onClick={() => setListingCreationTracker(2)}
+                      >
+                        Next
+                      </StyledPreviousNextButton>
+                    )}
+                </>
               </>
             )}
             {listingCreationTracker === 2 && (
@@ -227,14 +231,30 @@ const ListingCreationForm = () => {
               <>
                 <FormInputContainer>
                   <h2>Visiting Hours</h2>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSelectingVisitingHours(true);
-                    }}
-                  >
-                    Set Hours
-                  </button>
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectingVisitingHours(true);
+                      }}
+                    >
+                      Set Hours
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setToggleViewVisitHours(true);
+                      }}
+                    >
+                      View my schedule
+                    </button>
+                    {toggleViewVisitHours && (
+                      <ViewScheduleModal
+                        setToggleViewVisitHours={setToggleViewVisitHours}
+                        selectedTimeSlots={ListingFormInfo.selectedTimeSlots}
+                      />
+                    )}
+                  </div>
                 </FormInputContainer>
                 {selectingVistingHours && (
                   <VisitingHoursModal
@@ -283,7 +303,7 @@ const ListingCreationForm = () => {
                     Previous
                   </StyledPreviousNextButton>
                   {ListingFormInfo.listingImage &&
-                    ListingFormInfo.listingImage !== [] && (
+                    ListingFormInfo.listingImage.length > 0 && (
                       <StyledPreviousNextButton type="submit">
                         Create Listing
                       </StyledPreviousNextButton>
@@ -326,6 +346,7 @@ const ListingContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* border: 1px solid black; */
   /* height: fit content; */
 `;
 
@@ -335,6 +356,9 @@ const FormInputContainer = styled.div`
       font-size: 35px;
     }
     & input {
+      width: 50%;
+    }
+    & select {
       width: 50%;
     }
   }
@@ -349,14 +373,14 @@ const FormInputContainer = styled.div`
   }
   /* height: fit-content; */
   display: flex;
-  width: 70%;
+  width: 90%;
   justify-content: space-between;
   margin-bottom: 2%;
 `;
 
 const StyledListingForm = styled.form`
   @media (min-width: 768px) {
-    justify-content: flex-start;
+    justify-content: space-evenly;
   }
   @media (max-width: 767px) {
     justify-content: space-evenly;
@@ -365,7 +389,7 @@ const StyledListingForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  min-height: 30vh;
   width: 100%;
 `;
 

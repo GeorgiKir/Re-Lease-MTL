@@ -7,14 +7,14 @@ import { CurrentUserContext } from "./CurrentUserContext";
 import { boroughs } from "./boroughs";
 import { keyframes } from "styled-components";
 import AboutUs from "./AboutUs";
+import { BiRightArrow } from "react-icons/bi";
 
 const HomePage = ({ setNavigationState }) => {
-  const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
-  const navigate = useNavigate();
-  const { user, isAuthenticated } = useAuth0();
-  console.log(boroughs);
-  const handleNavigation = () => {
-    navigate("/login");
+  const { loginWithRedirect, isAuthenticated, user } = useAuth0();
+  const { loginContext, currentUser } = useContext(CurrentUserContext);
+  const handleLogin = () => {
+    loginContext();
+    loginWithRedirect();
   };
 
   useEffect(() => {
@@ -37,12 +37,52 @@ const HomePage = ({ setNavigationState }) => {
           <SlideInTextDiv>
             <h2>Re:Lease.</h2>
           </SlideInTextDiv>
+          {!currentUser && (
+            <CustomSignUpButton
+              onClick={() => {
+                handleLogin();
+              }}
+            >
+              <p style={{ margin: "10px", fontSize: "35px" }}>Sign Up</p>
+              <BiRightArrow size={40} />
+            </CustomSignUpButton>
+          )}
         </HeroImageContainer>
       </HomePageContentDiv>
       <AboutUs id="about" />
     </MainPageContainer>
   );
 };
+
+const CustomSignUpButton = styled.button`
+  position: relative;
+  font-family: "Montserrat", sans-serif;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: white;
+  display: flex;
+  gap: 5px;
+  height: fit-content;
+  margin-top: 3%;
+  padding: 0;
+  align-items: center;
+  &::before {
+    content: "";
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background-color: white;
+    position: absolute;
+    transform: scaleX(0);
+    transition: transform 500ms ease-in-out;
+  }
+  &:hover::before,
+  :focus::before {
+    transform: scaleX(1);
+  }
+`;
 
 const SlideInTextDiv = styled.div``;
 const SlideInFromLeft = keyframes`
@@ -84,16 +124,16 @@ const HeroImageContainer = styled.div`
   }
   overflow: hidden;
   & ${SlideInTextDiv}:nth-child(1) {
-    animation: ${SlideInFromLeft} 1.5s ease-in;
+    animation: ${SlideInFromLeft} 1s ease-in;
   }
   & ${SlideInTextDiv}:nth-child(2) {
-    animation: ${SlideInFromLeft} 1.75s ease-in;
+    animation: ${SlideInFromLeft} 1.25s ease-in;
   }
   & ${SlideInTextDiv}:nth-child(3) {
-    animation: ${SlideInFromLeft} 2s ease-in;
+    animation: ${SlideInFromLeft} 1.75s ease-in;
   }
   & ${SlideInTextDiv}:nth-child(4) {
-    animation: ${SlideInFromLeft} 2.25s ease-in;
+    animation: ${SlideInFromLeft} 2s ease-in;
   }
 `;
 

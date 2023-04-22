@@ -92,13 +92,11 @@ const Profile = ({ setNavigationState }) => {
               />
               <MobileArrowContainerDiv>
                 <SlArrowLeft
-                  style={{ color: "white", fontSize: "20px" }}
                   onClick={() => {
                     handlePhotoTracker(0);
                   }}
                 />
                 <SlArrowRight
-                  style={{ color: "white", fontSize: "20px" }}
                   onClick={() => {
                     handlePhotoTracker(1);
                   }}
@@ -223,7 +221,6 @@ export const ProfileStyledButton = styled.button`
   &:hover,
   :focus {
     color: white;
-    border: none;
   }
   &::before {
     content: "";
@@ -250,10 +247,10 @@ const ProfileButtonContainer = styled.div`
   font-size: 20px;
   align-items: flex-end;
   justify-content: space-evenly;
-  /* margin-top: 20px; */
+  margin-top: 20px;
 `;
 
-const MobileArrowContainerDiv = styled.div`
+export const MobileArrowContainerDiv = styled.div`
   @media (min-width: 768px) {
     display: none;
   }
@@ -263,10 +260,14 @@ const MobileArrowContainerDiv = styled.div`
   width: 80%;
   display: flex;
   flex-direction: row;
-  background-color: rgba(28, 35, 33, 0.81);
+  background: transparent;
   justify-content: space-evenly;
+  & svg {
+    color: #00abe4;
+    font-size: 20px;
+  }
 `;
-const ArrowContainerDiv = styled.div`
+export const ArrowContainerDiv = styled.div`
   @media (max-width: 767.9px) {
     display: none;
   }
@@ -300,7 +301,6 @@ const ListingInfoMainContainer = styled.div`
     & img {
       width: 80%;
       height: 300px;
-      /* border-radius: 10px; */
       border-top-right-radius: 5px;
       border-top-left-radius: 5px;
     }
@@ -309,27 +309,21 @@ const ListingInfoMainContainer = styled.div`
 const ListingInfoProfileDiv = styled.div`
   @media (min-width: 768px) {
     width: 40%;
-    /* height: 60vh; */
     margin-left: 20px;
   }
   @media (max-width: 767.9px) {
     width: 90%;
-    /* min-height: 40vh; */
     height: fit-content;
     margin-top: 10px;
   }
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  /* height: 100%; */
-  /* border: 1px solid green; */
 `;
 const IndividualInfoDiv = styled.div`
   @media (min-width: 768px) {
     gap: 10%;
     & p {
-      /* text-align: justify; */
-      /* text-justify: inter-word; */
       line-height: 1.2;
       font-size: 15px;
       width: fit-content;
@@ -338,8 +332,6 @@ const IndividualInfoDiv = styled.div`
   @media (min-width: 1160px) {
     gap: 10%;
     & p {
-      /* text-align: justify; */
-      /* text-justify: inter-word; */
       line-height: 1.2;
       font-size: 20px;
       width: fit-content;

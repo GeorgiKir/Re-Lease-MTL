@@ -35,17 +35,6 @@ const Header = ({ navigationState }) => {
         </ProfileOptionsContainer>
       </StyledHeader>
       <HeaderMobile />
-      {/* <SmallStyledHeader>
-        <NavContainer>
-          <StyledNav>
-            <GiHamburgerMenu style={{ fontSize: "30px" }} />
-          </StyledNav>
-          <StyledNav to={"/"}>RE:lease MTL</StyledNav>
-          <StyledNav>
-            <FiUser style={{ fontSize: "30px" }} />
-          </StyledNav>
-        </NavContainer>
-      </SmallStyledHeader> */}
     </>
   );
 };
@@ -69,10 +58,6 @@ export const StyledNav = styled(NavLink)`
       transform: scaleX(1);
     }
   }
-
-  /* &.active {
-    color: wheat;
-  } */
 `;
 
 const ProfileOptionsContainer = styled.div`

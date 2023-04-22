@@ -4,6 +4,8 @@ import { GrClose } from "react-icons/gr";
 import { MdSubdirectoryArrowRight } from "react-icons/md";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
+import DeleteListingButton from "./DeleteListingButton";
+import { ProfileStyledButton } from "./Profile";
 
 const CommentsModal = ({
   myListing,
@@ -128,7 +130,9 @@ const CommentsModal = ({
               <textarea
                 maxLength="100"
                 rows="3"
-                cols="40"
+                cols="30"
+                // max-cols="40"
+                // min-cols="30"
                 onChange={(e) => {
                   setCommentFormObject({
                     ...commentFormObject,
@@ -136,7 +140,18 @@ const CommentsModal = ({
                   });
                 }}
               ></textarea>
-              <button type="submit">Post</button>
+              <ProfileStyledButton
+                type="submit"
+                // style={{
+                //   height: "40%",
+                //   fontSize: "25px",
+                //   background: "transparent",
+                //   width: "20%",
+                //   justifyContent: "center",
+                // }}
+              >
+                <p>Post</p>
+              </ProfileStyledButton>
             </CommentForm>
           )}
           {selectedElement._id === currentUser._id && showReplyState && (
@@ -148,7 +163,9 @@ const CommentsModal = ({
               <textarea
                 maxLength="100"
                 rows="3"
-                cols="40"
+                cols="30"
+                // max-cols="40"
+                // min-cols="30"
                 placeholder={"@" + " " + commentorUsername}
                 onChange={(e) => {
                   setCommentFormObject({
@@ -167,9 +184,26 @@ const CommentsModal = ({
 };
 
 const CommentForm = styled.form`
+  @media (max-width: 767.9px) {
+    flex-direction: column;
+  }
   display: flex;
   justify-content: space-between;
+  align-items: center;
   height: 100%;
+  & button {
+    @media (max-width: 767.9px) {
+      width: 50%;
+    }
+    height: 40%;
+    font-size: 25px;
+    background: transparent;
+    width: 20%;
+    justify-content: center;
+  }
+  & textarea {
+    max-width: 85%;
+  }
 `;
 const IndividualCommentDiv = styled.div`
   display: flex;
@@ -188,7 +222,7 @@ const CommentFeedDiv = styled.div`
   /* height: ; */
   /* height: fit-content; */
   padding-right: 15px;
-  overflow-y: scroll;
+  overflow-y: auto;
 `;
 
 export const CommentInfoContainer = styled.div`

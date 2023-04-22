@@ -69,6 +69,7 @@ const DeleteInfoContainer = styled.div`
   background-color: white;
   height: 30%;
   z-index: 6;
+  border: 3px solid #0078a0;
 `;
 const DeleteModalContainer = styled.div`
   display: flex;

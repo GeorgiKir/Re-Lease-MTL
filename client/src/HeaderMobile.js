@@ -67,7 +67,7 @@ const HeaderMobile = () => {
           )}
           <LoginButton />
           <LogoutButton />
-          {!currentUser && <button>Sign Up</button>}
+          {/* {!currentUser && <button>Sign Up</button>} */}
         </HamburgerMenu>
       )}
     </SmallStyledHeader>

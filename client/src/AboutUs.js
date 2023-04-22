@@ -31,16 +31,20 @@ const AboutUs = () => {
             // border: "1px solid black",
           }}
         >
-          <h2 style={{ margin: "0px", padding: "0px" }}>
-            Assigning a Lease VS Subletting?
-          </h2>
+          <AboutUsLinkButton style={{ margin: "0px", padding: "0px" }}>
+            <a
+              target="_blank"
+              href="https://www.tal.gouv.qc.ca/en/assignment-of-a-lease-or-subleasing/assignment-of-lease-agreement-and-notice-to-sublet-the-dwelling"
+            >
+              <p>Assigning a Lease vs Subletting?</p>
+            </a>
+          </AboutUsLinkButton>
           <SlArrowRight
             style={{
               color: "#00abe4",
               fontSize: "25px",
               marginLeft: "10px",
               padding: "5px",
-              //   border: "1px solid red",
             }}
           />
         </div>
@@ -51,17 +55,17 @@ const AboutUs = () => {
             width: "fit-content",
             alignItems: "flex-end",
             justifyContent: "space-between",
-            // border: "1px solid black",
           }}
         >
-          <h2 style={{ margin: "0px", padding: "0px" }}>Our Process</h2>
+          <AboutUsLinkButton style={{ margin: "0px", padding: "0px" }}>
+            <p>Our Process</p>
+          </AboutUsLinkButton>
           <SlArrowRight
             style={{
               color: "#00abe4",
               fontSize: "25px",
               marginLeft: "10px",
               padding: "5px",
-              //   border: "1px solid red",
             }}
           />
         </div>
@@ -74,6 +78,46 @@ const AboutUs = () => {
     </AboutUsContainerDiv>
   );
 };
+
+const AboutUsLinkButton = styled.button`
+  position: relative;
+  /* display: flex;
+  justify-content: flex-start; */
+  border: none;
+  background: none;
+  cursor: pointer;
+  display: flex;
+  gap: 5px;
+  height: fit-content;
+  margin-top: 5%;
+  /* padding: 5px; */
+  align-items: center;
+  & p {
+    font-family: "Montserrat", sans-serif;
+    color: #00abe4;
+    font-weight: 600;
+    font-size: 25px;
+    margin-bottom: 5px;
+  }
+  & a {
+    text-decoration: none;
+    text-align: left;
+  }
+  &::before {
+    content: "";
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 4px;
+    background-color: #00abe4;
+    position: absolute;
+    transform: scaleX(0);
+    transition: transform 500ms ease-in-out;
+  }
+  &:hover::before {
+    transform: scaleX(1);
+  }
+`;
 
 const FirstImgContainer = styled.div`
   @media (min-width: 768px) {

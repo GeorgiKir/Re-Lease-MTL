@@ -137,7 +137,7 @@ const StyledSearchBar = styled.div`
     display: none;
   }
   /* border: 1px solid black; */
-  font-family: "Open Sans", sans-serif;
+  font-family: "Jost", sans-serif;
   position: fixed;
 
   flex-direction: row;
