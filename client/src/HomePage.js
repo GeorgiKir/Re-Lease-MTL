@@ -12,8 +12,10 @@ import { Trans, useTranslation } from "react-i18next";
 
 const HomePage = ({ setNavigationState }) => {
   const { t, i18n } = useTranslation();
-  const { loginWithRedirect, isAuthenticated, user } = useAuth0();
-  const { loginContext, currentUser } = useContext(CurrentUserContext);
+  const { loginWithRedirect, isAuthenticated, user, isLoading } = useAuth0();
+  const [isLoaded, setIsLoaded] = useState(false);
+  const { loginContext, currentUser, verificationState } =
+    useContext(CurrentUserContext);
   const handleLogin = () => {
     loginContext();
     loginWithRedirect();
@@ -22,43 +24,49 @@ const HomePage = ({ setNavigationState }) => {
   useEffect(() => {
     setNavigationState("home");
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+    setIsLoaded(true);
   }, []);
+
   return (
     <MainPageContainer style={{ marginTop: "0px", width: "100%" }}>
-      <HomePageContentDiv>
-        <HeroImageContainer>
-          <SlideInTextDiv>
-            <h2>{t("heroImage.reduce")}</h2>
-          </SlideInTextDiv>
-          <SlideInTextDiv>
-            <h2>{t("heroImage.reuse")}</h2>
-          </SlideInTextDiv>
-          <SlideInTextDiv>
-            <h2>{t("heroImage.recycle")}</h2>
-          </SlideInTextDiv>
-          <SlideInTextDiv>
-            <h2>Re:Lease.</h2>
-          </SlideInTextDiv>
-          {!currentUser && (
-            <CustomSignUpButton
-              onClick={() => {
-                handleLogin();
-              }}
-            >
-              <p style={{ margin: "10px", fontSize: "35px" }}>
-                {t("heroImage.signup")}
-              </p>
-              <BiRightArrow size={40} />
-            </CustomSignUpButton>
-          )}
-        </HeroImageContainer>
-      </HomePageContentDiv>
-      <AboutUs id="about" />
+      {isLoaded && (
+        <>
+          <HomePageContentDiv>
+            <HeroImageContainer>
+              <div>
+                <h2>{t("heroImage.reduce")}</h2>
+              </div>
+              <div>
+                <h2>{t("heroImage.reuse")}</h2>
+              </div>
+              <div>
+                <h2>{t("heroImage.recycle")}</h2>
+              </div>
+              <div>
+                <h2>Re:Lease.</h2>
+              </div>
+              {!user && !isLoading && (
+                <CustomSignUpButton
+                  onClick={() => {
+                    handleLogin();
+                  }}
+                >
+                  <p style={{ margin: "10px", fontSize: "35px" }}>
+                    {t("heroImage.signup")}
+                  </p>
+                  <BiRightArrow size={40} />
+                </CustomSignUpButton>
+              )}
+            </HeroImageContainer>
+          </HomePageContentDiv>
+          <AboutUs id="about" />
+        </>
+      )}
     </MainPageContainer>
   );
 };
 
-const CustomSignUpButton = styled.button`
+export const CustomSignUpButton = styled.button`
   position: relative;
   font-family: "Montserrat", sans-serif;
   border: none;
@@ -88,14 +96,16 @@ const CustomSignUpButton = styled.button`
   }
 `;
 
-const SlideInTextDiv = styled.div``;
+// const SlideInTextDiv = styled.div``;
 const SlideInFromLeft = keyframes`
 from {
-  margin-left: -150%;
+  /* margin-left: -150%; */
+  transform: translateX(-150%);
   opacity: 0;
 }
 to {
-  margin-left: 0%;
+  /* margin-left: 0%; */
+  transform: translateX(0%);
   opacity: 1;
 }
 `;
@@ -103,7 +113,8 @@ to {
 const HeroImageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  /* justify-content: center; */
+  padding-top: 150px;
   align-items: center;
   background-image: url(${bgImage});
   width: 100%;
@@ -127,17 +138,17 @@ const HeroImageContainer = styled.div`
     }
   }
   overflow: hidden;
-  & ${SlideInTextDiv}:nth-child(1) {
+  & div:nth-child(1) {
+    animation: ${SlideInFromLeft} 0.5s ease-in;
+  }
+  & div:nth-child(2) {
+    animation: ${SlideInFromLeft} 0.75s ease-in;
+  }
+  & div:nth-child(3) {
     animation: ${SlideInFromLeft} 1s ease-in;
   }
-  & ${SlideInTextDiv}:nth-child(2) {
+  & div:nth-child(4) {
     animation: ${SlideInFromLeft} 1.25s ease-in;
-  }
-  & ${SlideInTextDiv}:nth-child(3) {
-    animation: ${SlideInFromLeft} 1.75s ease-in;
-  }
-  & ${SlideInTextDiv}:nth-child(4) {
-    animation: ${SlideInFromLeft} 2s ease-in;
   }
 `;
 
@@ -146,7 +157,7 @@ const HomePageContentDiv = styled.div`
   justify-content: space-between;
   margin: 0px auto;
   /* width: 75vw; */
-  height: 100vh;
+  /* height: 100vh; */
 `;
 
 export const MainPageContainer = styled.div`

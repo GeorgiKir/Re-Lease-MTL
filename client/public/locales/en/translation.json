@@ -3,7 +3,8 @@
     "aboutUs": "About us",
     "hello": "Hi, ",
     "login": "Log In",
-    "logout": "Log out"
+    "logout": "Log out",
+    "profile": "Profile"
   },
   "heroImage": {
     "reduce": "Reduce",
@@ -21,7 +22,9 @@
   "profileHeader": {
     "myListing": "My Listing",
     "listingSchedule": "Listing Schedule",
-    "visitSchedule": "Visit Schedule"
+    "visitSchedule": "Visit Schedule",
+    "noListing": "You currently have no listing",
+    "noVisitsToShow": "No Visits to show"
   },
   "form": {
     "streetAdress": "Street Address",

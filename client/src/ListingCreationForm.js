@@ -172,7 +172,7 @@ const ListingCreationForm = () => {
                   <input
                     required
                     name="price"
-                    type="text"
+                    type="number"
                     placeholder={t("form.selectPrice")}
                     value={ListingFormInfo.price}
                     onChange={(e) =>

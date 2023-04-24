@@ -52,6 +52,7 @@ const VistingHoursInputForm = ({
       <StyledScheduleInputContainer>
         <p>{t("form.selectDate")}</p>
         <input
+          style={{ width: "250px" }}
           type="date"
           min={new Date().toISOString().split("T")[0]}
           onChange={(e) => {

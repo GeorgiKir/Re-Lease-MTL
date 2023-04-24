@@ -6,8 +6,10 @@ import { CurrentUserContext } from "./CurrentUserContext";
 import { ImSpinner } from "react-icons/im";
 import { format } from "date-fns";
 import { ProfilePageContentDiv } from "./Profile";
+import { Trans, useTranslation } from "react-i18next";
 
 const ListingSchedulePage = () => {
+  const { t, i18n } = useTranslation();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [showVisitingHoursInProfile, setShowVisitingHoursInProfile] =
     useState(null);
@@ -58,7 +60,7 @@ const ListingSchedulePage = () => {
         </>
       )}
       {!showVisitingHoursInProfile && !loadingState && (
-        <p>You currently have no listing.</p>
+        <p style={{ textAlign: "center" }}>{t("profileHeader.noListing")}</p>
       )}
       {!showVisitingHoursInProfile && loadingState && <ImSpinner />}
     </div>

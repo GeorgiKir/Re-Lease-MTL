@@ -3,7 +3,8 @@
     "aboutUs": "À propos",
     "hello": "Bonjour, ",
     "login": "Connexion",
-    "logout": "Déconnexion"
+    "logout": "Déconnexion",
+    "profile": "Mon profil"
   },
   "heroImage": {
     "reduce": "Réduire",
@@ -19,9 +20,11 @@
     "link2": "Notre processus"
   },
   "profileHeader": {
-    "myListing": "Mon listing",
-    "listingSchedule": "Horraire de mon listing",
-    "visitSchedule": "Horraire de mes visites"
+    "myListing": "Mon annonce",
+    "listingSchedule": "Horraire de mon annonce",
+    "visitSchedule": "Horraire de mes visites",
+    "noListing": "Vous n'avez pas d'annonce",
+    "noVisitsToShow": "Aucune visite à afficher"
   },
   "form": {
     "streetAdress": "Adresse",
@@ -41,7 +44,7 @@
     "addTimeslot": "Ajouter une plage horaire",
     "submitTimeslots": "Soumettre les plages horaires",
     "submitSchedule": "Soumettre l'horaire",
-    "createListing": "Publier mon listing"
+    "createListing": "Publier mon annonce"
   },
   "buttons": {
     "next": "Suivant",

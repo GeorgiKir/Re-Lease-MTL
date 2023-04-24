@@ -143,9 +143,14 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
                           fontSize: "30px",
                           cursor: "pointer",
                           marginRight: "10px",
+                          color: currentUser ? "black" : "gray",
                         }}
                         onClick={() => {
-                          setShowCommentModal(true);
+                          if (!currentUser) {
+                            return;
+                          } else {
+                            setShowCommentModal(true);
+                          }
                         }}
                       />
                       <FiPlusCircle

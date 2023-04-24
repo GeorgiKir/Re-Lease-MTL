@@ -2,8 +2,34 @@ import React from "react";
 import styled from "styled-components";
 import { CommentInfoContainer, CommentModalContainer } from "./CommentsModal";
 import { GrClose } from "react-icons/gr";
+import { useState, useEffect } from "react";
 
 const ViewScheduleModal = ({ setToggleViewVisitHours, selectedTimeSlots }) => {
+  const [groupedSchedule, setGroupedSchedule] = useState([]);
+  // console.log(newScheduleArray);
+
+  const groupByValue = (obj) => {
+    const newScheduleArray = Object.values(obj);
+    let reverseObj = newScheduleArray.reduce(
+      (previousStage, currentNameValue) => {
+        // console.log(currentNameValue.date);
+        let targetKey = currentNameValue.date;
+        // console.log(targetKey);
+        let list = previousStage[targetKey];
+        if (!list) {
+          previousStage[targetKey] = list = [];
+        }
+        list.push(currentNameValue.hour);
+        return previousStage;
+      },
+      {}
+    );
+    return reverseObj;
+  };
+  useEffect(() => {
+    setGroupedSchedule([groupByValue(selectedTimeSlots)]);
+  }, []);
+
   return (
     <CommentModalContainer>
       <CommentInfoContainer>
@@ -17,52 +43,56 @@ const ViewScheduleModal = ({ setToggleViewVisitHours, selectedTimeSlots }) => {
             setToggleViewVisitHours(false);
           }}
         />
-        <div>
-          <p>ViewScheduleModal</p>
-          {selectedTimeSlots && selectedTimeSlots.length > 0 && (
-            <>
-              {selectedTimeSlots.map((item) => {
-                console.log(item);
-                return (
-                  <p>item</p>
 
-                  //   <>
-                  //     <h1>{item._id}</h1>
-                  //     <div style={{ paddingTop: "5px" }}>
-                  //       {item.timeslots.map((element) => {
-                  //         return (
-                  //           <div
-                  //             style={{
-                  //               display: "flex",
-                  //               justifyContent: "center",
-                  //             }}
-                  //           >
-                  //             <p
-                  //               style={{
-                  //                 padding: "5px 0px",
-                  //                 width: "fit-content",
-                  //               }}
-                  //             >
-                  //               {element.hour}{" "}
-                  //               {element.isAvailable === true
-                  //                 ? "(Available)"
-                  //                 : "(Booked)"}
-                  //             </p>
-                  //           </div>
-                  //         );
-                  //       })}
-                  //     </div>
-                  //   </>
+        <TimeSlotPreviewContainer>
+          {!selectedTimeSlots ||
+            (selectedTimeSlots.length <= 0 && <p>No visits...hmm....</p>)}
+          {groupedSchedule && groupedSchedule.length > 0 && (
+            <>
+              {Object.keys(groupedSchedule[0]).map((item) => {
+                return (
+                  <IndividualTimeSlotDiv>
+                    <h1>{item}</h1>
+                    {groupedSchedule[0][item].map((time) => {
+                      return <p>- {time} -</p>;
+                    })}
+                  </IndividualTimeSlotDiv>
                 );
               })}
             </>
           )}
-          {!selectedTimeSlots ||
-            (selectedTimeSlots.length <= 0 && <p>No visits...hmm....</p>)}
-        </div>
+        </TimeSlotPreviewContainer>
       </CommentInfoContainer>
     </CommentModalContainer>
   );
 };
 
+const IndividualTimeSlotDiv = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 45%;
+  border: 1px solid black;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  background-color: #faf9f6;
+  border: 1px solid #009acd;
+  padding: 5px;
+  & h1 {
+    color: #0078a0;
+  }
+  & p {
+    color: #00445b;
+    margin-bottom: 2px;
+  }
+`;
+
+const TimeSlotPreviewContainer = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 5%;
+  flex-wrap: wrap;
+  padding: 50px 25px;
+`;
 export default ViewScheduleModal;

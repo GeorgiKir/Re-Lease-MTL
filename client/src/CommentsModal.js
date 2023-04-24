@@ -208,11 +208,21 @@ const CommentForm = styled.form`
   }
 `;
 const IndividualCommentDiv = styled.div`
+  /* display: flex;
+  flex-direction: column;
+  padding: 5px 0px 5px 10px;
+  /* border-left: 1px solid black; */
+  /* margin-bottom: 5px; */
   display: flex;
   flex-direction: column;
   padding: 5px 0px 5px 10px;
-  border-left: 1px solid black;
-  margin-bottom: 5px;
+  width: fit-content;
+  padding-right: 25px;
+  /* border-left: 1px solid black; */
+  border: 2px solid #009acd;
+  background-color: #f6f6f6;
+  border-radius: 10px;
+  margin-bottom: 10px;
 `;
 
 const CommentFeedDiv = styled.div`
@@ -225,6 +235,7 @@ const CommentFeedDiv = styled.div`
   /* height: fit-content; */
   padding-right: 15px;
   overflow-y: auto;
+  /* box-shadow: 0px 6px 15px -10px rgba(0, 0, 0, 0.64); */
 `;
 
 export const CommentInfoContainer = styled.div`
@@ -246,10 +257,8 @@ export const CommentInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  /* padding-bottom: 20px; */
   color: black;
-  /* border: 1px solid red; */
-  background-color: white;
+  background-color: #faf9f6;
   height: 95%;
   z-index: 6;
   & p {

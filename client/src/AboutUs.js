@@ -185,9 +185,10 @@ const AboutUsTextDiv = styled.div`
 
 const AboutUsContainerDiv = styled.div`
   @media (min-width: 768px) {
+    margin-top: 75px;
     width: 70%;
-    padding-top: "70px";
-    height: calc(100vh);
+    padding-top: 70px;
+    height: 100vh;
   }
   @media (max-width: 767.9px) {
     flex-direction: column;
@@ -197,7 +198,7 @@ const AboutUsContainerDiv = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0px auto;
-  height: calc(100vh - 50px);
+  height: calc(100vh);
 `;
 
 export default AboutUs;

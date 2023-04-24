@@ -37,7 +37,7 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
       setErrMsg("Max number of pictures reached");
     } else {
       const file = e.target.files[0];
-      if (file.size > 500000) {
+      if (file.size > 600000) {
         console.log("File too large");
         setErrMsg("Your file is too large");
         return;

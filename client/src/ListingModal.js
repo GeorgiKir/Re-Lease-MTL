@@ -273,7 +273,7 @@ const ListingInfoContainer = styled.div`
   display: flex;
   flex-direction: column;
   color: black;
-  background-color: white;
+  background-color: #faf9f6;
   height: 95%;
   z-index: 6;
   & p {

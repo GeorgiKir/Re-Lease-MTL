@@ -8,8 +8,10 @@ import { FiTrash2 } from "react-icons/fi";
 import { ImSpinner } from "react-icons/im";
 import { format } from "date-fns";
 import DeleteConfirmation from "./DeleteConfirmation";
+import { Trans, useTranslation } from "react-i18next";
 
 const UpcomingVisitsSchedulePage = () => {
+  const { t, i18n } = useTranslation();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [showUpcomingVisits, setShowUpcomingVisits] = useState(null);
   const [visitorHasDeleted, setVisitorHasDeleted] = useState(false);
@@ -90,7 +92,11 @@ const UpcomingVisitsSchedulePage = () => {
           })}
         </>
       )}
-      {!showUpcomingVisits && !loadingState && <p>No Visits to show</p>}
+      {!showUpcomingVisits && !loadingState && (
+        <p style={{ textAlign: "center" }}>
+          {t("profileHeader.noVisitsToShow")}
+        </p>
+      )}
       {!showUpcomingVisits && loadingState && <ImSpinner />}
     </div>
   );

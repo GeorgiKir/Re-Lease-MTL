@@ -13,21 +13,22 @@ import SearchPage from "./SearchPage";
 import LogoutPage from "./LogoutPage";
 
 function App() {
-  const { user, isAuthenticated } = useAuth0();
+  const { user, isAuthenticated, isLoading } = useAuth0();
   const [navigationState, setNavigationState] = useState("home");
+  const [hasLoaded, setHasLoaded] = useState(false);
   const {
     currentUser,
     setCurrentUser,
     verificationState,
     setVerificationState,
     logoutState,
+    loginState,
+    setLoginState,
   } = useContext(CurrentUserContext);
   // const [verificationState, setVerificationState] = useState("Initial");
 
   useEffect(() => {
     if (isAuthenticated && user) {
-      // setVerificationState("Checking");
-      console.log(user);
       fetch(`/users/${user.email}`)
         .then((res) => res.json())
         .then((data) => {
@@ -41,45 +42,52 @@ function App() {
               listing: data.data.listingInfo ? data.data.listingInfo : "",
             })
           );
-          // setVerificationState("Verified");
+
           setCurrentUser(JSON.parse(window.sessionStorage.getItem("userId")));
+          // setVerificationState("Verified");
         })
         .catch((e) => {
           console.log("Error: ", e);
         });
+    } else {
+      // setVerificationState("Initial");
+      return;
     }
   }, [user]);
 
-  // if (verificationState === "Checking") {
-  //   return <>CHECKING...</>;
-  // }
+  if (!logoutState && isLoading) {
+    return <>LOADING...</>;
+  }
+
   return (
     <>
       <BrowserRouter>
         <GlobalStyle />
-        <Header navigationState={navigationState} />
         {logoutState && <LogoutPage />}
-        {!logoutState && (
-          <Routes>
-            <Route
-              path="/"
-              element={<HomePage setNavigationState={setNavigationState} />}
-            />
-            <Route
-              path="/login"
-              element={<LoginPage setNavigationState={setNavigationState} />}
-            />
-            <Route
-              path="/search"
-              element={<SearchPage setNavigationState={setNavigationState} />}
-            />
-            <Route
-              path="/profile"
-              element={<Profile setNavigationState={setNavigationState} />}
-            />
-          </Routes>
+        {!logoutState && !isLoading && (
+          <>
+            <Header navigationState={navigationState} />
+            <Routes>
+              <Route
+                path="/"
+                element={<HomePage setNavigationState={setNavigationState} />}
+              />
+              <Route
+                path="/login"
+                element={<LoginPage setNavigationState={setNavigationState} />}
+              />
+              <Route
+                path="/search"
+                element={<SearchPage setNavigationState={setNavigationState} />}
+              />
+              <Route
+                path="/profile"
+                element={<Profile setNavigationState={setNavigationState} />}
+              />
+            </Routes>
+            <Footer />
+          </>
         )}
-        <Footer />
       </BrowserRouter>
     </>
   );

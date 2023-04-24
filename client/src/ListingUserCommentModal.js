@@ -14,6 +14,7 @@ const ListingUserCommentsModal = ({ setShowCommentModal }) => {
   const [commentorUsername, setCommentorUsername] = useState(null);
   const [replyFlag, setReplyFlag] = useState(false);
   const [selectedElement, setSelectedElement] = useState(null);
+  const [errMessage, setErrMessage] = useState(null);
   const [commentFormObject, setCommentFormObject] = useState({
     listingId: currentUser._id,
     comment: null,
@@ -37,7 +38,7 @@ const ListingUserCommentsModal = ({ setShowCommentModal }) => {
 
   const handleCommentSubmit = (e, comment, type) => {
     e.preventDefault();
-    // console.log(comment);
+
     fetch(`/listings/comments/postComment`, {
       method: "PATCH",
       headers: {
@@ -211,8 +212,13 @@ const IndividualCommentDiv = styled.div`
   display: flex;
   flex-direction: column;
   padding: 5px 0px 5px 10px;
-  border-left: 1px solid black;
-  margin-bottom: 5px;
+  width: fit-content;
+  padding-right: 25px;
+  /* border-left: 1px solid black; */
+  border: 2px solid #009acd;
+  background-color: #f6f6f6;
+  border-radius: 10px;
+  margin-bottom: 10px;
 `;
 
 const CommentFeedDiv = styled.div`
@@ -220,10 +226,14 @@ const CommentFeedDiv = styled.div`
   margin: 8% auto;
   flex-direction: column;
   /* justify-content: space-between; */
-  width: 75%;
+  width: 80%;
   height: 85%;
-  padding-right: 15px;
+  padding-right: 10px;
+  padding-left: 10px;
   overflow-y: auto;
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+  box-shadow: 0px 6px 15px -10px rgba(0, 0, 0, 0.64);
 `;
 
 const CommentInfoContainer = styled.div`
@@ -246,7 +256,7 @@ const CommentInfoContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   color: black;
-  background-color: white;
+  background-color: #faf9f6;
   height: 90%;
   z-index: 6;
   & p {
