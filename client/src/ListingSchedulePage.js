@@ -7,6 +7,7 @@ import { ImSpinner } from "react-icons/im";
 import { format } from "date-fns";
 import { ProfilePageContentDiv } from "./Profile";
 import { Trans, useTranslation } from "react-i18next";
+import { CgClose } from "react-icons/cg";
 
 const ListingSchedulePage = () => {
   const { t, i18n } = useTranslation();
@@ -14,6 +15,7 @@ const ListingSchedulePage = () => {
   const [showVisitingHoursInProfile, setShowVisitingHoursInProfile] =
     useState(null);
   const [loadingState, setLoadingState] = useState(null);
+  const [listingUserHasDeleted, setListingUserHasDeleted] = useState(false);
   const currentDateChecker = new Date().toISOString().split("T")[0];
   useEffect(() => {
     setLoadingState(true);
@@ -34,7 +36,18 @@ const ListingSchedulePage = () => {
           );
         }
       });
-  }, []);
+  }, [listingUserHasDeleted]);
+
+  const handleDelete = (visitId) => {
+    fetch(`/timeSlots/deleteVisitingHour/${visitId}`, {
+      method: "PATCH",
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data.message);
+        setListingUserHasDeleted(!listingUserHasDeleted);
+      });
+  };
   return (
     <div>
       {showVisitingHoursInProfile && (
@@ -43,22 +56,28 @@ const ListingSchedulePage = () => {
             return (
               <>
                 <h1>{item._id}</h1>
-                <div style={{ paddingTop: "5px" }}>
+                <div
+                  style={{
+                    paddingTop: "5px",
+                  }}
+                >
                   {item.timeslots.map((element) => {
                     return (
-                      <div
-                        style={{
-                          display: "flex",
-                          justifyContent: "center",
-                        }}
-                      >
+                      <TimeslotContainerDiv>
                         <p style={{ padding: "5px 0px", width: "fit-content" }}>
                           {element.hour}{" "}
                           {element.isAvailable === true
                             ? `(${t("visitSchedule.available")})`
                             : `(${t("visitSchedule.booked")})`}
                         </p>
-                      </div>
+                        {element.isAvailable && (
+                          <CgClose
+                            onClick={() => {
+                              handleDelete(element._id);
+                            }}
+                          />
+                        )}
+                      </TimeslotContainerDiv>
                     );
                   })}
                 </div>
@@ -75,4 +94,23 @@ const ListingSchedulePage = () => {
   );
 };
 
+const TimeslotContainerDiv = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50%;
+  margin: 0px auto;
+  border-radius: 5px;
+  padding: 1px 10px;
+  &:hover {
+    cursor: pointer;
+    background-color: #00abe4;
+    color: white;
+  }
+  & svg {
+    &:hover {
+      scale: 2;
+    }
+  }
+`;
 export default ListingSchedulePage;

@@ -406,6 +406,32 @@ const getTimeSlots = async (req, res) => {
   }
 };
 
+const deleteVisitTimeSlot = async (req, res) => {
+  const { visitId } = req.params;
+  const client = new MongoClient(MONGO_URI, options);
+  try {
+    await client.connect();
+    const db = client.db("re-lease");
+
+    const deleteTimeSlot = await db.collection("timeslots").deleteOne({
+      _id: visitId,
+    });
+
+    if (deleteTimeSlot.acknowledged) {
+      res.status(200).json({
+        status: 200,
+        message: "succesfully deleted",
+        data: deleteTimeSlot,
+      });
+    }
+  } catch (err) {
+    console.log("Error: ", err);
+  } finally {
+    await client.close();
+    console.log("disconnected!");
+  }
+};
+
 const deleteTimeslot = async (req, res) => {
   const { visitId } = req.params;
   const client = new MongoClient(MONGO_URI, options);
@@ -646,4 +672,5 @@ module.exports = {
   postComment,
   getListing,
   updateListing,
+  deleteVisitTimeSlot,
 };

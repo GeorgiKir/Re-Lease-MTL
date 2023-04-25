@@ -15,13 +15,6 @@ const VisitingHoursModal = ({
     <VisitingHoursModalContainer>
       <VisitingHoursFormContainer>
         <StyledCloseIcon
-          // style={{
-          //   cursor: "pointer",
-          //   // scale: "3",
-          //   marginLeft: "25px",
-          //   marginTop: "25px",
-          //   position: "fixed",
-          // }}
           onClick={() => {
             setSelectingVisitingHours(false);
           }}

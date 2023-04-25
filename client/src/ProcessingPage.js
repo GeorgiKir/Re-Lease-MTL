@@ -31,7 +31,7 @@ const ProcessingStyledDiv = styled.div`
   align-items: center;
 
   & img {
-    width: 20%;
+    width: 10%;
   }
   & p {
     font-size: 35px;
