@@ -11,6 +11,7 @@ import LoginPage from "./LoginPage";
 import Profile from "./Profile";
 import SearchPage from "./SearchPage";
 import LogoutPage from "./LogoutPage";
+import ProcessingPage from "./ProcessingPage";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -56,7 +57,7 @@ function App() {
   }, [user]);
 
   if (!logoutState && isLoading) {
-    return <>LOADING...</>;
+    return <ProcessingPage />;
   }
 
   return (

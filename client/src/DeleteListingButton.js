@@ -60,7 +60,7 @@ const DeleteListingButton = () => {
         }}
       >
         <FiTrash2 style={{ fontSize: "27px" }} />
-        <p>{t("buttons.delete")}</p>
+        {/* <p>{t("buttons.delete")}</p> */}
       </StyledDeleteButton>
       {cancelVisitState && (
         <DeleteConfirmation

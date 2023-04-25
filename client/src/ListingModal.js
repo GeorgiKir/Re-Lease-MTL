@@ -7,6 +7,7 @@ import { CurrentUserContext } from "./CurrentUserContext";
 import { format } from "date-fns";
 import { StyledVisitForm } from "./VistingHoursInputForm";
 import { FaRegSadCry } from "react-icons/fa";
+import { TbCalendarOff } from "react-icons/tb";
 import DeleteListingButton, { StyledDeleteButton } from "./DeleteListingButton";
 import { Trans, useTranslation } from "react-i18next";
 
@@ -22,8 +23,10 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
   const [targetDate, setTargetDate] = useState(null);
   const [targetVisitArray, setTargetVisitArray] = useState(null);
   const [checkIfAlreadyHasVisit, setCheckifAlreadyHasVisit] = useState(false);
+  const [visitConfirmMsg, setVisitConfirmMsg] = useState(null);
   const [checkAvailablityOfVisits, setCheckAvailablityOfVisits] =
     useState(false);
+  const currentDateChecker = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
     fetch(`/timeSlots/ownerId/${listingInfo._id}`)
@@ -31,7 +34,13 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
       .then((data) => {
         if (data.status === 200) {
           setTargetVisitArray(
-            data.data.sort((a, b) => new Date(a._id) - new Date(b._id))
+            data.data
+              .filter((item) => {
+                if (item._id >= currentDateChecker) {
+                  return item;
+                }
+              })
+              .sort((a, b) => new Date(a._id) - new Date(b._id))
           );
 
           data.data.forEach((item) => {
@@ -45,6 +54,7 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
             });
           });
         }
+        // console.log(targetVisitArray.length);
       });
   }, []);
 
@@ -53,9 +63,11 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
     setTargetDate(value);
   };
 
+  console.log(currentDateChecker);
+
   const handleListingModalSubmit = (e) => {
     e.preventDefault();
-    setShowListingModal(false);
+    // setShowListingModal(false);
     setTargetVisitArray(null);
     console.log("SUBMITTED");
     fetch(`/listings/reserveAVisitTime`, {
@@ -69,6 +81,11 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
       .then((res) => res.json())
       .then((resData) => {
         console.log(resData.data);
+        if (resData.status === 200) {
+          setVisitConfirmMsg("Your visit has been successfully booked.");
+        } else {
+          setVisitConfirmMsg("Unable to complete booking.");
+        }
       })
       .catch((e) => {
         console.log("Error: ", e);
@@ -104,10 +121,16 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
           </p>
           <h2>Description</h2>
           <p>{listingInfo.listingDescription}</p>
+          {visitConfirmMsg && (
+            <p style={{ color: "#00abe4", fontSize: "20px" }}>
+              {visitConfirmMsg}
+            </p>
+          )}
           {targetVisitArray &&
             targetVistingTime.listingId !== targetVistingTime.visitorId &&
             !checkIfAlreadyHasVisit &&
-            checkAvailablityOfVisits && (
+            checkAvailablityOfVisits &&
+            targetVisitArray.length > 0 && (
               <ListingModalForm
                 onSubmit={(e) => {
                   handleListingModalSubmit(e);
@@ -116,6 +139,7 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
                 <h1>{t("listingModal.visitingSchedule")}</h1>
                 <div>
                   {targetVisitArray.map((item) => {
+                    // if (item._id >= currentDateChecker) {
                     return (
                       <>
                         <h2>{item._id}</h2>
@@ -143,8 +167,10 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
                         </VisitingTimeslotsContainer>
                       </>
                     );
+                    // }
                   })}
                 </div>
+
                 <StyledDeleteButton
                   style={{
                     display: "block",
@@ -166,9 +192,10 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
             checkIfAlreadyHasVisit && (
               <p>{t("listingModal.alreadyHaveVisit")}</p>
             )}
-          {targetVisitArray &&
+          {(targetVisitArray &&
             !checkAvailablityOfVisits &&
-            !checkIfAlreadyHasVisit && (
+            !checkIfAlreadyHasVisit) ||
+            (targetVisitArray && targetVisitArray.length == 0 && (
               <div
                 style={{
                   margin: "0px auto",
@@ -177,14 +204,31 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
                   alignItems: "center",
                 }}
               >
-                <FaRegSadCry
+                <TbCalendarOff
                   style={{
                     fontSize: "40px",
                   }}
                 />
                 <p>{t("listingModal.noMoreVisits")}</p>
               </div>
-            )}
+            ))}
+          {/* {targetVisitArray && targetVisitArray.length == 0 && (
+            <div
+              style={{
+                margin: "0px auto",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+              }}
+            >
+              <FaRegSadCry
+                style={{
+                  fontSize: "40px",
+                }}
+              />
+              <p>{t("listingModal.noMoreVisits")}</p>
+            </div>
+          )} */}
         </StyledVisitorForm>
       </ListingInfoContainer>
     </ListingModalContainer>

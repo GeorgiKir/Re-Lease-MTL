@@ -112,7 +112,7 @@ const UpcomingVisitContainer = styled.div`
   }
 
   @media (max-width: 767px) {
-    width: 50%;
+    width: 85%;
     margin-bottom: 10px;
     & p {
       margin: 0px;

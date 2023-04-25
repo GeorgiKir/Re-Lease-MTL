@@ -6,7 +6,7 @@ const ProcessingPage = () => {
   return (
     <ProcessingStyledDiv>
       <StyledImg src={gearImg} />
-      <p style={{ fontSize: "40px", marginTop: "30px" }}>Processing...</p>
+      <p>Processing...</p>
     </ProcessingStyledDiv>
   );
 };
@@ -32,6 +32,11 @@ const ProcessingStyledDiv = styled.div`
 
   & img {
     width: 20%;
+  }
+  & p {
+    font-size: 35px;
+    margin-top: 30px;
+    font-family: "Jost", sans-serif;
   }
 `;
 export default ProcessingPage;

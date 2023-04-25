@@ -70,7 +70,7 @@
     "visitingSchedule": "Calendrier des visites",
     "yourListing": "Ceci est votre annonce actuelle",
     "alreadyHaveVisit": "Vous avez déjà une visite à cette adresse",
-    "noMoreVisits": "Pas de visites disponibles"
+    "noMoreVisits": "Aucune visite disponible"
   },
   "commentsModal": {
     "asked": "a demandé:",
@@ -82,5 +82,9 @@
   "deleteConfirmation": {
     "deleteVisit": "Cette action supprimera définitivement votre visite",
     "deleteListing": "Cette action supprimera définitivement votre annonce"
+  },
+  "visitSchedule": {
+    "available": "Disponible",
+    "booked": "Réservé"
   }
 }

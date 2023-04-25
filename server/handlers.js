@@ -26,6 +26,7 @@ const getUser = async (req, res) => {
         _id: uuidv4(),
         client_id: uuidv4(),
         email: userEmail,
+        // verified: false,
       });
       if (createNewExternalUser.acknowledged) {
         let targetUser = await db

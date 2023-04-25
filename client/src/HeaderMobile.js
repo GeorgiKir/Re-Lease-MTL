@@ -8,8 +8,10 @@ import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
+import { Trans, useTranslation } from "react-i18next";
 
 const HeaderMobile = () => {
+  const { t, i18n } = useTranslation();
   const { currentUser } = useContext(CurrentUserContext);
   const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState(false);
   const [profileMenu, setProfileMenu] = useState(false);
@@ -47,9 +49,8 @@ const HeaderMobile = () => {
               }}
             />
           </StyledNav>
-          <StyledNav style={{ fontSize: "15px", fontWeight: "400" }}>
-            About us
-          </StyledNav>
+
+          <a href="#about">{t("header.aboutUs")}</a>
         </HamburgerMenu>
       )}
       {profileMenu && (
@@ -82,6 +83,25 @@ const HamburgerMenu = styled.div`
     display: flex;
     flex-direction: column;
   }
+  & a {
+    color: white;
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    @media (min-width: 768px) {
+      &:after {
+        display: block;
+        content: "";
+        border-bottom: solid 3px white;
+        transform: scaleX(0);
+        transition: transform 500ms ease-in-out;
+      }
+      &:hover:after {
+        transform: scaleX(1);
+      }
+    }
+  }
 
   align-items: ${(props) => (props.ProfileMenu ? "flex-end" : "flex-start")};
   justify-content: space-evenly;
@@ -108,7 +128,7 @@ const SmallStyledHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100vw;
-  background-color: #1c2321;
+  background-color: #0078a0;
   height: 55px;
   z-index: 2;
   color: white;

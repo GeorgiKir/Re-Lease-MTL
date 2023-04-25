@@ -20,6 +20,7 @@ import { AiOutlineComment } from "react-icons/ai";
 import CommentsModal from "./CommentsModal";
 import ListingUserCommentsModal from "./ListingUserCommentModal";
 import { AiOutlineEdit } from "react-icons/ai";
+import { SlOptions } from "react-icons/sl";
 import EditListingModal from "./EditListingModal";
 import { Trans, useTranslation } from "react-i18next";
 
@@ -34,11 +35,13 @@ const Profile = ({ setNavigationState }) => {
   const [showCommentModal, setShowCommentModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [updateMessage, setUpdateMessage] = useState(null);
+  const [showOptions, setShowOptions] = useState(false);
   let handlePhotoTracker;
 
   if (!isAuthenticated) {
     navigate("/");
   } else {
+    setNavigationState("profile");
     handlePhotoTracker = (count) => {
       if (count === 1) {
         if (showPhotoTracker === numOfListingPhotos - 1) {
@@ -153,7 +156,7 @@ const Profile = ({ setNavigationState }) => {
                     }}
                   >
                     <AiOutlineComment style={{ fontSize: "35px" }} />{" "}
-                    <p>{t("buttons.comments")}</p>
+                    {/* <p>{t("buttons.comments")}</p> */}
                   </ProfileStyledButton>
                   <ProfileStyledButton
                     onClick={() => {
@@ -161,7 +164,7 @@ const Profile = ({ setNavigationState }) => {
                     }}
                   >
                     <AiOutlineEdit style={{ fontSize: "35px" }} />
-                    <p>{t("buttons.edit")}</p>
+                    {/* <p>{t("buttons.edit")}</p> */}
                   </ProfileStyledButton>
                 </ProfileButtonContainer>
                 {showCommentModal && (
@@ -247,9 +250,14 @@ export const ProfileStyledButton = styled.button`
 `;
 
 const ProfileButtonContainer = styled.div`
+  @media (max-width: 768px) {
+    width: 60%;
+    margin: 20px auto 0px auto;
+  }
   display: flex;
   /* border: 1px solid black; */
   font-size: 20px;
+  width: 100%;
   align-items: flex-end;
   justify-content: space-evenly;
   margin-top: 20px;
@@ -283,7 +291,6 @@ export const ArrowContainerDiv = styled.div`
   background-color: transparent;
   color: #00abe4;
   font-weight: 600;
-  /* background-color: rgba(28, 35, 33, 0.81); */
 `;
 
 const ListingInfoMainContainer = styled.div`

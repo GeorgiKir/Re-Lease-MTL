@@ -16,7 +16,7 @@
     "part1": "Lease assignment made easy with our platform.",
     "part2": "Whether you're a tenant looking to assign your lease or a renter in need of an apartment, we've got you covered",
     "part3": "Our user-friendly website connects renters with reliable tenants,  streamlining the assignment process. List your space or find your perfect apartment today.",
-    "link1": "Assigning a Lease vs Subletting?",
+    "link1": "Assigning a Lease or Subletting?",
     "link2": "Our Process"
   },
   "profileHeader": {
@@ -82,5 +82,9 @@
   "deleteConfirmation": {
     "deleteVisit": "This will permanently delete your visit",
     "deleteListing": "This will permanently delete your listing"
+  },
+  "visitSchedule": {
+    "available": "Available",
+    "booked": "Booked"
   }
 }

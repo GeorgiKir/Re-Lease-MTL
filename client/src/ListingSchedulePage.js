@@ -14,7 +14,7 @@ const ListingSchedulePage = () => {
   const [showVisitingHoursInProfile, setShowVisitingHoursInProfile] =
     useState(null);
   const [loadingState, setLoadingState] = useState(null);
-
+  const currentDateChecker = new Date().toISOString().split("T")[0];
   useEffect(() => {
     setLoadingState(true);
     fetch(`/timeSlots/ownerId/${currentUser._id}`)
@@ -23,7 +23,15 @@ const ListingSchedulePage = () => {
         console.log(data);
         setLoadingState(false);
         if (data.status === 200) {
-          setShowVisitingHoursInProfile(data.data);
+          setShowVisitingHoursInProfile(
+            data.data
+              .filter((item) => {
+                if (item._id >= currentDateChecker) {
+                  return item;
+                }
+              })
+              .sort((a, b) => new Date(a._id) - new Date(b._id))
+          );
         }
       });
   }, []);
@@ -47,8 +55,8 @@ const ListingSchedulePage = () => {
                         <p style={{ padding: "5px 0px", width: "fit-content" }}>
                           {element.hour}{" "}
                           {element.isAvailable === true
-                            ? "(Available)"
-                            : "(Booked)"}
+                            ? `(${t("visitSchedule.available")})`
+                            : `(${t("visitSchedule.booked")})`}
                         </p>
                       </div>
                     );

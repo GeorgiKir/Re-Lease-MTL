@@ -33,7 +33,7 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
 
   const handleFileInputChange = (e) => {
     // console.log(e.target.files);
-    if (ListingFormInfo.listingImage.length >= 3) {
+    if (ListingFormInfo.listingImage.length >= 5) {
       setErrMsg("Max number of pictures reached");
     } else {
       const file = e.target.files[0];

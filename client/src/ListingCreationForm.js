@@ -361,25 +361,39 @@ const FormInputContainer = styled.div`
     }
     & input {
       width: 50%;
+      height: 40px;
     }
     & select {
       width: 50%;
+      height: 40px;
     }
   }
   @media (max-width: 767px) {
     & h2 {
       font-size: 25px;
+      margin-bottom: 10px;
     }
     & input {
-      width: 70%;
+      width: 80%;
+      height: 40px;
+      margin-bottom: 20px;
+    }
+    & select {
+      width: 80%;
+      height: 40px;
+      margin-bottom: 20px;
+    }
+    & textarea {
+      width: 90%;
     }
     flex-direction: column;
   }
-  /* height: fit-content; */
   display: flex;
   width: 90%;
   justify-content: space-between;
   margin-bottom: 2%;
+  /* border: 1px solid black; */
+  align-items: center;
 `;
 
 const StyledListingForm = styled.form`

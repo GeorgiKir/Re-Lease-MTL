@@ -186,10 +186,8 @@ const EditFormInputContainer = styled.div`
   textarea:focus,
   select:focus-visible {
     outline: none;
-    /* border-color: #00abe4; */
     border: 2px solid #00abe4;
     border-radius: 3px;
-    /* box-shadow: 0 0 10px #719ece; */
   }
 `;
 const EditForm = styled.form`
@@ -202,6 +200,11 @@ const EditForm = styled.form`
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  & input,
+  textarea,
+  select {
+    width: 50%;
+  }
   /* border: 1px solid red; */
 `;
 export default EditListingModal;

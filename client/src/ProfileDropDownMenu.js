@@ -88,7 +88,11 @@ const ProfileDropDownButton = styled.button`
   align-items: center;
   justify-content: space-between;
   width: 90%;
-  &::before {
+  &:hover {
+    background-color: #00abe4;
+    border-radius: 5px;
+  }
+  /* &::before {
     content: "";
     left: 0;
     right: 0;
@@ -102,7 +106,7 @@ const ProfileDropDownButton = styled.button`
   &:hover::before,
   :focus::before {
     transform: scaleX(1);
-  }
+  } */
 `;
 
 const ProfileDropDownMainContainer = styled.div`
@@ -116,7 +120,8 @@ const ProfileDropDownMainContainer = styled.div`
   /* height: 100px; */
   height: fit-content;
   padding: 15px 0px;
-  background-color: #00abe4;
+  background-color: #0078a0;
+  /* background-color: #00abe4; */
   box-shadow: 0px 6px 15px -10px rgba(0, 0, 0, 0.64);
   border-radius: 10px;
   /* align-self: flex-end; */
