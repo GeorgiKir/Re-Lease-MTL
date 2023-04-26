@@ -248,11 +248,5 @@ const InfoWindowInfoContainer = styled.div`
       margin-left: 10px;
     }
   }
-  /* & svg:nth-child(3) {
-    position: absolute;
-
-    margin-left: 290px;
-    margin-top: 180px;
-  } */
 `;
 export default Map;

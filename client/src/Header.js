@@ -1,17 +1,12 @@
-import React from "react";
-import styled from "styled-components";
-import LoginButton from "./LoginButton";
-import LogoutButton from "./LogoutButton";
-import { useContext, useState } from "react";
-import { FiSearch, FiUser } from "react-icons/fi";
-import { CurrentUserContext } from "./CurrentUserContext";
-import { Link, NavLink } from "react-router-dom";
-import { GiHamburgerMenu } from "react-icons/gi";
-import HeaderMobile from "./HeaderMobile";
-import { Trans, useTranslation } from "react-i18next";
 import { useAuth0 } from "@auth0/auth0-react";
+import React, { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { FiSearch, FiUser } from "react-icons/fi";
+import { NavLink } from "react-router-dom";
+import styled from "styled-components";
+import { CurrentUserContext } from "./CurrentUserContext";
+import HeaderMobile from "./HeaderMobile";
 import ProfileDropDownMenu from "./ProfileDropDownMenu";
-import { ProfileStyledButton } from "./Profile";
 
 const Header = ({ navigationState }) => {
   const { loginWithRedirect, isAuthenticated, user, isLoading } = useAuth0();
@@ -92,7 +87,7 @@ const Header = ({ navigationState }) => {
   );
 };
 
-const LangButton = styled.button`
+export const LangButton = styled.button`
   display: flex;
   position: relative;
   background-color: transparent;

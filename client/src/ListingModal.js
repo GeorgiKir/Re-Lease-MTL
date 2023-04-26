@@ -94,20 +94,18 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
   return (
     <ListingModalContainer>
       <ListingInfoContainer>
+        <GrClose
+          style={{
+            cursor: "pointer",
+            fontSize: "35px",
+            position: "absolute",
+          }}
+          onClick={() => {
+            setShowListingModal(false);
+            setTargetVisitArray(null);
+          }}
+        />
         <StyledVisitorForm>
-          <GrClose
-            style={{
-              cursor: "pointer",
-              scale: "2",
-              marginLeft: "-9%",
-              // marginTop: "-1%",
-              position: "absolute",
-            }}
-            onClick={() => {
-              setShowListingModal(false);
-              setTargetVisitArray(null);
-            }}
-          />
           <h2>{t("listingModal.address")}</h2>
           <p>
             {listingInfo.listingAddress} {listingInfo.borough}{" "}

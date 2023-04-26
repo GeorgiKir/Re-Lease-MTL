@@ -1,9 +1,8 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+import { SlArrowRight } from "react-icons/sl";
 import styled from "styled-components";
-import blueBgImg from "./assets/blue_bg.jpg";
 import movingImg from "./assets/moving1.jpg";
-import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
-import { Trans, useTranslation } from "react-i18next";
 
 const AboutUs = () => {
   const { t, i18n } = useTranslation();
@@ -53,7 +52,7 @@ const AboutUs = () => {
           }}
         >
           <AboutUsLinkButton style={{ margin: "0px", padding: "0px" }}>
-            <p>{t("aboutUs.link2")}</p>
+            <a href="#process">{t("aboutUs.link2")}</a>
           </AboutUsLinkButton>
           <SlArrowRight
             style={{
@@ -64,11 +63,6 @@ const AboutUs = () => {
             }}
           />
         </div>
-        {/* Lease reassignment made easy: */}
-        {/* <h1 style={{ marginLeft: "50px" }}>1. Create an account</h1>
-        <h1 style={{ marginLeft: "100px" }}>2. Post your listing</h1>
-        <h1 style={{ marginLeft: "150px" }}>3. Show your place</h1>
-        <h1 style={{ marginLeft: "200px" }}>4. Re:Assign!</h1> */}
       </AboutUsTextDiv>
     </AboutUsContainerDiv>
   );
@@ -96,7 +90,11 @@ const AboutUsLinkButton = styled.button`
   }
   & a {
     text-decoration: none;
-    text-align: left;
+    font-family: "Montserrat", sans-serif;
+    color: #00abe4;
+    font-weight: 600;
+    font-size: 25px;
+    margin-bottom: 5px;
   }
   &::before {
     content: "";
@@ -118,7 +116,9 @@ const FirstImgContainer = styled.div`
   @media (min-width: 768px) {
     border: 2px solid #00abe4;
     height: 400px;
+    border-radius: 5px;
     & img {
+      border-radius: 5px;
       width: 275px;
       height: 400px;
       margin-left: -50px;

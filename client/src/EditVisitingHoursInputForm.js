@@ -5,50 +5,73 @@ import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { Trans, useTranslation } from "react-i18next";
 
-const VistingHoursInputForm = ({
-  visitingHoursToBeAdded,
-  setVisitingHoursToBeAdded,
-  ListingFormInfo,
-  setListingFormInfo,
-  setSelectingVisitingHours,
-  setListingCreationTracker,
+const EditVistingHoursInputForm = ({
+  listingUserHasDeleted,
+  setListingUserHasDeleted,
+  setShowEditModal,
 }) => {
   const { t, i18n } = useTranslation();
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
   const [dateObject, setDateObject] = useState("");
   const [arr, setArr] = useState([]);
+  const [errMessage, setErrMessage] = useState(null);
 
-  console.log(ListingFormInfo);
+  const handleEditedVisitingHoursSubmit = (e) => {
+    e.preventDefault();
+
+    fetch(`/timeSlots/addTimeSlots`, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ selectedTimeSlots: dateObject }),
+    })
+      .then((res) => res.json())
+      .then((resData) => {
+        console.log(resData);
+        if (resData.status === 200) {
+          setErrMessage(resData.data);
+          setListingUserHasDeleted(!listingUserHasDeleted);
+          setTimeout(() => {
+            setShowEditModal(false);
+          }, "1500");
+        }
+      });
+  };
+
   const addInput = () => {
     setArr((s) => {
       return [
         ...s,
         {
-          address: ListingFormInfo.listingAddress,
+          address: currentUser.listing.listingAddress,
           date: dateObject,
           ownerId: currentUser._id,
-          visitorId: "someOtherID",
+          visitorId: null,
           isAvailable: true,
           hour: "",
         },
       ];
     });
   };
-  console.log(new Date());
+
   const handleChange = (e) => {
     e.preventDefault();
-
     const index = e.target.id;
     setArr((s) => {
       const newArr = s.slice();
       newArr[index].hour = e.target.value;
-
       return newArr;
     });
   };
 
   return (
-    <StyledVisitForm>
+    <StyledVisitForm
+      onSubmit={(e) => {
+        handleEditedVisitingHoursSubmit(e);
+      }}
+    >
       <StyledScheduleInputContainer>
         <p>{t("form.selectDate")}</p>
         <input
@@ -84,42 +107,27 @@ const VistingHoursInputForm = ({
           </TimeslotInputContainer>
         </StyledScheduleInputContainer>
       )}
+      {errMessage && (
+        <p
+          style={{
+            color: "#00abe4",
+            textAlign: "center",
+            marginBottom: "15px",
+          }}
+        >
+          {errMessage}
+        </p>
+      )}
       <SubmitTimeslotsButton
         arr={arr}
         style={{ height: "35px" }}
-        type="button"
+        type="submit"
         onClick={() => {
-          setDateObject(
-            arr.filter((item) => {
-              if (item.hour.length > 0) {
-                return item;
-              }
-            })
-          );
-        }}
-      >
-        {t("form.submitTimeslots")}
-      </SubmitTimeslotsButton>
-      <SubmitScheduleButton
-        type="button"
-        dateObject={dateObject}
-        onClick={() => {
-          setVisitingHoursToBeAdded(() => {
-            setSelectingVisitingHours(false);
-            setListingCreationTracker(4);
-            return [...visitingHoursToBeAdded, ...dateObject];
-          });
-          setListingFormInfo({
-            ...ListingFormInfo,
-            selectedTimeSlots: [
-              ...ListingFormInfo.selectedTimeSlots,
-              ...dateObject,
-            ],
-          });
+          setDateObject(arr);
         }}
       >
         {t("form.submitSchedule")}
-      </SubmitScheduleButton>
+      </SubmitTimeslotsButton>
     </StyledVisitForm>
   );
 };
@@ -142,98 +150,18 @@ const StyledAddHoursButton = styled.button`
   color: white;
 `;
 const SubmitScheduleButton = styled.button`
-  width: 40%;
+  height: 35px;
+  width: 50%;
   margin: 0px auto;
   display: ${(props) =>
     typeof props.dateObject === "object" ? "block" : "none"};
-  @media (min-width: 1135px) {
-    font-size: 20px;
-  }
-  @media (max-width: 1135px) {
-    font-size: 15px;
-  }
-
-  font-family: "Jost", sans-serif;
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  border: 2px solid #0078a0;
-  gap: 5px;
-  padding: 0px 10px;
-  cursor: pointer;
-  color: #0078a0;
-
-  &:hover,
-  :focus {
-    color: white;
-  }
-  &::before {
-    content: "";
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: -1;
-    background-color: #0078a0;
-    position: absolute;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 500ms ease-in-out;
-  }
-  &:hover::before,
-  :focus::before {
-    transform: scaleX(1);
-  }
 `;
 
 const SubmitTimeslotsButton = styled.button`
-  width: 40%;
+  height: 35px;
+  width: 50%;
   margin: 0px auto 25px auto;
   display: ${(props) => (props.arr.length > 0 ? "block" : "none")};
-  @media (min-width: 1135px) {
-    font-size: 20px;
-  }
-  @media (max-width: 1135px) {
-    font-size: 15px;
-  }
-
-  font-family: "Jost", sans-serif;
-  position: relative;
-  z-index: 1;
-  overflow: hidden;
-  align-items: center;
-  justify-content: center;
-  border-radius: 5px;
-  border: 2px solid #0078a0;
-  gap: 5px;
-  padding: 0px 10px;
-  cursor: pointer;
-  color: #0078a0;
-
-  &:hover,
-  :focus {
-    color: white;
-  }
-  &::before {
-    content: "";
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    z-index: -1;
-    background-color: #0078a0;
-    position: absolute;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 500ms ease-in-out;
-  }
-  &:hover::before,
-  :focus::before {
-    transform: scaleX(1);
-  }
 `;
 const ButtonContainerDiv = styled.div`
   display: flex;
@@ -272,7 +200,7 @@ export const StyledScheduleInputContainer = styled.div`
   justify-content: space-between;
   margin-bottom: 20px;
 `;
-export const StyledVisitForm = styled.div`
+export const StyledVisitForm = styled.form`
   display: flex;
   margin: 8% auto 0px auto;
   flex-direction: column;
@@ -290,4 +218,4 @@ export const StyledVisitForm = styled.div`
   /* margin-top: 35px; */
 `;
 
-export default VistingHoursInputForm;
+export default EditVistingHoursInputForm;

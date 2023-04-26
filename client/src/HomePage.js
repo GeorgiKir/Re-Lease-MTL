@@ -1,14 +1,12 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
-import bgImage from "./assets/facade1.jpg";
-import { CurrentUserContext } from "./CurrentUserContext";
-import { boroughs } from "./boroughs";
-import { keyframes } from "styled-components";
-import AboutUs from "./AboutUs";
+import { useTranslation } from "react-i18next";
 import { BiRightArrow } from "react-icons/bi";
-import { Trans, useTranslation } from "react-i18next";
+import styled, { keyframes } from "styled-components";
+import AboutUs from "./AboutUs";
+import { CurrentUserContext } from "./CurrentUserContext";
+import OurProcess from "./OurProcess";
+import bgImage from "./assets/facade1.jpg";
 
 const HomePage = ({ setNavigationState }) => {
   const { t, i18n } = useTranslation();
@@ -59,7 +57,8 @@ const HomePage = ({ setNavigationState }) => {
               )}
             </HeroImageContainer>
           </HomePageContentDiv>
-          <AboutUs id="about" />
+          <AboutUs />
+          <OurProcess />
         </>
       )}
     </MainPageContainer>

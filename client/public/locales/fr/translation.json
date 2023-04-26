@@ -86,5 +86,14 @@
   "visitSchedule": {
     "available": "Disponible",
     "booked": "Réservé"
+  },
+  "process": {
+    "title": "Cession de bail simplifiée:",
+    "text1": "1. Créez un compte",
+    "text2": "2. Publiez votre annonce",
+    "text3": "3. Montrez votre logement",
+    "text4": "4. Échangez vos informations",
+    "text5": "5. Suivez le processus légal",
+    "text6": "6. Cédez!"
   }
 }

@@ -1,20 +1,23 @@
-import React from "react";
-import styled from "styled-components";
-import { useState } from "react";
-import { NavContainer, StyledNav } from "./Header";
+import React, { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FiSearch, FiUser } from "react-icons/fi";
 import { GiHamburgerMenu } from "react-icons/gi";
+import styled from "styled-components";
+import { CurrentUserContext } from "./CurrentUserContext";
+import { LangButton, NavContainer, StyledNav } from "./Header";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
-import { useContext } from "react";
-import { CurrentUserContext } from "./CurrentUserContext";
-import { Trans, useTranslation } from "react-i18next";
 
 const HeaderMobile = () => {
   const { t, i18n } = useTranslation();
   const { currentUser } = useContext(CurrentUserContext);
+  const [languagesState, setLanguageState] = useState("english");
   const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState(false);
   const [profileMenu, setProfileMenu] = useState(false);
+
+  const changeLanguage = (language) => {
+    i18n.changeLanguage(language);
+  };
   return (
     <SmallStyledHeader>
       <NavContainer>
@@ -51,6 +54,26 @@ const HeaderMobile = () => {
           </StyledNav>
 
           <a href="#about">{t("header.aboutUs")}</a>
+          {languagesState === "french" && (
+            <LangButton
+              onClick={() => {
+                changeLanguage("en");
+                setLanguageState("english");
+              }}
+            >
+              EN
+            </LangButton>
+          )}
+          {languagesState === "english" && (
+            <LangButton
+              onClick={() => {
+                changeLanguage("fr");
+                setLanguageState("french");
+              }}
+            >
+              FR
+            </LangButton>
+          )}
         </HamburgerMenu>
       )}
       {profileMenu && (
@@ -112,7 +135,7 @@ const HamburgerMenu = styled.div`
   border-bottom-right-radius: ${(props) => (props.ProfileMenu ? "" : "5px")};
   border-bottom-left-radius: ${(props) => (props.ProfileMenu ? "5px" : "")};
   width: 30%;
-  height: 85px;
+  height: 150px;
   background-color: rgba(28, 35, 33, 0.81);
   ${(props) => (props.ProfileMenu ? "right: 0" : "")}
 `;

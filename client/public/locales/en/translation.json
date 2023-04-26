@@ -86,5 +86,14 @@
   "visitSchedule": {
     "available": "Available",
     "booked": "Booked"
+  },
+  "process": {
+    "title": "Lease reassignment made easy:",
+    "text1": "1. Create an account",
+    "text2": "2. Post your listing",
+    "text3": "3. Show your place",
+    "text4": "4. Exchange information",
+    "text5": "5. Follow the legal process",
+    "text6": "6. Re:Assign!"
   }
 }

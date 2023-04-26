@@ -59,7 +59,6 @@ const SearchPage = ({ setNavigationState }) => {
     return <p>No map center</p>;
   }
 
-  // console.log("mapCenter from SearchPage.js:", mapCenter);
   return (
     <StorePageContainer>
       <SearchBar
@@ -96,6 +95,7 @@ const SearchPageContentContainer = styled.div`
   justify-content: space-between;
   width: 90%;
   /* border: 1px solid blue; */
+  z-index: 0;
   margin: 0px auto;
 `;
 

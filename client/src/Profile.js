@@ -218,6 +218,7 @@ export const ProfileStyledButton = styled.button`
   display: flex;
   font-size: 15px;
   align-items: center;
+  justify-content: center;
   border-radius: 5px;
   border: 2px solid #0078a0;
   gap: 5px;

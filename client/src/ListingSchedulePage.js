@@ -8,6 +8,8 @@ import { format } from "date-fns";
 import { ProfilePageContentDiv } from "./Profile";
 import { Trans, useTranslation } from "react-i18next";
 import { CgClose } from "react-icons/cg";
+import { BsCalendarPlus } from "react-icons/bs";
+import EditVisitingHoursModal from "./EditVisitingHoursModal";
 
 const ListingSchedulePage = () => {
   const { t, i18n } = useTranslation();
@@ -17,6 +19,9 @@ const ListingSchedulePage = () => {
   const [loadingState, setLoadingState] = useState(null);
   const [listingUserHasDeleted, setListingUserHasDeleted] = useState(false);
   const currentDateChecker = new Date().toISOString().split("T")[0];
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [newVisitingHours, setNewVisitingHours] = useState([]);
+
   useEffect(() => {
     setLoadingState(true);
     fetch(`/timeSlots/ownerId/${currentUser._id}`)
@@ -50,6 +55,23 @@ const ListingSchedulePage = () => {
   };
   return (
     <div>
+      {currentUser.listing && (
+        <CalendarSvgContainer>
+          <BsCalendarPlus
+            style={{ fontSize: "30px", color: "#009acd" }}
+            onClick={() => {
+              setShowEditModal(true);
+            }}
+          />
+        </CalendarSvgContainer>
+      )}
+      {showEditModal && (
+        <EditVisitingHoursModal
+          setShowEditModal={setShowEditModal}
+          listingUserHasDeleted={listingUserHasDeleted}
+          setListingUserHasDeleted={setListingUserHasDeleted}
+        />
+      )}
       {showVisitingHoursInProfile && (
         <>
           {showVisitingHoursInProfile.map((item) => {
@@ -93,6 +115,17 @@ const ListingSchedulePage = () => {
     </div>
   );
 };
+
+const CalendarSvgContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  cursor: pointer;
+  & svg {
+    &:hover {
+      scale: 1.3;
+    }
+  }
+`;
 
 const TimeslotContainerDiv = styled.div`
   display: flex;

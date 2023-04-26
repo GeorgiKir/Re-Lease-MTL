@@ -329,7 +329,7 @@ const postTimeSlots = async (req, res) => {
     if (result.acknowledged) {
       res.status(200).json({
         status: 200,
-        data: "Success",
+        data: "Successfully added timeslots",
       });
     } else {
       res.status(400).json({
@@ -462,6 +462,28 @@ const deleteTimeslot = async (req, res) => {
     console.log("disconnected!");
   }
 };
+
+// const addVisitTimeSlots = async (req, res) => {
+//   const { visitId } = req.params;
+//   const client = new MongoClient(MONGO_URI, options);
+//   try {
+//     await client.connect();
+//     const db = client.db("re-lease");
+
+//     if (deleteTimeSlot.acknowledged) {
+//       res.status(200).json({
+//         status: 200,
+//         message: "succesfully deleted",
+//         data: deleteTimeSlot,
+//       });
+//     }
+//   } catch (err) {
+//     console.log("Error: ", err);
+//   } finally {
+//     await client.close();
+//     console.log("disconnected!");
+//   }
+// };
 
 const postComment = async (req, res) => {
   const client = new MongoClient(MONGO_URI, options);
@@ -673,4 +695,5 @@ module.exports = {
   getListing,
   updateListing,
   deleteVisitTimeSlot,
+  // addVisitTimeSlots,
 };

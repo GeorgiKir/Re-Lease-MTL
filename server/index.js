@@ -17,6 +17,7 @@ const {
   getListing,
   updateListing,
   deleteVisitTimeSlot,
+  // addVisitTimeSlots,
 } = require("./handlers");
 
 const PORT = 8000;
@@ -44,6 +45,7 @@ app.patch("/timeSlots/deleteTimeSlot/:visitId", deleteTimeslot);
 app.patch("/listings/comments/postComment", postComment);
 app.patch("/listings/updateListings/:listingId", updateListing);
 app.patch("/timeSlots/deleteVisitingHour/:visitId", deleteVisitTimeSlot);
+// app.patch("/timeSlots/addVisitingHours", addVisitTimeSlots);
 // endpoint for getting all listings based on criteria
 // endpoint for getting a single listing
 

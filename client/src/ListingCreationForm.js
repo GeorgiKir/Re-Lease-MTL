@@ -12,6 +12,7 @@ import gearImg from "./assets/gear_img.png";
 import ProcessingPage from "./ProcessingPage";
 import ViewScheduleModal from "./ViewScheduleModal";
 import { Trans, useTranslation } from "react-i18next";
+import { ProfileStyledButton } from "./Profile";
 
 const ListingCreationForm = () => {
   const { t, i18n } = useTranslation();
@@ -232,23 +233,30 @@ const ListingCreationForm = () => {
               <>
                 <FormInputContainer>
                   <h2>{t("form.visitingHours")}</h2>
-                  <div style={{ display: "flex", flexDirection: "column" }}>
-                    <button
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
+                  >
+                    <ProfileStyledButton
+                      style={{ marginBottom: "5px", fontSize: "18px" }}
                       type="button"
                       onClick={() => {
                         setSelectingVisitingHours(true);
                       }}
                     >
                       {t("form.setHours")}
-                    </button>
-                    <button
+                    </ProfileStyledButton>
+                    <ProfileStyledButton
+                      style={{ fontSize: "18px" }}
                       type="button"
                       onClick={() => {
                         setToggleViewVisitHours(true);
                       }}
                     >
                       {t("form.viewSchedule")}
-                    </button>
+                    </ProfileStyledButton>
                     {toggleViewVisitHours && (
                       <ViewScheduleModal
                         setToggleViewVisitHours={setToggleViewVisitHours}
@@ -335,10 +343,12 @@ const StyledPreviousNextButton = styled.button`
   font-family: "Jost", sans-serif;
   cursor: pointer;
   background-color: #659db0;
-
   border: none;
   border-radius: 5px;
   color: white;
+  &:hover {
+    scale: 1.2;
+  }
 `;
 
 export const PreviousNextButtonDiv = styled.div`
@@ -409,6 +419,13 @@ const StyledListingForm = styled.form`
   align-items: center;
   min-height: 30vh;
   width: 100%;
+  input:focus,
+  textarea:focus,
+  select:focus-visible {
+    outline: none;
+    border: 2px solid #00abe4;
+    border-radius: 3px;
+  }
 `;
 
 export default ListingCreationForm;
