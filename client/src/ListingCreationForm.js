@@ -13,6 +13,7 @@ import ProcessingPage from "./ProcessingPage";
 import ViewScheduleModal from "./ViewScheduleModal";
 import { Trans, useTranslation } from "react-i18next";
 import { ProfileStyledButton } from "./Profile";
+import ErrorFormModal from "./ErrorFormModal";
 
 const ListingCreationForm = () => {
   const { t, i18n } = useTranslation();
@@ -22,6 +23,7 @@ const ListingCreationForm = () => {
   const [visitingHoursToBeAdded, setVisitingHoursToBeAdded] = useState([]);
   const [processingState, setProcessingState] = useState(false);
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [toggleViewVisitHours, setToggleViewVisitHours] = useState(false);
   const [ListingFormInfo, setListingFormInfo] = useState({
     listingId: currentUser._id,
@@ -43,6 +45,7 @@ const ListingCreationForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    window.scrollTo(0, 0);
     if (visitingHoursToBeAdded.length <= 0) {
       console.log("Please select some visiting hours");
     } else if (ListingFormInfo.selectedTimeSlots.length > 0) {
@@ -59,6 +62,12 @@ const ListingCreationForm = () => {
         .then((res) => res.json())
         .then((resData) => {
           console.log(resData);
+          if (resData.status !== 200) {
+            console.log("Invalid information");
+            setErrorMessage(
+              "Invalid information entered. Double check the address."
+            );
+          }
 
           fetch(`/users/${user.email}`)
             .then((res) => res.json())
@@ -86,6 +95,12 @@ const ListingCreationForm = () => {
   };
   return (
     <ListingContainerDiv>
+      {errorMessage && (
+        <ErrorFormModal
+          errorMessage={errorMessage}
+          setErrorMessage={setErrorMessage}
+        />
+      )}
       {processingState && <ProcessingPage />}
       {!processingState && (
         <>
@@ -412,7 +427,6 @@ const StyledListingForm = styled.form`
   }
   @media (max-width: 767px) {
     justify-content: space-evenly;
-    /* height: 50vh; */
   }
   display: flex;
   flex-direction: column;

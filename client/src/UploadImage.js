@@ -204,7 +204,9 @@ const ImageUploadDiv = styled.div`
   @media (max-width: 767px) {
     flex-direction: column;
   }
-
+  align-items: center;
+  margin: 20px auto 0px auto;
+  width: fit-content;
   display: flex;
   justify-content: center;
 `;

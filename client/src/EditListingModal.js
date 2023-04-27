@@ -51,17 +51,21 @@ const EditListingModal = ({
     })
       .then((res) => res.json())
       .then((resData) => {
-        setUpdateMessage(resData.message);
-        window.sessionStorage.setItem(
-          "userId",
-          JSON.stringify({
-            email: currentUser.email,
-            _id: currentUser._id,
-            listing: resData.data,
-            nickname: currentUser.nickname,
-          })
-        );
-        setCurrentUser(JSON.parse(window.sessionStorage.getItem("userId")));
+        if (resData.status === 200) {
+          setUpdateMessage(resData.message);
+          window.sessionStorage.setItem(
+            "userId",
+            JSON.stringify({
+              email: currentUser.email,
+              _id: currentUser._id,
+              listing: resData.data,
+              nickname: currentUser.nickname,
+            })
+          );
+          setCurrentUser(JSON.parse(window.sessionStorage.getItem("userId")));
+        } else {
+          setUpdateMessage("Some information is incorrect.");
+        }
       });
   };
 
@@ -116,6 +120,7 @@ const EditListingModal = ({
               required
               type="text"
               maxLength="6"
+              minLength="6"
               name="postalCode"
               defaultValue={listing.postalCode}
               onChange={(e) => handleChange(e.target.value, e.target.name)}

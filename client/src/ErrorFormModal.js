@@ -5,44 +5,21 @@ import { ImWarning } from "react-icons/im";
 import { Trans, useTranslation } from "react-i18next";
 import { ProfileStyledButton } from "./Profile";
 
-const DeleteConfirmation = ({
-  elementId,
-  setCancelVisitState,
-  handleTimeslotDeleteByVisitor,
-  handleListingDelete,
-}) => {
+const ErrorFormModal = ({ errorMessage, setErrorMessage }) => {
   const { t, i18n } = useTranslation();
   return (
     <DeleteModalContainer>
       <DeleteInfoContainer>
         <ImWarning style={{ fontSize: "35px", color: "red" }} />
-        {handleTimeslotDeleteByVisitor && (
-          <p>{t("deleteConfirmation.deleteVisit")}</p>
-        )}
-        {handleListingDelete && <p>{t("deleteConfirmation.deleteListing")}</p>}
-        <PreviousNextButtonDiv>
-          <ProfileStyledButton
-            style={{ fontSize: "20px" }}
-            onClick={() => {
-              setCancelVisitState(false);
-            }}
-          >
-            {t("buttons.cancel")}
-          </ProfileStyledButton>
-          <ProfileStyledButton
-            style={{ fontSize: "20px" }}
-            onClick={() => {
-              if (handleTimeslotDeleteByVisitor) {
-                handleTimeslotDeleteByVisitor(elementId);
-              } else if (handleListingDelete) {
-                handleListingDelete();
-              }
-              setCancelVisitState(false);
-            }}
-          >
-            {t("buttons.confirm")}
-          </ProfileStyledButton>
-        </PreviousNextButtonDiv>
+        <p>{errorMessage}</p>
+        <ProfileStyledButton
+          style={{ fontSize: "20px" }}
+          onClick={() => {
+            setErrorMessage(null);
+          }}
+        >
+          OK
+        </ProfileStyledButton>
       </DeleteInfoContainer>
     </DeleteModalContainer>
   );
@@ -56,7 +33,7 @@ const DeleteInfoContainer = styled.div`
     }
   }
   @media (max-width: 767px) {
-    width: 90%;
+    width: 70%;
     & p {
       font-size: 18px;
     }
@@ -66,16 +43,20 @@ const DeleteInfoContainer = styled.div`
   border-radius: 5px;
   display: flex;
   flex-direction: column;
-
   align-items: center;
   justify-content: space-evenly;
   color: black;
   background-color: white;
-  height: 30%;
+  height: 20%;
   z-index: 6;
   border: 3px solid #0078a0;
+  & p {
+    text-align: center;
+  }
 `;
 const DeleteModalContainer = styled.div`
+  height: 100vh;
+  /* height: calc(100% + 200px); */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -85,4 +66,4 @@ const DeleteModalContainer = styled.div`
   background-color: rgba(0, 0, 0, 0.4);
 `;
 
-export default DeleteConfirmation;
+export default ErrorFormModal;
