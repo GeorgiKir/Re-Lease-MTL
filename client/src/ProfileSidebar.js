@@ -6,7 +6,6 @@ import { Trans, useTranslation } from "react-i18next";
 
 const ProfileSidebar = ({ profileState, setProfileState }) => {
   const { t, i18n } = useTranslation();
-  console.log(profileState);
   return (
     <StyledProfileBar profileState={profileState}>
       <StyledProfileBarLink

@@ -31,7 +31,6 @@ const EditListingModal = ({
     listingImage: listing.listingImage,
     comments: listing.comments,
   });
-  //   console.log(listing);
 
   const handleChange = (value, name) => {
     if (updateMessage) {

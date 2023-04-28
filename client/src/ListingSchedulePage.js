@@ -27,7 +27,6 @@ const ListingSchedulePage = () => {
     fetch(`/timeSlots/ownerId/${currentUser._id}`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setLoadingState(false);
         if (data.status === 200) {
           setShowVisitingHoursInProfile(
@@ -49,7 +48,6 @@ const ListingSchedulePage = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.message);
         setListingUserHasDeleted(!listingUserHasDeleted);
       });
   };

@@ -26,11 +26,9 @@ const CommentsModal = ({
     username: currentUser.nickname,
   });
 
-  console.log(selectedElement);
-
   const handleCommentSubmit = (e, comment, type) => {
     e.preventDefault();
-    // console.log(comment);
+
     fetch(`/listings/comments/postComment`, {
       method: "PATCH",
       headers: {
@@ -205,20 +203,17 @@ const CommentForm = styled.form`
   }
   & textarea {
     max-width: 85%;
+    outline: none;
+    border: 2px solid #00abe4;
+    border-radius: 3px;
   }
 `;
 const IndividualCommentDiv = styled.div`
-  /* display: flex;
-  flex-direction: column;
-  padding: 5px 0px 5px 10px;
-  /* border-left: 1px solid black; */
-  /* margin-bottom: 5px; */
   display: flex;
   flex-direction: column;
   padding: 5px 0px 5px 10px;
   width: fit-content;
   padding-right: 25px;
-  /* border-left: 1px solid black; */
   border: 2px solid #009acd;
   background-color: #f6f6f6;
   border-radius: 10px;

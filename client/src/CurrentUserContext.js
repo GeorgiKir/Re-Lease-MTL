@@ -18,10 +18,7 @@ export const CurrentUserProvider = ({ children }) => {
       return null;
     }
   });
-  const loginContext = () => {
-    // setCurrentUser(JSON.parse(window.sessionStorage.getItem("userId")));
-    // console.log(user);
-  };
+  const loginContext = () => {};
 
   const logoutContext = () => {
     // setVerificationState("Initial");

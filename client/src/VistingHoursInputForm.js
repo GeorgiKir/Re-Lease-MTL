@@ -18,7 +18,6 @@ const VistingHoursInputForm = ({
   const [dateObject, setDateObject] = useState("");
   const [arr, setArr] = useState([]);
 
-  console.log(ListingFormInfo);
   const addInput = () => {
     setArr((s) => {
       return [
@@ -34,7 +33,7 @@ const VistingHoursInputForm = ({
       ];
     });
   };
-  console.log(new Date());
+
   const handleChange = (e) => {
     e.preventDefault();
 

@@ -32,17 +32,14 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
   };
 
   const handleFileInputChange = (e) => {
-    // console.log(e.target.files);
     if (ListingFormInfo.listingImage.length >= 5) {
       setErrMsg("Max number of pictures reached");
     } else {
       const file = e.target.files[0];
       if (file.size > 600000) {
-        console.log("File too large");
         setErrMsg("Your file is too large");
         return;
       } else {
-        console.log("File size is acceptable");
         setErrMsg(null);
         const reader = new FileReader();
         reader.readAsDataURL(file);

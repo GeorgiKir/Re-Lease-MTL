@@ -1,11 +1,12 @@
 import React from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
 import { SlArrowRight } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Trans, useTranslation } from "react-i18next";
+import styled, { keyframes } from "styled-components";
 
 const ProfileDropDownMenu = ({ setShowProfileTab }) => {
   const { t, i18n } = useTranslation();
@@ -70,6 +71,19 @@ const ProfileDropDownMenu = ({ setShowProfileTab }) => {
   );
 };
 
+const SlideInFromRight = keyframes`
+from {
+  /* margin-left: -150%; */
+  transform: translateX(100%);
+  opacity: 0;
+}
+to {
+  /* margin-left: 0%; */
+  transform: translateX(0%);
+  opacity: 1;
+}
+`;
+
 const ProfileDropDownButton = styled.button`
   position: relative;
   font-family: "Montserrat", sans-serif;
@@ -92,21 +106,6 @@ const ProfileDropDownButton = styled.button`
     background-color: #00abe4;
     border-radius: 5px;
   }
-  /* &::before {
-    content: "";
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 2px;
-    background-color: white;
-    position: absolute;
-    transform: scaleX(0);
-    transition: transform 500ms ease-in-out;
-  }
-  &:hover::before,
-  :focus::before {
-    transform: scaleX(1);
-  } */
 `;
 
 const ProfileDropDownMainContainer = styled.div`
@@ -121,9 +120,8 @@ const ProfileDropDownMainContainer = styled.div`
   height: fit-content;
   padding: 15px 0px;
   background-color: #0078a0;
-  /* background-color: #00abe4; */
   box-shadow: 0px 6px 15px -10px rgba(0, 0, 0, 0.64);
   border-radius: 10px;
-  /* align-self: flex-end; */
+  animation: ${SlideInFromRight} 0.4s ease-in-out;
 `;
 export default ProfileDropDownMenu;

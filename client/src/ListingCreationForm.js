@@ -47,10 +47,7 @@ const ListingCreationForm = () => {
     e.preventDefault();
     window.scrollTo(0, 0);
     if (visitingHoursToBeAdded.length <= 0) {
-      console.log("Please select some visiting hours");
     } else if (ListingFormInfo.selectedTimeSlots.length > 0) {
-      console.log("Listing is good on the FE");
-
       fetch(`/listings/addListing`, {
         method: "POST",
         headers: {
@@ -61,9 +58,7 @@ const ListingCreationForm = () => {
       })
         .then((res) => res.json())
         .then((resData) => {
-          console.log(resData);
           if (resData.status !== 200) {
-            console.log("Invalid information");
             setErrorMessage(
               "Invalid information entered. Double check the address."
             );
@@ -72,7 +67,6 @@ const ListingCreationForm = () => {
           fetch(`/users/${user.email}`)
             .then((res) => res.json())
             .then((data) => {
-              console.log(data);
               window.sessionStorage.setItem(
                 "userId",
                 JSON.stringify({

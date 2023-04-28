@@ -46,7 +46,6 @@ const SearchPage = ({ setNavigationState }) => {
       fetch(`/listings/listingResults/${borough}/${price}/${bedrooms}`)
         .then((res) => res.json())
         .then((resData) => {
-          // console.log(resData.data);
           setListings(resData.data);
         })
         .catch((err) => {

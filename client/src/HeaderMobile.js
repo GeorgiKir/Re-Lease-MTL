@@ -8,7 +8,7 @@ import { LangButton, NavContainer, StyledNav } from "./Header";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
 
-const HeaderMobile = () => {
+const HeaderMobile = ({ navigationState }) => {
   const { t, i18n } = useTranslation();
   const { currentUser } = useContext(CurrentUserContext);
   const [languagesState, setLanguageState] = useState("english");
@@ -53,12 +53,22 @@ const HeaderMobile = () => {
             />
           </StyledNav>
 
-          <a href="#about">{t("header.aboutUs")}</a>
+          {navigationState === "home" && (
+            <a
+              href="#about"
+              onClick={() => {
+                setHamburgerMenuOpen(false);
+              }}
+            >
+              {t("header.aboutUs")}
+            </a>
+          )}
           {languagesState === "french" && (
             <LangButton
               onClick={() => {
                 changeLanguage("en");
                 setLanguageState("english");
+                setHamburgerMenuOpen(false);
               }}
             >
               EN
@@ -69,6 +79,7 @@ const HeaderMobile = () => {
               onClick={() => {
                 changeLanguage("fr");
                 setLanguageState("french");
+                setHamburgerMenuOpen(false);
               }}
             >
               FR
@@ -91,7 +102,6 @@ const HeaderMobile = () => {
           )}
           <LoginButton />
           <LogoutButton />
-          {/* {!currentUser && <button>Sign Up</button>} */}
         </HamburgerMenu>
       )}
     </SmallStyledHeader>
@@ -128,15 +138,18 @@ const HamburgerMenu = styled.div`
 
   align-items: ${(props) => (props.ProfileMenu ? "flex-end" : "flex-start")};
   justify-content: space-evenly;
-  padding-left: ${(props) => (props.ProfileMenu ? "" : "40px")};
-  padding-right: ${(props) => (props.ProfileMenu ? "40px" : "")};
+  padding-left: ${(props) => (props.ProfileMenu ? "" : "30px")};
+  padding-right: ${(props) => (props.ProfileMenu ? "30px" : "")};
   position: absolute;
-  margin-top: 55px;
-  border-bottom-right-radius: ${(props) => (props.ProfileMenu ? "" : "5px")};
-  border-bottom-left-radius: ${(props) => (props.ProfileMenu ? "5px" : "")};
-  width: 30%;
-  height: 150px;
-  background-color: rgba(28, 35, 33, 0.81);
+
+  margin: ${(props) =>
+    props.ProfileMenu ? "65px 5px 0px 0px;" : "65px 0px 0px 5px;"};
+  /* width: 40%; */
+  width: 150px;
+  height: 100px;
+  border-radius: 10px;
+  box-shadow: 0px 6px 15px -10px rgba(0, 0, 0, 0.64);
+  background-color: #0078a0;
   ${(props) => (props.ProfileMenu ? "right: 0" : "")}
 `;
 
@@ -151,6 +164,7 @@ const SmallStyledHeader = styled.div`
   flex-direction: row;
   justify-content: space-between;
   width: 100vw;
+
   background-color: #0078a0;
   height: 55px;
   z-index: 2;

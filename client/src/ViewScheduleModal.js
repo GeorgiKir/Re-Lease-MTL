@@ -6,15 +6,13 @@ import { useState, useEffect } from "react";
 
 const ViewScheduleModal = ({ setToggleViewVisitHours, selectedTimeSlots }) => {
   const [groupedSchedule, setGroupedSchedule] = useState([]);
-  // console.log(newScheduleArray);
 
   const groupByValue = (obj) => {
     const newScheduleArray = Object.values(obj);
     let reverseObj = newScheduleArray.reduce(
       (previousStage, currentNameValue) => {
-        // console.log(currentNameValue.date);
         let targetKey = currentNameValue.date;
-        // console.log(targetKey);
+
         let list = previousStage[targetKey];
         if (!list) {
           previousStage[targetKey] = list = [];

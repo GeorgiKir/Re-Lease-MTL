@@ -78,7 +78,6 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
                   key={index}
                   position={listing.listingCoords}
                   onClick={() => {
-                    console.log("Clicked");
                     setSelectedElement(listing);
                     setActiveMarker(listing.listingCoords);
                   }}

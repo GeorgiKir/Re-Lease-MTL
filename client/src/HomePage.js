@@ -95,7 +95,6 @@ export const CustomSignUpButton = styled.button`
   }
 `;
 
-// const SlideInTextDiv = styled.div``;
 const SlideInFromLeft = keyframes`
 from {
   /* margin-left: -150%; */

@@ -20,9 +20,8 @@ const AboutUs = () => {
           style={{
             display: "flex",
             width: "fit-content",
-            alignItems: "flex-end",
+            alignItems: "center",
             justifyContent: "space-between",
-            // border: "1px solid black",
           }}
         >
           <AboutUsLinkButton style={{ margin: "0px", padding: "0px" }}>
@@ -31,16 +30,16 @@ const AboutUs = () => {
               href="https://www.tal.gouv.qc.ca/en/assignment-of-a-lease-or-subleasing/assignment-of-lease-agreement-and-notice-to-sublet-the-dwelling"
             >
               <p>{t("aboutUs.link1")}</p>
-            </a>
+            </a>{" "}
+            <SlArrowRight
+              style={{
+                color: "#00abe4",
+                fontSize: "25px",
+                marginLeft: "10px",
+                padding: "5px",
+              }}
+            />
           </AboutUsLinkButton>
-          <SlArrowRight
-            style={{
-              color: "#00abe4",
-              fontSize: "25px",
-              marginLeft: "10px",
-              padding: "5px",
-            }}
-          />
         </div>
         <div
           style={{
@@ -52,16 +51,18 @@ const AboutUs = () => {
           }}
         >
           <AboutUsLinkButton style={{ margin: "0px", padding: "0px" }}>
-            <a href="#process">{t("aboutUs.link2")}</a>
+            <a href="#process">
+              <p>{t("aboutUs.link2")}</p>
+            </a>{" "}
+            <SlArrowRight
+              style={{
+                color: "#00abe4",
+                fontSize: "25px",
+                marginLeft: "10px",
+                padding: "5px",
+              }}
+            />
           </AboutUsLinkButton>
-          <SlArrowRight
-            style={{
-              color: "#00abe4",
-              fontSize: "25px",
-              marginLeft: "10px",
-              padding: "5px",
-            }}
-          />
         </div>
       </AboutUsTextDiv>
     </AboutUsContainerDiv>
@@ -70,8 +71,6 @@ const AboutUs = () => {
 
 const AboutUsLinkButton = styled.button`
   position: relative;
-  /* display: flex;
-  justify-content: flex-start; */
   border: none;
   background: none;
   cursor: pointer;
@@ -79,7 +78,6 @@ const AboutUsLinkButton = styled.button`
   gap: 5px;
   height: fit-content;
   margin-top: 5%;
-  /* padding: 5px; */
   align-items: center;
   & p {
     font-family: "Montserrat", sans-serif;
@@ -87,6 +85,7 @@ const AboutUsLinkButton = styled.button`
     font-weight: 600;
     font-size: 25px;
     margin-bottom: 5px;
+    text-align: left;
   }
   & a {
     text-decoration: none;
@@ -135,10 +134,6 @@ const FirstImgContainer = styled.div`
   width: 275px;
 
   margin-right: 10%;
-  /* border-radius: 5px; */
-  /* background-size: cover; */
-  /* /* width: 300px;
-  height: 400px; */
 `;
 
 const AboutUsTextDiv = styled.div`

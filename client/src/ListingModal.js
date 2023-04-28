@@ -54,7 +54,6 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
             });
           });
         }
-        // console.log(targetVisitArray.length);
       });
   }, []);
 
@@ -63,13 +62,11 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
     setTargetDate(value);
   };
 
-  console.log(currentDateChecker);
-
   const handleListingModalSubmit = (e) => {
     e.preventDefault();
     // setShowListingModal(false);
     setTargetVisitArray(null);
-    console.log("SUBMITTED");
+
     fetch(`/listings/reserveAVisitTime`, {
       method: "PATCH",
       headers: {
@@ -80,7 +77,6 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData.data);
         if (resData.status === 200) {
           setVisitConfirmMsg("Your visit has been successfully booked.");
         } else {

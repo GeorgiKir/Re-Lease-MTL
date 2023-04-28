@@ -16,18 +16,6 @@ const DeleteListingButton = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   const handleListingDelete = () => {
-    console.log(user.email);
-    // fetch(`/listings/deletelisting/${user.email}`, {
-    //   method: "PATCH",
-    // })
-    //   .then((res) => res.json())
-    //   .then((data) => {
-    //     console.log(data);
-    //   })
-    //   .catch((e) => {
-    //     console.log("Error: ", e);
-    //   });
-
     fetch(`/listings/deletelisting/${currentUser._id}`, {
       method: "PATCH",
       body: JSON.stringify({
@@ -41,7 +29,6 @@ const DeleteListingButton = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setCurrentUser({
           _id: currentUser._id,
           email: currentUser.email,
@@ -73,29 +60,12 @@ const DeleteListingButton = () => {
 };
 
 const DeleteButtonContainerDiv = styled.div`
-  /* @media (min-width: 768px) {
-    width: 80%;
-  }
-  @media (max-width: 767px) {
-    width: 100%;
-  } */
-
   display: flex;
 `;
 
 export const StyledDeleteButton = styled.button`
-  /* @media (min-width: 1160px) {
-    font-size: 10px;
-  }
-  @media (min-width: 768px) {
-    font-size: 20px;
-  }
-  @media (max-width: 767px) {
-    font-size: 15px;
-  } */
   cursor: pointer;
   position: relative;
-  /* font-family: "Open Sans", sans-serif; */
   border: 2px solid #0078a0;
   border-radius: 5px;
   margin: 0px auto;

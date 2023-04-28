@@ -28,13 +28,11 @@ const ListingUserCommentsModal = ({ setShowCommentModal }) => {
       .then((res) => res.json())
       .then((data) => {
         setSelectedElement(data.data);
-        // console.log(data.data);
       })
       .catch((e) => {
         console.log("Error: ", e);
       });
   }, [replyFlag]);
-  console.log(selectedElement);
 
   const handleCommentSubmit = (e, comment, type) => {
     e.preventDefault();

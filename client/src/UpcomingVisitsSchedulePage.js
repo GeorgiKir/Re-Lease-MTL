@@ -25,7 +25,6 @@ const UpcomingVisitsSchedulePage = () => {
       .then((res) => res.json())
       .then(async (data) => {
         if (data.status === 200) {
-          // console.log(data.data);
           setShowUpcomingVisits(
             data.data.sort((a, b) => new Date(a._id) - new Date(b._id))
           );
@@ -43,7 +42,6 @@ const UpcomingVisitsSchedulePage = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data.message);
         setVisitorHasDeleted(!visitorHasDeleted);
       });
   };
@@ -67,7 +65,6 @@ const UpcomingVisitsSchedulePage = () => {
                           <FiTrash2
                             // style={{ cursor: "pointer", fontSize: "25px" }}
                             onClick={(e) => {
-                              console.log(element._id);
                               setTargetVisitForDeletion(element._id);
                               setCancelVisitState(true);
                             }}

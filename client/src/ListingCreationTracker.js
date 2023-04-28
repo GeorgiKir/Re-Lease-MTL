@@ -8,9 +8,7 @@ const ListingCreationTracker = ({
   visitingHoursToBeAdded,
   listingImage,
 }) => {
-  useEffect(() => {
-    console.log(listingCreationTracker);
-  }, [listingCreationTracker]);
+  useEffect(() => {}, [listingCreationTracker]);
   return (
     <ListingTrackerContainer>
       <CounterContainer1 listingCreationTracker={listingCreationTracker}>

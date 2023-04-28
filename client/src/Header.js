@@ -71,18 +71,11 @@ const Header = ({ navigationState }) => {
               {showProfileTab && (
                 <ProfileDropDownMenu setShowProfileTab={setShowProfileTab} />
               )}
-
-              {/* <StyledNav to={"/profile"}>
-                <FiUser style={{ fontSize: "30px" }} />
-              </StyledNav> */}
-              {/* <LogoutButton /> */}
-
-              {/* {!currentUser && !isLoading && <LoginButton />} */}
             </ProfileOptionsContainer>
           </>
         )}
       </StyledHeader>
-      <HeaderMobile />
+      <HeaderMobile navigationState={navigationState} />
     </>
   );
 };

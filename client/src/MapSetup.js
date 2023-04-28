@@ -11,8 +11,6 @@ const MapSetup = ({
   listings,
   setMapCenter,
 }) => {
-  // console.log("mapCenter from MapSetup.js:", mapCenter);
-
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACtT_APP_GOOGLE_MAPS_API_KEY,

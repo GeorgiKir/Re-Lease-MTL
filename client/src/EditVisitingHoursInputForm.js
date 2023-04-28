@@ -29,7 +29,6 @@ const EditVistingHoursInputForm = ({
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData);
         if (resData.status === 200) {
           setErrMessage(resData.data);
           setListingUserHasDeleted(!listingUserHasDeleted);

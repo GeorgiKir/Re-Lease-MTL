@@ -33,7 +33,6 @@ function App() {
       fetch(`/users/${user.email}`)
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           window.sessionStorage.setItem(
             "userId",
             JSON.stringify({
