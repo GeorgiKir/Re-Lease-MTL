@@ -159,12 +159,12 @@ const HomePageContentDiv = styled.div`
 `;
 
 export const MainPageContainer = styled.div`
-  @media (min-width: 768px) {
+  @media (min-width: 870px) {
     margin-top: 75px;
     min-height: calc(100vh - 150px);
   }
 
-  @media (max-width: 767.9px) {
+  @media (max-width: 870px) {
     margin-top: 35px;
     /* height: calc(100vh - 180px); */
     min-height: calc(100vh);

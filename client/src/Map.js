@@ -230,6 +230,7 @@ const InfoWindowInfoContainer = styled.div`
     & img {
       width: 300px;
       height: "scale";
+      max-height: 250px;
     }
     & p {
       font-size: 18px;

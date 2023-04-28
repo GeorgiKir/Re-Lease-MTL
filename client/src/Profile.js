@@ -251,7 +251,7 @@ export const ProfileStyledButton = styled.button`
 `;
 
 const ProfileButtonContainer = styled.div`
-  @media (max-width: 768px) {
+  @media (max-width: 870px) {
     width: 60%;
     margin: 20px auto 0px auto;
   }
@@ -265,7 +265,7 @@ const ProfileButtonContainer = styled.div`
 `;
 
 export const MobileArrowContainerDiv = styled.div`
-  @media (min-width: 768px) {
+  @media (min-width: 870px) {
     display: none;
   }
   border-bottom-left-radius: 5px;
@@ -273,6 +273,7 @@ export const MobileArrowContainerDiv = styled.div`
   padding: 5px 0px;
   width: 80%;
   display: flex;
+  margin: 15px 0px;
   flex-direction: row;
   background: transparent;
   justify-content: space-evenly;
@@ -282,7 +283,7 @@ export const MobileArrowContainerDiv = styled.div`
   }
 `;
 export const ArrowContainerDiv = styled.div`
-  @media (max-width: 767.9px) {
+  @media (max-width: 870px) {
     display: none;
   }
   width: fit-content;
@@ -295,17 +296,19 @@ export const ArrowContainerDiv = styled.div`
 `;
 
 const ListingInfoMainContainer = styled.div`
-  /* border: 1px solid black; */
-  @media (min-width: 768px) {
+  @media (min-width: 870px) {
     display: flex;
     flex-direction: row;
+    margin: 0px auto;
+    width: 100%;
     & img {
       width: 60%;
       height: scale;
+      max-height: 650px;
       border-radius: 10px;
     }
   }
-  @media (max-width: 767.9px) {
+  @media (max-width: 870px) {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -314,17 +317,16 @@ const ListingInfoMainContainer = styled.div`
     & img {
       width: 80%;
       height: 300px;
-      border-top-right-radius: 5px;
-      border-top-left-radius: 5px;
+      border-radius: 5px;
     }
   }
 `;
 const ListingInfoProfileDiv = styled.div`
-  @media (min-width: 768px) {
+  @media (min-width: 870px) {
     width: 40%;
     margin-left: 20px;
   }
-  @media (max-width: 767.9px) {
+  @media (max-width: 870px) {
     width: 90%;
     height: fit-content;
     margin-top: 10px;
@@ -334,7 +336,7 @@ const ListingInfoProfileDiv = styled.div`
   justify-content: space-evenly;
 `;
 const IndividualInfoDiv = styled.div`
-  @media (min-width: 768px) {
+  @media (min-width: 870px) {
     gap: 10%;
     & p {
       line-height: 1.2;
@@ -350,7 +352,7 @@ const IndividualInfoDiv = styled.div`
       width: fit-content;
     }
   }
-  @media (max-width: 767.9px) {
+  @media (max-width: 870px) {
     gap: 20%;
     & p {
       text-align: justify;
@@ -370,12 +372,11 @@ const MyListingWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   background-color: #efefef;
-  /* border: 1px solid gray; */
   height: fit-content;
   border-radius: 5px;
   margin: 0px auto;
 
-  @media (min-width: 768px) {
+  @media (min-width: 870px) {
     padding: 15px 10px;
     width: 70%;
     & p {
@@ -390,7 +391,7 @@ const MyListingWrapper = styled.div`
       border-bottom: 1px solid #5e6572;
     }
   }
-  @media (max-width: 767.9px) {
+  @media (max-width: 870px) {
     width: 80%;
     padding: 10px 5px;
     & p {
@@ -410,20 +411,19 @@ const MyListingWrapper = styled.div`
   }
 `;
 export const ProfilePageContentDiv = styled.div`
-  @media (min-width: 768px) {
+  @media (min-width: 870px) {
     flex-direction: row;
     width: 85%;
     justify-content: space-between;
     margin: 155px auto 50px auto;
   }
-  @media (max-width: 767.9px) {
+  @media (max-width: 870px) {
     flex-direction: column;
     width: 95%;
     margin: 125px auto 50px auto;
   }
   display: flex;
   align-items: center;
-
   height: 100%;
 `;
 

@@ -43,7 +43,7 @@ const StyledProfileBarLink = styled(NavLink)`
   cursor: pointer;
   transition: 0.3s ease-in-out;
   &:hover {
-    scale: 1.3;
+    scale: 1.2;
   }
 `;
 
@@ -51,17 +51,19 @@ const StyledProfileBar = styled.div`
   @media (min-width: 768px) {
     font-size: 20px;
     gap: 5%;
+    width: 100%;
   }
   @media (max-width: 767px) {
-    font-size: 15px;
-    gap: 10%;
+    font-size: 12px;
+    gap: 6%;
+    width: 100%;
   }
+
   position: absolute;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: 100%;
   margin: 55px auto 0px auto;
   background-color: transparent;
   height: 55px;

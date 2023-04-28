@@ -411,7 +411,6 @@ const FormInputContainer = styled.div`
   width: 90%;
   justify-content: space-between;
   margin-bottom: 2%;
-  /* border: 1px solid black; */
   align-items: center;
 `;
 

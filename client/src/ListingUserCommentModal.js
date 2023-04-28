@@ -6,6 +6,13 @@ import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { ProfileStyledButton } from "./Profile";
 import { Trans, useTranslation } from "react-i18next";
+import {
+  CommentFeedDiv,
+  CommentForm,
+  CommentInfoContainer,
+  CommentModalContainer,
+  IndividualCommentDiv,
+} from "./CommentsModal";
 
 const ListingUserCommentsModal = ({ setShowCommentModal }) => {
   const { t, i18n } = useTranslation();
@@ -173,102 +180,11 @@ const ListingUserCommentsModal = ({ setShowCommentModal }) => {
                 </ProfileStyledButton>
               </CommentForm>
             )}
-            {/* </CommentFeedDiv> */}
           </>
         )}
       </CommentInfoContainer>
     </CommentModalContainer>
   );
 };
-
-export const CommentForm = styled.form`
-  @media (max-width: 767.9px) {
-    flex-direction: column;
-  }
-  display: flex;
-  justify-content: space-between;
-  width: 75%;
-  margin: 0px auto 40px auto;
-  padding-top: 10px;
-  height: 15%;
-  align-items: center;
-  & button {
-    @media (max-width: 767.9px) {
-      width: 40%;
-    }
-    height: 40%;
-    font-size: 20px;
-    background: transparent;
-    width: 20%;
-    justify-content: center;
-  }
-  & textarea {
-    max-width: 85%;
-  }
-`;
-const IndividualCommentDiv = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 5px 0px 5px 10px;
-  width: fit-content;
-  padding-right: 25px;
-  /* border-left: 1px solid black; */
-  border: 2px solid #009acd;
-  background-color: #f6f6f6;
-  border-radius: 10px;
-  margin-bottom: 10px;
-`;
-
-const CommentFeedDiv = styled.div`
-  display: flex;
-  margin: 8% auto;
-  flex-direction: column;
-  /* justify-content: space-between; */
-  width: 80%;
-  height: 85%;
-  padding-right: 10px;
-  padding-left: 10px;
-  overflow-y: auto;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  box-shadow: 0px 6px 15px -10px rgba(0, 0, 0, 0.64);
-`;
-
-const CommentInfoContainer = styled.div`
-  @media (min-width: 768px) {
-    width: 70%;
-  }
-  @media (min-width: 1100px) {
-    width: 50%;
-  }
-  @media (max-width: 767.9px) {
-    width: 80%;
-    & p {
-      font-size: 15px;
-    }
-  }
-  /* overflow-y: scroll; */
-  position: relative;
-  border-radius: 5px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  color: black;
-  background-color: #faf9f6;
-  height: 90%;
-  z-index: 6;
-  & p {
-    line-height: 1.3;
-  }
-`;
-const CommentModalContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  inset: 0;
-  z-index: 5;
-  background-color: rgba(0, 0, 0, 0.7);
-`;
 
 export default ListingUserCommentsModal;

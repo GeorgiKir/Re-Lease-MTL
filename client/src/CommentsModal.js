@@ -183,7 +183,7 @@ const CommentsModal = ({
   );
 };
 
-const CommentForm = styled.form`
+export const CommentForm = styled.form`
   @media (max-width: 767.9px) {
     flex-direction: column;
   }
@@ -208,7 +208,7 @@ const CommentForm = styled.form`
     border-radius: 3px;
   }
 `;
-const IndividualCommentDiv = styled.div`
+export const IndividualCommentDiv = styled.div`
   display: flex;
   flex-direction: column;
   padding: 5px 0px 5px 10px;
@@ -220,7 +220,7 @@ const IndividualCommentDiv = styled.div`
   margin-bottom: 10px;
 `;
 
-const CommentFeedDiv = styled.div`
+export const CommentFeedDiv = styled.div`
   display: flex;
   margin: 15px auto;
   flex-direction: column;
