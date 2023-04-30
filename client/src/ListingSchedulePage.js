@@ -10,6 +10,7 @@ import { Trans, useTranslation } from "react-i18next";
 import { CgClose } from "react-icons/cg";
 import { BsCalendarPlus } from "react-icons/bs";
 import EditVisitingHoursModal from "./EditVisitingHoursModal";
+import SpinnerLoading from "./SpinnerLoading";
 
 const ListingSchedulePage = () => {
   const { t, i18n } = useTranslation();
@@ -53,16 +54,6 @@ const ListingSchedulePage = () => {
   };
   return (
     <div>
-      {currentUser.listing && (
-        <CalendarSvgContainer>
-          <BsCalendarPlus
-            style={{ fontSize: "30px", color: "#009acd" }}
-            onClick={() => {
-              setShowEditModal(true);
-            }}
-          />
-        </CalendarSvgContainer>
-      )}
       {showEditModal && (
         <EditVisitingHoursModal
           setShowEditModal={setShowEditModal}
@@ -72,6 +63,16 @@ const ListingSchedulePage = () => {
       )}
       {showVisitingHoursInProfile && (
         <>
+          {currentUser.listing && (
+            <CalendarSvgContainer>
+              <BsCalendarPlus
+                style={{ fontSize: "30px", color: "#009acd" }}
+                onClick={() => {
+                  setShowEditModal(true);
+                }}
+              />
+            </CalendarSvgContainer>
+          )}
           {showVisitingHoursInProfile.map((item) => {
             return (
               <>
@@ -109,7 +110,7 @@ const ListingSchedulePage = () => {
       {!showVisitingHoursInProfile && !loadingState && (
         <p style={{ textAlign: "center" }}>{t("profileHeader.noListing")}</p>
       )}
-      {!showVisitingHoursInProfile && loadingState && <ImSpinner />}
+      {!showVisitingHoursInProfile && loadingState && <SpinnerLoading />}
     </div>
   );
 };

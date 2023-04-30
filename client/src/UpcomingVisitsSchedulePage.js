@@ -9,6 +9,7 @@ import { ImSpinner } from "react-icons/im";
 import { format } from "date-fns";
 import DeleteConfirmation from "./DeleteConfirmation";
 import { Trans, useTranslation } from "react-i18next";
+import SpinnerLoading from "./SpinnerLoading";
 
 const UpcomingVisitsSchedulePage = () => {
   const { t, i18n } = useTranslation();
@@ -94,7 +95,7 @@ const UpcomingVisitsSchedulePage = () => {
           {t("profileHeader.noVisitsToShow")}
         </p>
       )}
-      {!showUpcomingVisits && loadingState && <ImSpinner />}
+      {!showUpcomingVisits && loadingState && <SpinnerLoading />}
     </div>
   );
 };

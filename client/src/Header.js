@@ -131,9 +131,10 @@ export const StyledNav = styled(NavLink)`
 
 const ProfileOptionsContainer = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: flex-end;
   align-items: center;
-  width: 15%;
+  width: 20%;
+  gap: 5%;
   /* width: fit-content; */
   margin: 0px 10%;
   position: relative;

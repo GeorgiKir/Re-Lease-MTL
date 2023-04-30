@@ -210,7 +210,7 @@ const ListingCreationForm = () => {
                     name="listingDescription"
                     value={ListingFormInfo.listingDescription}
                     maxLength="300"
-                    rows="10"
+                    rows="8"
                     cols="50"
                     onChange={(e) =>
                       handleChange(e.target.value, e.target.name)
@@ -386,6 +386,9 @@ const FormInputContainer = styled.div`
       width: 50%;
       height: 40px;
     }
+    & textarea {
+      width: 50%;
+    }
   }
   @media (max-width: 767px) {
     & h2 {
@@ -403,7 +406,7 @@ const FormInputContainer = styled.div`
       margin-bottom: 20px;
     }
     & textarea {
-      width: 90%;
+      width: 80%;
     }
     flex-direction: column;
   }

@@ -158,7 +158,7 @@ const SubmitScheduleButton = styled.button`
 
 const SubmitTimeslotsButton = styled.button`
   height: 35px;
-  width: 50%;
+  width: 30%;
   margin: 0px auto 25px auto;
   display: ${(props) => (props.arr.length > 0 ? "block" : "none")};
 `;
@@ -174,7 +174,8 @@ const TimeslotInputContainer = styled.div`
   flex-direction: column;
   align-items: flex-end;
   & input {
-    width: 70%;
+    width: 75%;
+    line-height: 1.5;
     margin-bottom: 5px;
   }
 `;

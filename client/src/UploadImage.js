@@ -5,6 +5,8 @@ import emptyPhoto from "./assets/emptyPhoto.jpg";
 import { GrClose } from "react-icons/gr";
 import { ArrowContainerDiv, MobileArrowContainerDiv } from "./Profile";
 import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
+import { MdOutlineCloudUpload } from "react-icons/md";
+import { FiTrash2 } from "react-icons/fi";
 
 const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
   const [fileInputState, setFileInputState] = useState("");
@@ -32,13 +34,16 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
   };
 
   const handleFileInputChange = (e) => {
+    // setSelectedFile(e.target.files[0]);
     if (ListingFormInfo.listingImage.length >= 5) {
       setErrMsg("Max number of pictures reached");
     } else {
       const file = e.target.files[0];
-      if (file.size > 600000) {
+      if (file && file.size > 600000) {
         setErrMsg("Your file is too large");
         return;
+      } else if (!file) {
+        setErrMsg("Please select a photo");
       } else {
         setErrMsg(null);
         const reader = new FileReader();
@@ -51,13 +56,14 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
               ...ListingFormInfo,
               listingImage: [...ListingFormInfo.listingImage, reader.result],
             });
-            setShowPhotoTracker(showPhotoTracker + 1);
+            setShowPhotoTracker(ListingFormInfo.listingImage.length);
           } else {
             setListingFormInfo({
               ...ListingFormInfo,
               listingImage: [reader.result],
             });
           }
+          // setSelectedFile(null);
         };
       }
     }
@@ -69,12 +75,11 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
         ListingFormInfo.listingImage.length > 0 && (
           <div style={{ height: "fit-content" }}>
             <PreviewImageContainer>
-              <GrClose
+              <FiTrash2
                 style={{
                   position: "absolute",
                   zIndex: "0",
-                  marginTop: "1.75%",
-                  marginLeft: "4%",
+                  cursor: "pointer",
                   fontSize: "25px",
                 }}
                 onClick={() => {
@@ -91,7 +96,7 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
                     ),
                   });
                   if (showPhotoTracker > 0) {
-                    setShowPhotoTracker(showPhotoTracker - 1);
+                    setShowPhotoTracker(0);
                   }
                 }}
               />
@@ -100,6 +105,7 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
                   borderTopLeftRadius: "5px",
                   borderBottomLeftRadius: "5px",
                   cursor: "pointer",
+                  marginRight: "10px",
                 }}
                 onClick={() => {
                   handlePhotoTracker(0);
@@ -114,6 +120,7 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
                   borderTopRightRadius: "5px",
                   borderBottomRightRadius: "5px",
                   cursor: "pointer",
+                  marginLeft: "10px",
                 }}
                 onClick={() => {
                   handlePhotoTracker(1);
@@ -141,36 +148,11 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
                 />
               </MobileArrowContainerDiv>
             </PreviewImageContainer>
-            {/* {ListingFormInfo.listingImage.map((photo, index) => {
-              return (
-                <PreviewImageContainer>
-                  <GrClose
-                    style={{
-                      position: "absolute",
-                      zIndex: "0",
-                      marginTop: "15px",
-                      marginLeft: "5px",
-                      fontSize: "25px",
-                    }}
-                    onClick={() => {
-                      setErrMsg(null);
-                      setListingFormInfo({
-                        ...ListingFormInfo,
-                        listingImage: ListingFormInfo.listingImage.filter(
-                          (item) => {
-                            return item !== photo;
-                          }
-                        ),
-                      });
-                    }}
-                  />
-                  <img key={index} src={photo} />
-                </PreviewImageContainer>
-              );
-            })} */}
           </div>
         )}
-      {errMsg && <p>{errMsg}</p>}
+      {errMsg && (
+        <p style={{ textAlign: "center", marginTop: "10px" }}>{errMsg}</p>
+      )}
       <ImageUploadDiv>
         <input
           id="fileInput"
@@ -178,8 +160,15 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
           name="listingImage"
           accept="image/png, image/jpeg"
           onChange={(e) => handleFileInputChange(e)}
-          // value={fileInputState}
+          title=" "
         />
+        <label for="fileInput">
+          {" "}
+          <MdOutlineCloudUpload
+            style={{ fontSize: "25px", color: "#00abe4" }}
+          />{" "}
+          Choose image
+        </label>
       </ImageUploadDiv>
     </ImageInputContainer>
   );
@@ -203,9 +192,20 @@ const ImageUploadDiv = styled.div`
   }
   align-items: center;
   margin: 20px auto 0px auto;
-  width: fit-content;
+  width: 80%;
   display: flex;
   justify-content: center;
+  & input {
+    display: none;
+  }
+  & label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+    width: 100%;
+    cursor: pointer;
+  }
 `;
 
 const ImageInputContainer = styled.div`

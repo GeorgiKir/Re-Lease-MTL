@@ -265,7 +265,7 @@ const ProfileButtonContainer = styled.div`
 `;
 
 export const MobileArrowContainerDiv = styled.div`
-  @media (min-width: 870px) {
+  @media (min-width: 767px) {
     display: none;
   }
   border-bottom-left-radius: 5px;
@@ -283,7 +283,7 @@ export const MobileArrowContainerDiv = styled.div`
   }
 `;
 export const ArrowContainerDiv = styled.div`
-  @media (max-width: 870px) {
+  @media (max-width: 767px) {
     display: none;
   }
   width: fit-content;

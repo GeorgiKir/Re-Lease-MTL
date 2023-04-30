@@ -106,6 +106,15 @@ video {
     footer, header, hgroup, menu, nav, section {
         display: block;
     }
+    img {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    }
     body {
         background-color: #EEF1EF;
         line-height: 1;
@@ -135,6 +144,7 @@ video {
         border-collapse: collapse;
         border-spacing: 0;
     }
+    
 `;
 
 export default GlobalStyle;

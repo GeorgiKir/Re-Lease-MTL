@@ -196,6 +196,7 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
+                  marginTop: "25px",
                 }}
               >
                 <TbCalendarOff

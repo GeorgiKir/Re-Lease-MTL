@@ -204,7 +204,9 @@ const ArrowContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
   background-color: #0078a0;
+  width: 25px;
   /* background-color: rgba(28, 35, 33, 0.81); */
 `;
 

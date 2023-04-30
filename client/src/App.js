@@ -1,7 +1,6 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import React, { useContext, useEffect, useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-// import "./App.css";
 import { CurrentUserContext } from "./CurrentUserContext";
 import Footer from "./Footer";
 import GlobalStyle from "./GlobalStyle";

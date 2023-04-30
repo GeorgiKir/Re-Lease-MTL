@@ -51,7 +51,7 @@ const VistingHoursInputForm = ({
       <StyledScheduleInputContainer>
         <p>{t("form.selectDate")}</p>
         <input
-          style={{ width: "250px" }}
+          style={{ width: "250px", lineHeight: "2" }}
           type="date"
           min={new Date().toISOString().split("T")[0]}
           onChange={(e) => {
@@ -127,18 +127,21 @@ const StyledAddHoursButton = styled.button`
   @media (min-width: 768px) {
     width: 150px;
     font-size: 20px;
-    padding: 10px 10px;
+    /* padding: 10px 10px; */
   }
   @media (max-width: 767px) {
     width: 75px;
     font-size: 15px;
-    padding: 10px 10px;
+    /* padding: 10px 10px; */
   }
   cursor: pointer;
-  background-color: #467abf;
-  border: none;
+  border: 2px solid #0078a0;
   border-radius: 5px;
-  color: white;
+  font-family: "Jost", sans-serif;
+  color: #0078a0;
+  &:hover {
+    scale: 1.1;
+  }
 `;
 const SubmitScheduleButton = styled.button`
   width: 40%;
@@ -197,6 +200,9 @@ const SubmitTimeslotsButton = styled.button`
   }
   @media (max-width: 1135px) {
     font-size: 15px;
+  }
+  @media (max-width: 500px) {
+    font-size: 12px;
   }
 
   font-family: "Jost", sans-serif;
@@ -281,6 +287,7 @@ export const StyledVisitForm = styled.div`
 
   & input {
     font-size: 15px;
+    line-height: 2;
   }
   & span {
     font-weight: 500;
