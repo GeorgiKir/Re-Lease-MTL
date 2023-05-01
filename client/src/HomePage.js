@@ -7,6 +7,7 @@ import AboutUs from "./AboutUs";
 import { CurrentUserContext } from "./CurrentUserContext";
 import OurProcess from "./OurProcess";
 import bgImage from "./assets/facade1.jpg";
+import SpinnerLoading from "./SpinnerLoading";
 
 const HomePage = ({ setNavigationState }) => {
   const { t, i18n } = useTranslation();
@@ -24,6 +25,10 @@ const HomePage = ({ setNavigationState }) => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
     setIsLoaded(true);
   }, []);
+
+  if (!isLoaded) {
+    return <SpinnerLoading main={true} />;
+  }
 
   return (
     <MainPageContainer style={{ marginTop: "0px", width: "100%" }}>

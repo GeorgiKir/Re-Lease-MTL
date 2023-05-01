@@ -296,7 +296,7 @@ export const ArrowContainerDiv = styled.div`
 `;
 
 const ListingInfoMainContainer = styled.div`
-  @media (min-width: 870px) {
+  @media (min-width: 767px) {
     display: flex;
     flex-direction: row;
     margin: 0px auto;
@@ -308,7 +308,7 @@ const ListingInfoMainContainer = styled.div`
       border-radius: 10px;
     }
   }
-  @media (max-width: 870px) {
+  @media (max-width: 767px) {
     display: flex;
     flex-direction: column;
     align-items: center;

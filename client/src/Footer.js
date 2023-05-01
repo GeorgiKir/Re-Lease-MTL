@@ -5,7 +5,7 @@ const Footer = () => {
   return (
     <>
       <StyledFooter>
-        <p>RE:lease MTL Copyright</p>
+        <p>RE:lease MTL Copyright - 2023</p>
       </StyledFooter>
     </>
   );

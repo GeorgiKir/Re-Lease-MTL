@@ -36,19 +36,16 @@ const OurProcess = () => {
         <IndividualStepContainer>
           <MainTextStepDiv>
             <h1 style={{ marginLeft: "6%" }}>{t("process.text3")}</h1>
-            {/* <MdOutlineKeyboardArrowDown style={{ fontSize: "30px" }} /> */}
           </MainTextStepDiv>
         </IndividualStepContainer>
         <IndividualStepContainer>
           <MainTextStepDiv>
             <h1 style={{ marginLeft: "8%" }}>{t("process.text4")}</h1>
-            {/* <MdOutlineKeyboardArrowDown style={{ fontSize: "30px" }} /> */}
           </MainTextStepDiv>
         </IndividualStepContainer>
         <IndividualStepContainer>
           <MainTextStepDiv>
             <h1 style={{ marginLeft: "10%" }}>{t("process.text5")}</h1>
-            {/* <MdOutlineKeyboardArrowDown style={{ fontSize: "30px" }} /> */}
           </MainTextStepDiv>
         </IndividualStepContainer>
 
@@ -85,8 +82,7 @@ const IndividualStepContainer = styled.div`
 
 const AboutUsLinkButton = styled.button`
   position: relative;
-  /* display: flex;
-  justify-content: flex-start; */
+
   border: none;
   background: none;
   cursor: pointer;
@@ -94,7 +90,6 @@ const AboutUsLinkButton = styled.button`
   gap: 5px;
   height: fit-content;
   margin-top: 5%;
-  /* padding: 5px; */
   align-items: center;
   & p {
     font-family: "Montserrat", sans-serif;
@@ -173,13 +168,13 @@ const AboutUsTextDiv = styled.div`
   @media (max-width: 767.9px) {
     width: 80%;
     & h1 {
-      font-size: 15px;
+      font-size: 20px;
       /* margin-bottom: 10px; */
     }
     & h2 {
       color: #00abe4;
       font-weight: 600;
-      /* margin-bottom: 10px; */
+      margin-bottom: 30px;
     }
   }
 
@@ -204,7 +199,7 @@ const AboutUsContainerDiv = styled.div`
   align-items: center;
   justify-content: center;
   margin: 0px auto;
-  height: calc(100vh);
+  height: 100vh;
 `;
 
 export default OurProcess;

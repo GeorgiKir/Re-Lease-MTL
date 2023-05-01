@@ -140,41 +140,9 @@ const CommentsModal = ({
                   });
                 }}
               ></textarea>
-              <ProfileStyledButton
-                type="submit"
-                // style={{
-                //   height: "40%",
-                //   fontSize: "25px",
-                //   background: "transparent",
-                //   width: "20%",
-                //   justifyContent: "center",
-                // }}
-              >
+              <ProfileStyledButton type="submit">
                 <p>{t("commentsModal.post")}</p>
               </ProfileStyledButton>
-            </CommentForm>
-          )}
-          {selectedElement._id === currentUser._id && showReplyState && (
-            <CommentForm
-              onSubmit={(e) => {
-                handleCommentSubmit(e, e.target.value, "reply");
-              }}
-            >
-              <textarea
-                maxLength="100"
-                rows="3"
-                cols="30"
-                // max-cols="40"
-                // min-cols="30"
-                placeholder={"@" + " " + commentorUsername}
-                onChange={(e) => {
-                  setCommentFormObject({
-                    ...commentFormObject,
-                    reply: e.target.value,
-                  });
-                }}
-              ></textarea>
-              <button type="submit">{t("commentsModal.reply")}</button>
             </CommentForm>
           )}
         </CommentFeedDiv>

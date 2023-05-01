@@ -2,11 +2,20 @@ import React from "react";
 import styled, { keyframes } from "styled-components";
 import { ImSpinner, ImSpinner9 } from "react-icons/im";
 
-const SpinnerLoading = () => {
+const SpinnerLoading = ({ main }) => {
   return (
-    <Spinner>
-      <ImSpinner9 style={{ fontSize: "50px", color: "#00abe4" }} />
-    </Spinner>
+    <>
+      {!main && (
+        <Spinner>
+          <ImSpinner9 style={{ fontSize: "50px", color: "#00abe4" }} />
+        </Spinner>
+      )}
+      {main && (
+        <Spinner style={{ height: "100vh" }}>
+          <ImSpinner9 style={{ fontSize: "50px", color: "#00abe4" }} />
+        </Spinner>
+      )}
+    </>
   );
 };
 

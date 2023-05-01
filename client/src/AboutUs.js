@@ -109,6 +109,9 @@ const AboutUsLinkButton = styled.button`
   &:hover::before {
     transform: scaleX(1);
   }
+  &:focus {
+    transform: scaleX(0);
+  }
 `;
 
 const FirstImgContainer = styled.div`

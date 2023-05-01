@@ -11,6 +11,7 @@ import Profile from "./Profile";
 import SearchPage from "./SearchPage";
 import LogoutPage from "./LogoutPage";
 import ProcessingPage from "./ProcessingPage";
+import SpinnerLoading from "./SpinnerLoading";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
@@ -55,7 +56,7 @@ function App() {
   }, [user]);
 
   if (!logoutState && isLoading) {
-    return <ProcessingPage />;
+    return <SpinnerLoading />;
   }
 
   return (

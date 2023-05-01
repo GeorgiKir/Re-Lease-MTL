@@ -5,6 +5,7 @@ import App from "./App";
 import { Auth0Provider } from "@auth0/auth0-react";
 import { CurrentUserProvider } from "./CurrentUserContext";
 import "./i18n";
+import SpinnerLoading from "./SpinnerLoading";
 
 const domain = process.env.REACT_APP_AUTH0_DOMAIN;
 const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
@@ -17,7 +18,7 @@ ReactDOM.render(
         clientId={clientId}
         redirectUri={window.location.origin}
       >
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<SpinnerLoading />}>
           <App />
         </Suspense>
       </Auth0Provider>

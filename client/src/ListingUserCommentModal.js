@@ -8,7 +8,6 @@ import { ProfileStyledButton } from "./Profile";
 import { Trans, useTranslation } from "react-i18next";
 import {
   CommentFeedDiv,
-  CommentForm,
   CommentInfoContainer,
   CommentModalContainer,
   IndividualCommentDiv,
@@ -136,55 +135,82 @@ const ListingUserCommentsModal = ({ setShowCommentModal }) => {
                   })}
                 </CommentFeedDiv>
               )}
-
-            {selectedElement._id !== currentUser._id && (
-              <CommentForm
-                onSubmit={(e) => {
-                  handleCommentSubmit(e, e.target.value, "comment");
-                }}
-              >
-                <textarea
-                  maxLength="100"
-                  rows="3"
-                  cols="40"
-                  onChange={(e) => {
-                    setCommentFormObject({
-                      ...commentFormObject,
-                      comment: e.target.value,
-                    });
+            <CommentFeedDiv>
+              {selectedElement._id !== currentUser._id && (
+                <CommentForm
+                  onSubmit={(e) => {
+                    handleCommentSubmit(e, e.target.value, "comment");
                   }}
-                ></textarea>
-                <button type="submit">Post</button>
-              </CommentForm>
-            )}
-            {selectedElement._id === currentUser._id && showReplyState && (
-              <CommentForm
-                onSubmit={(e) => {
-                  handleCommentSubmit(e, e.target.value, "reply");
-                }}
-              >
-                <textarea
-                  maxLength="100"
-                  rows="3"
-                  cols="40"
-                  placeholder={"@" + " " + commentorUsername}
-                  onChange={(e) => {
-                    setCommentFormObject({
-                      ...commentFormObject,
-                      reply: e.target.value,
-                    });
+                >
+                  <textarea
+                    maxLength="100"
+                    rows="3"
+                    cols="40"
+                    onChange={(e) => {
+                      setCommentFormObject({
+                        ...commentFormObject,
+                        comment: e.target.value,
+                      });
+                    }}
+                  ></textarea>
+                  <button type="submit">Post</button>
+                </CommentForm>
+              )}
+              {selectedElement._id === currentUser._id && showReplyState && (
+                <CommentForm
+                  onSubmit={(e) => {
+                    handleCommentSubmit(e, e.target.value, "reply");
                   }}
-                ></textarea>
-                <ProfileStyledButton type="submit">
-                  {t("commentsModal.reply")}
-                </ProfileStyledButton>
-              </CommentForm>
-            )}
+                >
+                  <textarea
+                    maxLength="100"
+                    rows="3"
+                    cols="40"
+                    placeholder={"@" + " " + commentorUsername}
+                    onChange={(e) => {
+                      setCommentFormObject({
+                        ...commentFormObject,
+                        reply: e.target.value,
+                      });
+                    }}
+                  ></textarea>
+                  <ProfileStyledButton type="submit">
+                    {t("commentsModal.reply")}
+                  </ProfileStyledButton>
+                </CommentForm>
+              )}
+            </CommentFeedDiv>{" "}
           </>
         )}
       </CommentInfoContainer>
     </CommentModalContainer>
   );
 };
+
+const CommentForm = styled.form`
+  @media (max-width: 767.9px) {
+    flex-direction: column;
+  }
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+  & button {
+    @media (max-width: 767.9px) {
+      width: 50%;
+    }
+    height: 40%;
+    font-size: 25px;
+    background: transparent;
+    width: 20%;
+    justify-content: center;
+  }
+  & textarea {
+    max-width: 85%;
+    outline: none;
+    border: 2px solid #00abe4;
+    border-radius: 3px;
+  }
+`;
 
 export default ListingUserCommentsModal;

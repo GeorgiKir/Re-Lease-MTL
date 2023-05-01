@@ -79,7 +79,7 @@ const ListingSchedulePage = () => {
                 <h1>{item._id}</h1>
                 <div
                   style={{
-                    paddingTop: "5px",
+                    padding: "5px 0px 10px 0px",
                   }}
                 >
                   {item.timeslots.map((element) => {
@@ -127,6 +127,10 @@ const CalendarSvgContainer = styled.div`
 `;
 
 const TimeslotContainerDiv = styled.div`
+  @media (max-width: 560px) {
+    width: 85%;
+    padding: 5px 0px;
+  }
   display: flex;
   justify-content: space-between;
   align-items: center;
