@@ -29,7 +29,15 @@ const HeaderMobile = ({ navigationState }) => {
             }}
           />
         </StyledNav>
-        <StyledNav to={"/"}>Re:Lease MTL</StyledNav>
+        <StyledNav
+          to={"/"}
+          onClick={() => {
+            setHamburgerMenuOpen(false);
+            setProfileMenu(false);
+          }}
+        >
+          Re:Lease MTL
+        </StyledNav>
         <StyledNav>
           <FiUser
             style={{ fontSize: "30px" }}

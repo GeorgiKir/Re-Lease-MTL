@@ -143,7 +143,7 @@ const StyledAddHoursButton = styled.button`
     scale: 1.1;
   }
 `;
-const SubmitScheduleButton = styled.button`
+export const SubmitScheduleButton = styled.button`
   width: 40%;
   margin: 0px auto;
   display: ${(props) =>
@@ -191,7 +191,7 @@ const SubmitScheduleButton = styled.button`
   }
 `;
 
-const SubmitTimeslotsButton = styled.button`
+export const SubmitTimeslotsButton = styled.button`
   width: 40%;
   margin: 0px auto 25px auto;
   display: ${(props) => (props.arr.length > 0 ? "block" : "none")};

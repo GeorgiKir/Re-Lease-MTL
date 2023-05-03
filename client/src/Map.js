@@ -69,6 +69,11 @@ const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
         zoom={zoom}
         center={mapCenter}
         mapContainerStyle={containerStyle}
+        options={{
+          streetViewControl: false,
+          disableDefaultUI: true,
+          zoomControl: true,
+        }}
       >
         {listings && (
           <>

@@ -24,7 +24,14 @@ const Header = ({ navigationState }) => {
         {!isLoading && (
           <>
             <NavContainer>
-              <StyledNav to={"/"}>Re:Lease MTL</StyledNav>
+              <StyledNav
+                to={"/"}
+                onClick={() => {
+                  window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+                }}
+              >
+                Re:Lease MTL
+              </StyledNav>
               {navigationState === "home" && (
                 <a href="#about">{t("header.aboutUs")}</a>
               )}

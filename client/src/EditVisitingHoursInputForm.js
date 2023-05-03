@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { Trans, useTranslation } from "react-i18next";
+import { SubmitTimeslotsButton } from "./VistingHoursInputForm";
 
 const EditVistingHoursInputForm = ({
   listingUserHasDeleted,
@@ -148,20 +149,20 @@ const StyledAddHoursButton = styled.button`
   border-radius: 5px;
   color: white;
 `;
-const SubmitScheduleButton = styled.button`
-  height: 35px;
-  width: 50%;
-  margin: 0px auto;
-  display: ${(props) =>
-    typeof props.dateObject === "object" ? "block" : "none"};
-`;
+// const SubmitScheduleButton = styled.button`
+//   height: 35px;
+//   width: 50%;
+//   margin: 0px auto;
+//   display: ${(props) =>
+//     typeof props.dateObject === "object" ? "block" : "none"};
+// `;
 
-const SubmitTimeslotsButton = styled.button`
-  height: 35px;
-  width: 30%;
-  margin: 0px auto 25px auto;
-  display: ${(props) => (props.arr.length > 0 ? "block" : "none")};
-`;
+// const SubmitTimeslotsButton = styled.button`
+//   height: 35px;
+//   width: 30%;
+//   margin: 0px auto 25px auto;
+//   display: ${(props) => (props.arr.length > 0 ? "block" : "none")};
+// `;
 const ButtonContainerDiv = styled.div`
   display: flex;
   flex-direction: column;

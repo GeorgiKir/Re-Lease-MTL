@@ -11,9 +11,11 @@ const SpinnerLoading = ({ main }) => {
         </Spinner>
       )}
       {main && (
-        <Spinner style={{ height: "100vh" }}>
-          <ImSpinner9 style={{ fontSize: "50px", color: "#00abe4" }} />
-        </Spinner>
+        <div style={{ height: "100vh" }}>
+          <Spinner>
+            <ImSpinner9 style={{ fontSize: "50px", color: "#00abe4" }} />
+          </Spinner>{" "}
+        </div>
       )}
     </>
   );
