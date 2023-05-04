@@ -1,14 +1,9 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useContext } from "react";
-import { CurrentUserContext } from "./CurrentUserContext";
-import styled from "styled-components";
-import { CgClose } from "react-icons/cg";
+import React, { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FiTrash2 } from "react-icons/fi";
-import { ImSpinner } from "react-icons/im";
-import { format } from "date-fns";
+import styled from "styled-components";
+import { CurrentUserContext } from "./CurrentUserContext";
 import DeleteConfirmation from "./DeleteConfirmation";
-import { Trans, useTranslation } from "react-i18next";
 import SpinnerLoading from "./SpinnerLoading";
 
 const UpcomingVisitsSchedulePage = () => {
@@ -64,7 +59,6 @@ const UpcomingVisitsSchedulePage = () => {
                             {element.address}: {element.hour}{" "}
                           </p>
                           <FiTrash2
-                            // style={{ cursor: "pointer", fontSize: "25px" }}
                             onClick={(e) => {
                               setTargetVisitForDeletion(element._id);
                               setCancelVisitState(true);

@@ -1,7 +1,5 @@
+import { useJsApiLoader } from "@react-google-maps/api";
 import React from "react";
-import { GoogleMap, useJsApiLoader, MarkerF } from "@react-google-maps/api";
-import styled from "styled-components";
-import { useState, useEffect } from "react";
 import Map from "./Map";
 
 const MapSetup = ({
@@ -13,7 +11,7 @@ const MapSetup = ({
 }) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: process.env.REACtT_APP_GOOGLE_MAPS_API_KEY,
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
   if (!isLoaded) {

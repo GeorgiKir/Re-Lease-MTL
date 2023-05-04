@@ -1,9 +1,7 @@
-import React from "react";
-import { useState } from "react";
+import React, { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import styled from "styled-components";
-import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
-import { Trans, useTranslation } from "react-i18next";
 
 const VistingHoursInputForm = ({
   visitingHoursToBeAdded,
@@ -292,8 +290,6 @@ export const StyledVisitForm = styled.div`
   & span {
     font-weight: 500;
   }
-  /* border: 1px solid red; */
-  /* margin-top: 35px; */
 `;
 
 export default VistingHoursInputForm;

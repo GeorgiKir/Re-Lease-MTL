@@ -1,12 +1,11 @@
 import React from "react";
-// import styled from "styled-components";
+import { useAuth0 } from "@auth0/auth0-react";
+import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { SlArrowRight } from "react-icons/sl";
 import { useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
-import { CurrentUserContext } from "./CurrentUserContext";
-import { useAuth0 } from "@auth0/auth0-react";
-import { Trans, useTranslation } from "react-i18next";
 import styled, { keyframes } from "styled-components";
+import { CurrentUserContext } from "./CurrentUserContext";
 
 const ProfileDropDownMenu = ({ setShowProfileTab }) => {
   const { t, i18n } = useTranslation();

@@ -1,17 +1,16 @@
-import React, { useState, useEffect } from "react";
-import styled from "styled-components";
+import React, { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { GrClose } from "react-icons/gr";
 import { MdSubdirectoryArrowRight } from "react-icons/md";
-import { useContext } from "react";
-import { CurrentUserContext } from "./CurrentUserContext";
-import { ProfileStyledButton } from "./Profile";
-import { Trans, useTranslation } from "react-i18next";
+import styled from "styled-components";
 import {
   CommentFeedDiv,
   CommentInfoContainer,
   CommentModalContainer,
   IndividualCommentDiv,
 } from "./CommentsModal";
+import { CurrentUserContext } from "./CurrentUserContext";
+import { ProfileStyledButton } from "./Profile";
 
 const ListingUserCommentsModal = ({ setShowCommentModal }) => {
   const { t, i18n } = useTranslation();

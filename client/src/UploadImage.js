@@ -1,19 +1,11 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import styled from "styled-components";
-import emptyPhoto from "./assets/emptyPhoto.jpg";
-import { GrClose } from "react-icons/gr";
-import { ArrowContainerDiv, MobileArrowContainerDiv } from "./Profile";
-import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
-import { MdOutlineCloudUpload } from "react-icons/md";
+import React, { useState } from "react";
 import { FiTrash2 } from "react-icons/fi";
+import { MdOutlineCloudUpload } from "react-icons/md";
+import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import styled from "styled-components";
+import { ArrowContainerDiv, MobileArrowContainerDiv } from "./Profile";
 
 const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
-  const [fileInputState, setFileInputState] = useState("");
-  const [previewSource, setPreviewSource] = useState("");
-  const [selectedFile, setSelectedFile] = useState();
-  const [selectedPhotos, setSelectedPhotos] = useState([]);
-  const [successMsg, setSuccessMsg] = useState("");
   const [errMsg, setErrMsg] = useState(null);
   const [showPhotoTracker, setShowPhotoTracker] = useState(0);
 
@@ -34,7 +26,6 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
   };
 
   const handleFileInputChange = (e) => {
-    // setSelectedFile(e.target.files[0]);
     if (ListingFormInfo.listingImage.length >= 5) {
       setErrMsg("Max number of pictures reached");
     } else {
@@ -49,7 +40,6 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
 
-        // setFileInputState(e.target.value);
         reader.onloadend = () => {
           if (ListingFormInfo.listingImage.length > 0) {
             setListingFormInfo({
@@ -63,7 +53,6 @@ const UploadImage = ({ ListingFormInfo, setListingFormInfo }) => {
               listingImage: [reader.result],
             });
           }
-          // setSelectedFile(null);
         };
       }
     }

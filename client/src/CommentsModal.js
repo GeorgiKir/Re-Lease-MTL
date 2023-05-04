@@ -1,12 +1,10 @@
-import React, { useState } from "react";
-import styled from "styled-components";
+import React, { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { GrClose } from "react-icons/gr";
 import { MdSubdirectoryArrowRight } from "react-icons/md";
-import { useContext } from "react";
+import styled from "styled-components";
 import { CurrentUserContext } from "./CurrentUserContext";
-import DeleteListingButton from "./DeleteListingButton";
 import { ProfileStyledButton } from "./Profile";
-import { Trans, useTranslation } from "react-i18next";
 
 const CommentsModal = ({
   myListing,
@@ -241,7 +239,7 @@ export const CommentModalContainer = styled.div`
   align-items: center;
   position: absolute;
   inset: 0;
-  z-index: 5;
+  z-index: 999;
   background-color: rgba(0, 0, 0, 0.7);
 `;
 

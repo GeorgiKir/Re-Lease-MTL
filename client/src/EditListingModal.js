@@ -1,14 +1,11 @@
-import React from "react";
-import { CommentInfoContainer, CommentModalContainer } from "./CommentsModal";
+import React, { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { GrClose } from "react-icons/gr";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import { boroughs } from "./boroughs";
-import { useContext } from "react";
+import { CommentInfoContainer, CommentModalContainer } from "./CommentsModal";
 import { CurrentUserContext } from "./CurrentUserContext";
-import { ProfileStyledButton } from "./Profile";
 import { StyledDeleteButton } from "./DeleteListingButton";
-import { Trans, useTranslation } from "react-i18next";
+import { boroughs } from "./boroughs";
 
 const EditListingModal = ({
   listing,

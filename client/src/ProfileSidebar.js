@@ -1,8 +1,7 @@
 import React from "react";
-import styled from "styled-components";
+import { useTranslation } from "react-i18next";
 import { NavLink } from "react-router-dom";
-import { StyledNav } from "./Header";
-import { Trans, useTranslation } from "react-i18next";
+import styled from "styled-components";
 
 const ProfileSidebar = ({ profileState, setProfileState }) => {
   const { t, i18n } = useTranslation();

@@ -1,24 +1,15 @@
-import React from "react";
-import {
-  GoogleMap,
-  useJsApiLoader,
-  MarkerF,
-  InfoWindow,
-} from "@react-google-maps/api";
-import styled from "styled-components";
-import { useState, useEffect } from "react";
-import { FiPlusCircle } from "react-icons/fi";
-import { FiMapPin } from "react-icons/fi";
-import { TbHomeDollar } from "react-icons/tb";
-import { FaBed } from "react-icons/fa";
-import ListingModal from "./ListingModal";
-import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
+import { GoogleMap, InfoWindow, MarkerF } from "@react-google-maps/api";
+import React, { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { AiOutlineComment } from "react-icons/ai";
-import { useContext } from "react";
-import { CurrentUserContext } from "./CurrentUserContext";
+import { FaBed } from "react-icons/fa";
+import { FiMapPin, FiPlusCircle } from "react-icons/fi";
+import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import { TbHomeDollar } from "react-icons/tb";
+import styled from "styled-components";
 import CommentsModal from "./CommentsModal";
-import { BsArrowsFullscreen } from "react-icons/bs";
-import { Trans, useTranslation } from "react-i18next";
+import { CurrentUserContext } from "./CurrentUserContext";
+import ListingModal from "./ListingModal";
 
 const Map = ({ position, markerPosition, mapCenter, zoom, listings }) => {
   const { t, i18n } = useTranslation();

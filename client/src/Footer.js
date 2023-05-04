@@ -16,13 +16,11 @@ const StyledFooter = styled.div`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  /* width: 98.9vw; */
+
   background-color: #0078a0;
-  /* background-color: black; */
+
   height: 50px;
   color: white;
-  /* bottom: 0; */
-  /* margin-top: 100%; */
 `;
 
 export default Footer;

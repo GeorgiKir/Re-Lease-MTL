@@ -119,15 +119,13 @@ video {
         background-color: #EEF1EF;
         line-height: 1;
         font-family: 'Montserrat', sans-serif;
-        /* font-family: 'Poppins', sans-serif; */
-        /* font-family: 'Roboto', sans-serif; */
+      
     }
 
     p {
-        /* font-family: "Raleway", sans-serif; */
+       
         font-family: 'Jost', sans-serif;
-        /* color: #003D6D; */
-        /* font-family: "Open Sans", sans-serif; */
+        
     }
     ol, ul {
         list-style: none;
@@ -144,7 +142,14 @@ video {
         border-collapse: collapse;
         border-spacing: 0;
     }
-    
+
+.leaflet-container {
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+}
+
+
 `;
 
 export default GlobalStyle;

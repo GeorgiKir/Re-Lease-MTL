@@ -1,8 +1,7 @@
 import React from "react";
-import styled from "styled-components";
-import { PreviousNextButtonDiv } from "./ListingCreationForm";
+import { useTranslation } from "react-i18next";
 import { ImWarning } from "react-icons/im";
-import { Trans, useTranslation } from "react-i18next";
+import styled from "styled-components";
 import { ProfileStyledButton } from "./Profile";
 
 const ErrorFormModal = ({ errorMessage, setErrorMessage }) => {

@@ -1,12 +1,10 @@
-import React from "react";
-import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
-import { useContext } from "react";
-import { CurrentUserContext } from "./CurrentUserContext";
-import { useState } from "react";
-import DeleteConfirmation from "./DeleteConfirmation";
+import React, { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { FiTrash2 } from "react-icons/fi";
-import { Trans, useTranslation } from "react-i18next";
+import styled from "styled-components";
+import { CurrentUserContext } from "./CurrentUserContext";
+import DeleteConfirmation from "./DeleteConfirmation";
 
 const DeleteListingButton = () => {
   const { t, i18n } = useTranslation();

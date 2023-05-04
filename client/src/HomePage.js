@@ -6,8 +6,8 @@ import styled, { keyframes } from "styled-components";
 import AboutUs from "./AboutUs";
 import { CurrentUserContext } from "./CurrentUserContext";
 import OurProcess from "./OurProcess";
-import bgImage from "./assets/facade1.jpg";
 import SpinnerLoading from "./SpinnerLoading";
+import bgImage from "./assets/facade1.jpg";
 
 const HomePage = ({ setNavigationState }) => {
   const { t, i18n } = useTranslation();
@@ -102,12 +102,12 @@ export const CustomSignUpButton = styled.button`
 
 const SlideInFromLeft = keyframes`
 from {
-  /* margin-left: -150%; */
+ 
   transform: translateX(-150%);
   opacity: 0;
 }
 to {
-  /* margin-left: 0%; */
+ 
   transform: translateX(0%);
   opacity: 1;
 }
@@ -116,7 +116,7 @@ to {
 const HeroImageContainer = styled.div`
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
+
   padding-top: 150px;
   align-items: center;
   background-image: url(${bgImage});
@@ -124,7 +124,7 @@ const HeroImageContainer = styled.div`
   height: 100vh;
   margin: 0px auto 0px auto;
   background-size: 100% 100%;
-  /* border-radius: 5px; */
+
   box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.65);
   @media (min-width: 768px) {
     & h2 {
@@ -159,8 +159,6 @@ const HomePageContentDiv = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 0px auto;
-  /* width: 75vw; */
-  /* height: 100vh; */
 `;
 
 export const MainPageContainer = styled.div`
@@ -171,7 +169,7 @@ export const MainPageContainer = styled.div`
 
   @media (max-width: 870px) {
     margin-top: 35px;
-    /* height: calc(100vh - 180px); */
+
     min-height: calc(100vh);
   }
 

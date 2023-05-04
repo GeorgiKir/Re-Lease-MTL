@@ -1,28 +1,23 @@
 import { useAuth0 } from "@auth0/auth0-react";
-import { useContext } from "react";
-import { CurrentUserContext } from "./CurrentUserContext";
-import { MainPageContainer } from "./HomePage";
-import styled from "styled-components";
-import ListingCreationForm from "./ListingCreationForm";
-import ProfileSidebar from "./ProfileSidebar";
-import { useState, useEffect } from "react";
-import DeleteListingButton from "./DeleteListingButton";
-import ListingSchedulePage from "./ListingSchedulePage";
-import UpcomingVisitsSchedulePage from "./UpcomingVisitsSchedulePage";
-import ListingCreationTracker from "./ListingCreationTracker";
-import { FiMapPin } from "react-icons/fi";
-import { TbHomeDollar } from "react-icons/tb";
+import { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { AiOutlineComment, AiOutlineEdit } from "react-icons/ai";
 import { FaBed } from "react-icons/fa";
+import { FiMapPin } from "react-icons/fi";
 import { GrDocumentText } from "react-icons/gr";
-import { SlArrowRight, SlArrowLeft } from "react-icons/sl";
+import { SlArrowLeft, SlArrowRight } from "react-icons/sl";
+import { TbHomeDollar } from "react-icons/tb";
 import { useNavigate } from "react-router-dom";
-import { AiOutlineComment } from "react-icons/ai";
-import CommentsModal from "./CommentsModal";
-import ListingUserCommentsModal from "./ListingUserCommentModal";
-import { AiOutlineEdit } from "react-icons/ai";
-import { SlOptions } from "react-icons/sl";
+import styled from "styled-components";
+import { CurrentUserContext } from "./CurrentUserContext";
+import DeleteListingButton from "./DeleteListingButton";
 import EditListingModal from "./EditListingModal";
-import { Trans, useTranslation } from "react-i18next";
+import { MainPageContainer } from "./HomePage";
+import ListingCreationForm from "./ListingCreationForm";
+import ListingSchedulePage from "./ListingSchedulePage";
+import ListingUserCommentsModal from "./ListingUserCommentModal";
+import ProfileSidebar from "./ProfileSidebar";
+import UpcomingVisitsSchedulePage from "./UpcomingVisitsSchedulePage";
 
 const Profile = ({ setNavigationState }) => {
   const { t, i18n } = useTranslation();
@@ -256,7 +251,7 @@ const ProfileButtonContainer = styled.div`
     margin: 20px auto 0px auto;
   }
   display: flex;
-  /* border: 1px solid black; */
+
   font-size: 20px;
   width: 100%;
   align-items: flex-end;

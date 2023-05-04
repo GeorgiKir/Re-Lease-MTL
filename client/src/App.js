@@ -6,7 +6,7 @@ import Footer from "./Footer";
 import GlobalStyle from "./GlobalStyle";
 import Header from "./Header";
 import HomePage from "./HomePage";
-import LoginPage from "./LoginPage";
+
 import Profile from "./Profile";
 import SearchPage from "./SearchPage";
 import LogoutPage from "./LogoutPage";
@@ -26,7 +26,6 @@ function App() {
     loginState,
     setLoginState,
   } = useContext(CurrentUserContext);
-  // const [verificationState, setVerificationState] = useState("Initial");
 
   useEffect(() => {
     if (isAuthenticated && user) {
@@ -44,13 +43,11 @@ function App() {
           );
 
           setCurrentUser(JSON.parse(window.sessionStorage.getItem("userId")));
-          // setVerificationState("Verified");
         })
         .catch((e) => {
           console.log("Error: ", e);
         });
     } else {
-      // setVerificationState("Initial");
       return;
     }
   }, [user]);
@@ -71,10 +68,6 @@ function App() {
               <Route
                 path="/"
                 element={<HomePage setNavigationState={setNavigationState} />}
-              />
-              <Route
-                path="/login"
-                element={<LoginPage setNavigationState={setNavigationState} />}
               />
               <Route
                 path="/search"

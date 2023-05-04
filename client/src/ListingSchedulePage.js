@@ -1,14 +1,9 @@
-import React from "react";
-import styled from "styled-components";
-import { useState, useEffect } from "react";
-import { useContext } from "react";
-import { CurrentUserContext } from "./CurrentUserContext";
-import { ImSpinner } from "react-icons/im";
-import { format } from "date-fns";
-import { ProfilePageContentDiv } from "./Profile";
-import { Trans, useTranslation } from "react-i18next";
-import { CgClose } from "react-icons/cg";
+import React, { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { BsCalendarPlus } from "react-icons/bs";
+import { CgClose } from "react-icons/cg";
+import styled from "styled-components";
+import { CurrentUserContext } from "./CurrentUserContext";
 import EditVisitingHoursModal from "./EditVisitingHoursModal";
 import SpinnerLoading from "./SpinnerLoading";
 

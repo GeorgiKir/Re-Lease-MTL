@@ -1,10 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { SlArrowRight } from "react-icons/sl";
-import { MdOutlineKeyboardArrowDown } from "react-icons/md";
 import styled from "styled-components";
 import handshakeImg from "./assets/handshake1.jpg";
-import { useState } from "react";
 
 const OurProcess = () => {
   const [showDescription, setShowDescription] = useState(null);
@@ -13,17 +10,9 @@ const OurProcess = () => {
     <AboutUsContainerDiv id="process">
       <AboutUsTextDiv>
         <h2>{t("process.title")}</h2>
-        <IndividualStepContainer
-        // onMouseEnter={() => {
-        //   setShowDescription(1);
-        // }}
-        // onMouseLeave={() => {
-        //   setShowDescription(null);
-        // }}
-        >
+        <IndividualStepContainer>
           <MainTextStepDiv>
             <h1 style={{ marginLeft: "2%" }}>{t("process.text1")}</h1>
-            {/* <MdOutlineKeyboardArrowDown style={{ fontSize: "30px" }} /> */}
           </MainTextStepDiv>
           {showDescription === 1 && <p>ACCOUNT CREATION</p>}
         </IndividualStepContainer>
@@ -157,7 +146,6 @@ const AboutUsTextDiv = styled.div`
     width: 50%;
     & h1 {
       font-size: 25px;
-      /* margin-bottom: 10px; */
     }
     & h2 {
       color: #00abe4;
@@ -169,7 +157,6 @@ const AboutUsTextDiv = styled.div`
     width: 80%;
     & h1 {
       font-size: 20px;
-      /* margin-bottom: 10px; */
     }
     & h2 {
       color: #00abe4;

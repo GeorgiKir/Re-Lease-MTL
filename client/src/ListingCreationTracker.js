@@ -1,7 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import { AiOutlineLine } from "react-icons/ai";
 
 const ListingCreationTracker = ({
   listingCreationTracker,

@@ -1,10 +1,8 @@
 import React from "react";
-import styled from "styled-components";
-import { NavLink } from "react-router-dom";
-import { StyledNav } from "./Header";
-import { boroughs } from "./boroughs";
+import { useTranslation } from "react-i18next";
 import { FiSearch } from "react-icons/fi";
-import { Trans, useTranslation } from "react-i18next";
+import styled from "styled-components";
+import { boroughs } from "./boroughs";
 
 const SearchBar = ({
   searchCriteria,

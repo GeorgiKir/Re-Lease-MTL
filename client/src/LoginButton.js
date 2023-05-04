@@ -1,9 +1,8 @@
 import { useAuth0 } from "@auth0/auth0-react";
 import { useContext } from "react";
+import { useTranslation } from "react-i18next";
 import { CurrentUserContext } from "./CurrentUserContext";
-import styled from "styled-components";
 import { StyledNav } from "./Header";
-import { Trans, useTranslation } from "react-i18next";
 
 const LoginButton = () => {
   const { t, i18n } = useTranslation();

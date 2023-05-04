@@ -1,4 +1,4 @@
-html,
+/* html,
 body,
 div,
 span,
@@ -150,4 +150,8 @@ body {
 }
 .noSelect:focus {
   outline: none !important;
+} */
+.leaflet-container {
+  height: 100%;
+  width: 100%;
 }

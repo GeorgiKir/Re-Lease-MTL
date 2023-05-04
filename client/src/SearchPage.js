@@ -1,14 +1,11 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import { useState, useEffect } from "react";
-import SearchBar from "./SearchBar";
-import ListingModal from "./ListingModal";
-import MapSetup from "./MapSetup";
-import { boroughs } from "./boroughs";
-import { ImSpinner } from "react-icons/im";
-import { useContext } from "react";
 import { CurrentUserContext } from "./CurrentUserContext";
+import MapSetup from "./MapSetup";
+import SearchBar from "./SearchBar";
 import SearchBarMobile from "./SearchBarMobile";
+import { boroughs } from "./boroughs";
+import LeafletSetup from "./LeafletSetup";
 
 const SearchPage = ({ setNavigationState }) => {
   const { currentUser } = useContext(CurrentUserContext);
@@ -84,6 +81,15 @@ const SearchPage = ({ setNavigationState }) => {
             setMapCenter={setMapCenter}
           />
         )}
+        {/* {mapCenter && (
+          <LeafletSetup
+            mapCenter={mapCenter}
+            zoom={zoom}
+            markerPosition={markerPosition}
+            listings={listings}
+            setMapCenter={setMapCenter}
+          />
+        )} */}
       </SearchPageContentContainer>
     </StorePageContainer>
   );
@@ -93,6 +99,7 @@ const SearchPageContentContainer = styled.div`
   display: flex;
   justify-content: space-between;
   width: 90%;
+  height: 80vh;
   /* border: 1px solid blue; */
   z-index: 0;
   margin: 0px auto;

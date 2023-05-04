@@ -1,19 +1,16 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { useContext } from "react";
-import { CurrentUserContext } from "./CurrentUserContext";
-import styled from "styled-components";
 import { useAuth0 } from "@auth0/auth0-react";
+import React, { useContext, useState } from "react";
+import { useTranslation } from "react-i18next";
+import styled from "styled-components";
+import { CurrentUserContext } from "./CurrentUserContext";
+import ErrorFormModal from "./ErrorFormModal";
+import ListingCreationTracker from "./ListingCreationTracker";
+import ProcessingPage from "./ProcessingPage";
+import { ProfileStyledButton } from "./Profile";
+import UploadImage from "./UploadImage";
+import ViewScheduleModal from "./ViewScheduleModal";
 import VisitingHoursModal from "./VisitingHoursModal";
 import { boroughs } from "./boroughs";
-import ListingCreationTracker from "./ListingCreationTracker";
-import UploadImage from "./UploadImage";
-import gearImg from "./assets/gear_img.png";
-import ProcessingPage from "./ProcessingPage";
-import ViewScheduleModal from "./ViewScheduleModal";
-import { Trans, useTranslation } from "react-i18next";
-import { ProfileStyledButton } from "./Profile";
-import ErrorFormModal from "./ErrorFormModal";
 
 const ListingCreationForm = () => {
   const { t, i18n } = useTranslation();
@@ -348,7 +345,7 @@ const StyledPreviousNextButton = styled.button`
     font-size: 15px;
     padding: 10px 10px;
   }
-  /* margin-right: 30px; */
+
   font-family: "Jost", sans-serif;
   cursor: pointer;
   background-color: #659db0;
@@ -369,8 +366,6 @@ const ListingContainerDiv = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* border: 1px solid black; */
-  /* height: fit content; */
 `;
 
 const FormInputContainer = styled.div`

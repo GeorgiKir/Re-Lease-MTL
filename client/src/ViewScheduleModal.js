@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { GrClose } from "react-icons/gr";
 import styled from "styled-components";
 import { CommentInfoContainer, CommentModalContainer } from "./CommentsModal";
-import { GrClose } from "react-icons/gr";
-import { useState, useEffect } from "react";
 
 const ViewScheduleModal = ({ setToggleViewVisitHours, selectedTimeSlots }) => {
   const [groupedSchedule, setGroupedSchedule] = useState([]);

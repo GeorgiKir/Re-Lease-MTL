@@ -1,15 +1,10 @@
-import React from "react";
-import styled from "styled-components";
+import React, { useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { GrClose } from "react-icons/gr";
-import { useState, useEffect } from "react";
-import { useContext } from "react";
-import { CurrentUserContext } from "./CurrentUserContext";
-import { format } from "date-fns";
-import { StyledVisitForm } from "./VistingHoursInputForm";
-import { FaRegSadCry } from "react-icons/fa";
 import { TbCalendarOff } from "react-icons/tb";
-import DeleteListingButton, { StyledDeleteButton } from "./DeleteListingButton";
-import { Trans, useTranslation } from "react-i18next";
+import styled from "styled-components";
+import { CurrentUserContext } from "./CurrentUserContext";
+import { StyledDeleteButton } from "./DeleteListingButton";
 
 const ListingModal = ({ listingInfo, setShowListingModal }) => {
   const { t, i18n } = useTranslation();
@@ -325,7 +320,7 @@ const ListingModalContainer = styled.div`
   align-items: center;
   position: absolute;
   inset: 0;
-  z-index: 5;
+  z-index: 9999;
   background-color: rgba(0, 0, 0, 0.7);
 `;
 

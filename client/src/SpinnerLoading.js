@@ -1,6 +1,6 @@
 import React from "react";
+import { ImSpinner9 } from "react-icons/im";
 import styled, { keyframes } from "styled-components";
-import { ImSpinner, ImSpinner9 } from "react-icons/im";
 
 const SpinnerLoading = ({ main }) => {
   return (
