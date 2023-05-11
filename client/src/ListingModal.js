@@ -5,6 +5,7 @@ import { TbCalendarOff } from "react-icons/tb";
 import styled from "styled-components";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { StyledDeleteButton } from "./DeleteListingButton";
+const ROOT_API = "https://re-lease-mtl.onrender.com";
 
 const ListingModal = ({ listingInfo, setShowListingModal }) => {
   const { t, i18n } = useTranslation();
@@ -24,7 +25,7 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
   const currentDateChecker = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
-    fetch(`/timeSlots/ownerId/${listingInfo._id}`)
+    fetch(`${ROOT_API}/timeSlots/ownerId/${listingInfo._id}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.status === 200) {
@@ -62,7 +63,7 @@ const ListingModal = ({ listingInfo, setShowListingModal }) => {
     // setShowListingModal(false);
     setTargetVisitArray(null);
 
-    fetch(`/listings/reserveAVisitTime`, {
+    fetch(`${ROOT_API}/listings/reserveAVisitTime`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",

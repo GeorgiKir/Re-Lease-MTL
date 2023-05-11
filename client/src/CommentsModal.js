@@ -5,6 +5,7 @@ import { MdSubdirectoryArrowRight } from "react-icons/md";
 import styled from "styled-components";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { ProfileStyledButton } from "./Profile";
+const ROOT_API = "https://re-lease-mtl.onrender.com";
 
 const CommentsModal = ({
   myListing,
@@ -27,7 +28,7 @@ const CommentsModal = ({
   const handleCommentSubmit = (e, comment, type) => {
     e.preventDefault();
 
-    fetch(`/listings/comments/postComment`, {
+    fetch(`${ROOT_API}/listings/comments/postComment`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",

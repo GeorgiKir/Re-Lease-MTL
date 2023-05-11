@@ -6,6 +6,7 @@ import { CommentInfoContainer, CommentModalContainer } from "./CommentsModal";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { StyledDeleteButton } from "./DeleteListingButton";
 import { boroughs } from "./boroughs";
+const ROOT_API = "https://re-lease-mtl.onrender.com";
 
 const EditListingModal = ({
   listing,
@@ -37,7 +38,7 @@ const EditListingModal = ({
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch(`/listings/updateListings/${currentUser._id}`, {
+    fetch(`${ROOT_API}/listings/updateListings/${currentUser._id}`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",

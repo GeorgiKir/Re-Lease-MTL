@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { CurrentUserContext } from "./CurrentUserContext";
 import DeleteConfirmation from "./DeleteConfirmation";
 import SpinnerLoading from "./SpinnerLoading";
+const ROOT_API = "https://re-lease-mtl.onrender.com";
 
 const UpcomingVisitsSchedulePage = () => {
   const { t, i18n } = useTranslation();
@@ -17,7 +18,7 @@ const UpcomingVisitsSchedulePage = () => {
 
   useEffect(() => {
     setLoadingState(true);
-    fetch(`/timeSlots/visitorId/${currentUser._id}`)
+    fetch(`${ROOT_API}/timeSlots/visitorId/${currentUser._id}`)
       .then((res) => res.json())
       .then(async (data) => {
         if (data.status === 200) {
@@ -33,7 +34,7 @@ const UpcomingVisitsSchedulePage = () => {
   }, [visitorHasDeleted]);
 
   const handleTimeslotDeleteByVisitor = (visitId) => {
-    fetch(`/timeSlots/deleteTimeSlot/${visitId}`, {
+    fetch(`${ROOT_API}/timeSlots/deleteTimeSlot/${visitId}`, {
       method: "PATCH",
     })
       .then((res) => res.json())

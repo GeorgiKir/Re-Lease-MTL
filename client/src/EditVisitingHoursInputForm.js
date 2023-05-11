@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import styled from "styled-components";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { SubmitTimeslotsButton } from "./VistingHoursInputForm";
+const ROOT_API = "https://re-lease-mtl.onrender.com";
 
 const EditVistingHoursInputForm = ({
   listingUserHasDeleted,
@@ -18,7 +19,7 @@ const EditVistingHoursInputForm = ({
   const handleEditedVisitingHoursSubmit = (e) => {
     e.preventDefault();
 
-    fetch(`/timeSlots/addTimeSlots`, {
+    fetch(`${ROOT_API}/timeSlots/addTimeSlots`, {
       method: "POST",
       headers: {
         Accept: "application/json",

@@ -11,6 +11,7 @@ import UploadImage from "./UploadImage";
 import ViewScheduleModal from "./ViewScheduleModal";
 import VisitingHoursModal from "./VisitingHoursModal";
 import { boroughs } from "./boroughs";
+const ROOT_API = "https://re-lease-mtl.onrender.com";
 
 const ListingCreationForm = () => {
   const { t, i18n } = useTranslation();
@@ -45,7 +46,7 @@ const ListingCreationForm = () => {
     window.scrollTo(0, 0);
     if (visitingHoursToBeAdded.length <= 0) {
     } else if (ListingFormInfo.selectedTimeSlots.length > 0) {
-      fetch(`/listings/addListing`, {
+      fetch(`${ROOT_API}/listings/addListing`, {
         method: "POST",
         headers: {
           Accept: "application/json",
@@ -61,7 +62,7 @@ const ListingCreationForm = () => {
             );
           }
 
-          fetch(`/users/${user.email}`)
+          fetch(`${ROOT_API}/users/${user.email}`)
             .then((res) => res.json())
             .then((data) => {
               window.sessionStorage.setItem(

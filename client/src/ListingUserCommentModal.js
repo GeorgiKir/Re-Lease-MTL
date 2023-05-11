@@ -11,6 +11,7 @@ import {
 } from "./CommentsModal";
 import { CurrentUserContext } from "./CurrentUserContext";
 import { ProfileStyledButton } from "./Profile";
+const ROOT_API = "https://re-lease-mtl.onrender.com";
 
 const ListingUserCommentsModal = ({ setShowCommentModal }) => {
   const { t, i18n } = useTranslation();
@@ -29,7 +30,7 @@ const ListingUserCommentsModal = ({ setShowCommentModal }) => {
   });
 
   useEffect(() => {
-    fetch(`/listings/getSingleListing/${currentUser._id}`)
+    fetch(`${ROOT_API}/listings/getSingleListing/${currentUser._id}`)
       .then((res) => res.json())
       .then((data) => {
         setSelectedElement(data.data);
@@ -42,7 +43,7 @@ const ListingUserCommentsModal = ({ setShowCommentModal }) => {
   const handleCommentSubmit = (e, comment, type) => {
     e.preventDefault();
 
-    fetch(`/listings/comments/postComment`, {
+    fetch(`${ROOT_API}/listings/comments/postComment`, {
       method: "PATCH",
       headers: {
         Accept: "application/json",

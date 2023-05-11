@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { CurrentUserContext } from "./CurrentUserContext";
 import EditVisitingHoursModal from "./EditVisitingHoursModal";
 import SpinnerLoading from "./SpinnerLoading";
+const ROOT_API = "https://re-lease-mtl.onrender.com";
 
 const ListingSchedulePage = () => {
   const { t, i18n } = useTranslation();
@@ -20,7 +21,7 @@ const ListingSchedulePage = () => {
 
   useEffect(() => {
     setLoadingState(true);
-    fetch(`/timeSlots/ownerId/${currentUser._id}`)
+    fetch(`${ROOT_API}/timeSlots/ownerId/${currentUser._id}`)
       .then((res) => res.json())
       .then((data) => {
         setLoadingState(false);
@@ -39,7 +40,7 @@ const ListingSchedulePage = () => {
   }, [listingUserHasDeleted]);
 
   const handleDelete = (visitId) => {
-    fetch(`/timeSlots/deleteVisitingHour/${visitId}`, {
+    fetch(`${ROOT_API}/timeSlots/deleteVisitingHour/${visitId}`, {
       method: "PATCH",
     })
       .then((res) => res.json())

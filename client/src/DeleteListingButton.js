@@ -5,6 +5,7 @@ import { FiTrash2 } from "react-icons/fi";
 import styled from "styled-components";
 import { CurrentUserContext } from "./CurrentUserContext";
 import DeleteConfirmation from "./DeleteConfirmation";
+const ROOT_API = "https://re-lease-mtl.onrender.com";
 
 const DeleteListingButton = () => {
   const { t, i18n } = useTranslation();
@@ -14,7 +15,7 @@ const DeleteListingButton = () => {
   const { currentUser, setCurrentUser } = useContext(CurrentUserContext);
 
   const handleListingDelete = () => {
-    fetch(`/listings/deletelisting/${currentUser._id}`, {
+    fetch(`${ROOT_API}/listings/deletelisting/${currentUser._id}`, {
       method: "PATCH",
       body: JSON.stringify({
         listingPhotos: currentUser.listing.listingImage,
