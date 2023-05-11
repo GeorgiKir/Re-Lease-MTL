@@ -13,6 +13,8 @@ import LogoutPage from "./LogoutPage";
 import ProcessingPage from "./ProcessingPage";
 import SpinnerLoading from "./SpinnerLoading";
 
+const ROOT_API = "https://re-lease-mtl.onrender.com";
+
 function App() {
   const { user, isAuthenticated, isLoading } = useAuth0();
   const [navigationState, setNavigationState] = useState("home");
@@ -29,7 +31,7 @@ function App() {
 
   useEffect(() => {
     if (isAuthenticated && user) {
-      fetch(`/users/${user.email}`)
+      fetch(`${ROOT_API}/users/${user.email}`)
         .then((res) => res.json())
         .then((data) => {
           window.sessionStorage.setItem(
