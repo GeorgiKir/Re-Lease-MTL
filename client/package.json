@@ -2,7 +2,7 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:8000/",
+  "proxy": "https://re-lease-mtl.onrender.com",
   "dependencies": {
     "@auth0/auth0-react": "^2.0.1",
     "@react-google-maps/api": "^2.18.1",

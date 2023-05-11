@@ -7,6 +7,8 @@ import SearchBarMobile from "./SearchBarMobile";
 import { boroughs } from "./boroughs";
 import LeafletSetup from "./LeafletSetup";
 
+const ROOT_API = "https://re-lease-mtl.onrender.com";
+
 const SearchPage = ({ setNavigationState }) => {
   const { currentUser } = useContext(CurrentUserContext);
   const [searchCriteria, setSearchCriteria] = useState({
@@ -40,7 +42,9 @@ const SearchPage = ({ setNavigationState }) => {
       setZoom(13.25);
       setMarkerPosition(null);
 
-      fetch(`/listings/listingResults/${borough}/${price}/${bedrooms}`)
+      fetch(
+        `${ROOT_API}/listings/listingResults/${borough}/${price}/${bedrooms}`
+      )
         .then((res) => res.json())
         .then((resData) => {
           setListings(resData.data);
@@ -72,7 +76,7 @@ const SearchPage = ({ setNavigationState }) => {
         setZoom={setZoom}
       />
       <SearchPageContentContainer>
-        {mapCenter && (
+        {/* {mapCenter && (
           <MapSetup
             mapCenter={mapCenter}
             zoom={zoom}
@@ -80,8 +84,8 @@ const SearchPage = ({ setNavigationState }) => {
             listings={listings}
             setMapCenter={setMapCenter}
           />
-        )}
-        {/* {mapCenter && (
+        )} */}
+        {mapCenter && (
           <LeafletSetup
             mapCenter={mapCenter}
             zoom={zoom}
@@ -89,7 +93,7 @@ const SearchPage = ({ setNavigationState }) => {
             listings={listings}
             setMapCenter={setMapCenter}
           />
-        )} */}
+        )}
       </SearchPageContentContainer>
     </StorePageContainer>
   );

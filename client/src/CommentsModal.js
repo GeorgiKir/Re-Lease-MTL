@@ -128,7 +128,7 @@ const CommentsModal = ({
               <textarea
                 maxLength="100"
                 rows="3"
-                cols="30"
+                cols="35"
                 // max-cols="40"
                 // min-cols="30"
                 onChange={(e) => {
