@@ -6,7 +6,9 @@ Built as the final project for Concordia Web Dev Bootcamp, Re:Lease MTL is a pla
 
 A lease reassignment differs from subletting in that all responsibility is transferred along with the lease to the new tenant. This allows the maintenance of a lease-flow, preventing any type of important unfounded rent increase.
 
-<a href="https://www.youtube.com/watch?v=9Exye6WG1Ug"><h2 align="center">Video Demo</h2></a>
+## Demo Link
+
+Click here to view the [Video Demo](https://www.youtube.com/watch?v=9Exye6WG1Ug)
 
 ## The App
 
