@@ -195,8 +195,8 @@ const AboutUsContainerDiv = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0px auto;
-  height: calc(100vh);
+  margin: 30px auto;
+  height: fit-content;
 `;
 
 export default AboutUs;

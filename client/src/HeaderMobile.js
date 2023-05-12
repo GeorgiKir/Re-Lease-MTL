@@ -73,6 +73,7 @@ const HeaderMobile = ({ navigationState }) => {
           )}
           {languagesState === "french" && (
             <LangButton
+              style={{ padding: "0" }}
               onClick={() => {
                 changeLanguage("en");
                 setLanguageState("english");
@@ -84,6 +85,7 @@ const HeaderMobile = ({ navigationState }) => {
           )}
           {languagesState === "english" && (
             <LangButton
+              style={{ padding: "0" }}
               onClick={() => {
                 changeLanguage("fr");
                 setLanguageState("french");
